@@ -4,8 +4,11 @@ import tomllib
 
 from configs import path_define
 
+display_name_format = 'Retro Pixel - {name}'
+unique_name_format = 'Retro-Pixel-{name}'
+output_file_name_format = 'retro-pixel-{name}'
 version = f'{time.strftime("%Y.%m.%d")}'
-copyright_format = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Retro Pixel - {name}'."
+copyright_string_format = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name '{name}'."
 designer = 'TakWolf'
 description = 'Open source pixel font.'
 vendor_url = 'https://retro-pixel-font.takwolf.com'
@@ -39,10 +42,11 @@ class FontConfig:
         return font_configs
 
     def __init__(self, config_data, output_name, dot_em_units=100):
-        self.display_name = config_data['display_name']
-        self.unique_name = config_data['unique_name']
+        self.display_name = display_name_format.format(name=config_data['display_name'])
+        self.unique_name = unique_name_format.format(name=config_data['unique_name'])
         self.style_name = config_data['style_name']
-        self.output_name = output_name
+        self.output_dir_name = output_name
+        self.output_file_name = output_file_name_format.format(name=output_name)
 
         self.px = config_data['px']
         self.line_height_px = config_data['line_height_px']
@@ -53,7 +57,7 @@ class FontConfig:
 
     def get_name_strings(self):
         return {
-            'copyright': copyright_format.format(name=self.display_name),
+            'copyright': copyright_string_format.format(name=self.display_name),
             'familyName': self.display_name,
             'styleName': self.style_name,
             'uniqueFontIdentifier': f'{self.unique_name};{version}',
