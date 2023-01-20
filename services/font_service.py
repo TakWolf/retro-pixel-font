@@ -6,7 +6,6 @@ from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.pens.ttGlyphPen import TTGlyphPen
 
 import configs
-from configs import path_define
 from utils import glyph_util, fs_util
 
 logger = logging.getLogger('font-service')
@@ -128,8 +127,7 @@ def make_fonts(font_config, alphabet, glyph_file_paths, font_formats=None):
     if font_formats is None:
         font_formats = configs.font_formats
 
-    outputs_dir = os.path.join(path_define.outputs_dir, font_config.output_dir_name)
-    fs_util.make_dirs_if_not_exists(outputs_dir)
+    fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
 
     name_strings = font_config.get_name_strings()
     units_per_em = font_config.get_units_per_em()
@@ -147,17 +145,17 @@ def make_fonts(font_config, alphabet, glyph_file_paths, font_formats=None):
         glyph_info_map = glyph_info_builder.build_glyph_info_map(glyph_file_paths, False)
         font_builder = _create_font_builder(name_strings, units_per_em, vertical_metrics, glyph_order, character_map, glyph_info_map, False)
         if 'otf' in font_formats:
-            font_file_path = os.path.join(outputs_dir, f'{font_config.output_file_name}.otf')
+            font_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_output_name}.otf')
             font_builder.save(font_file_path)
             logger.info(f'make {font_file_path}')
         if 'woff2' in font_formats:
             font_builder.font.flavor = 'woff2'
-            font_file_path = os.path.join(outputs_dir, f'{font_config.output_file_name}.woff2')
+            font_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_output_name}.woff2')
             font_builder.save(font_file_path)
             logger.info(f'make {font_file_path}')
     if 'ttf' in font_formats:
         glyph_info_map = glyph_info_builder.build_glyph_info_map(glyph_file_paths, True)
         font_builder = _create_font_builder(name_strings, units_per_em, vertical_metrics, glyph_order, character_map, glyph_info_map, True)
-        font_file_path = os.path.join(outputs_dir, f'{font_config.output_file_name}.ttf')
+        font_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_output_name}.ttf')
         font_builder.save(font_file_path)
         logger.info(f'make {font_file_path}')

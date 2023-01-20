@@ -10,8 +10,8 @@ logger = logging.getLogger('design-service')
 
 
 def classify_glyph_files(font_config):
-    glyphs_dir = os.path.join(path_define.glyphs_dir, font_config.output_dir_name)
-    glyphs_tmp_dir = os.path.join(path_define.glyphs_tmp_dir, font_config.output_dir_name)
+    glyphs_dir = os.path.join(path_define.glyphs_dir, font_config.output_name)
+    glyphs_tmp_dir = os.path.join(path_define.glyphs_tmp_dir, font_config.output_name)
     fs_util.delete_dir(glyphs_tmp_dir)
     for file_from_dir, _, file_names in os.walk(glyphs_dir):
         for file_name in file_names:
@@ -32,14 +32,14 @@ def classify_glyph_files(font_config):
             fs_util.make_dirs_if_not_exists(file_to_dir)
             shutil.copyfile(file_from_path, file_to_path)
             logger.info(f'classify glyph file {file_to_path}')
-    glyphs_old_dir = os.path.join(path_define.glyphs_tmp_dir, f'{font_config.output_dir_name}.old')
+    glyphs_old_dir = os.path.join(path_define.glyphs_tmp_dir, f'{font_config.output_name}.old')
     os.rename(glyphs_dir, glyphs_old_dir)
     os.rename(glyphs_tmp_dir, glyphs_dir)
     shutil.rmtree(glyphs_old_dir)
 
 
 def verify_glyph_files(font_config):
-    glyphs_dir = os.path.join(path_define.glyphs_dir, font_config.output_dir_name)
+    glyphs_dir = os.path.join(path_define.glyphs_dir, font_config.output_name)
     for glyph_file_dir, _, glyph_file_names in os.walk(glyphs_dir):
         for glyph_file_name in glyph_file_names:
             if not glyph_file_name.endswith('.png'):
@@ -63,7 +63,7 @@ def verify_glyph_files(font_config):
 def collect_glyph_files(font_config):
     alphabet = set()
     glyph_file_paths = {}
-    glyphs_dir = os.path.join(path_define.glyphs_dir, font_config.output_dir_name)
+    glyphs_dir = os.path.join(path_define.glyphs_dir, font_config.output_name)
     for glyph_file_dir, _, glyph_file_names in os.walk(glyphs_dir):
         for glyph_file_name in glyph_file_names:
             if not glyph_file_name.endswith('.png'):
