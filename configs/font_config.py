@@ -18,8 +18,7 @@ license_info_url = 'https://scripts.sil.org/OFL'
 
 
 class VerticalMetrics:
-    def __init__(self, line_height, ascent, descent, x_height, cap_height):
-        self.line_height = line_height
+    def __init__(self, ascent, descent, x_height, cap_height):
         self.ascent = ascent
         self.descent = descent
         self.x_height = x_height
@@ -85,9 +84,8 @@ class FontConfig:
         return self.box_origin_y_px * self.dot_em_units
 
     def get_vertical_metrics(self):
-        line_height = self.line_height_px * self.dot_em_units
         ascent = (self.box_origin_y_px + int((self.line_height_px - self.px) / 2)) * self.dot_em_units
-        descent = ascent - line_height
+        descent = ascent - self.line_height_px * self.dot_em_units
         x_height = self.x_height_px * self.dot_em_units
         cap_height = self.cap_height_px * self.dot_em_units
-        return VerticalMetrics(line_height, ascent, descent, x_height, cap_height)
+        return VerticalMetrics(ascent, descent, x_height, cap_height)
