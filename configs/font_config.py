@@ -35,6 +35,8 @@ class FontConfig:
             if not os.path.isdir(glyphs_dir):
                 continue
             config_file_path = os.path.join(glyphs_dir, 'config.toml')
+            if not os.path.isfile(config_file_path):
+                continue
             with open(config_file_path, 'rb') as config_file:
                 config_data = tomllib.load(config_file)['font']
             font_config = FontConfig(config_data, output_name)
