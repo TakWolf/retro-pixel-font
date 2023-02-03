@@ -1,6 +1,7 @@
 import logging
 import os.path
 
+import configs
 from configs import path_define
 from utils import fs_util
 
@@ -53,3 +54,21 @@ def get_demo_text(alphabet):
         if len(demo_line) > 0:
             demo_text.append(''.join(demo_line))
     return demo_text
+
+
+def make_readme_md_file():
+    preview = ''
+    for index, font_config in enumerate(configs.font_configs):
+        preview += f'### {font_config.display_name}\n\n'
+        preview += f'font-size: {font_config.px} / line-height: {font_config.line_height_px}\n\n'
+        preview += f'{font_config.description}\n\n'
+        preview += f'![preview-{font_config.display_name}](docs/{font_config.output_name}/preview.png)'
+        if index != len(configs.font_configs) - 1:
+            preview += '\n'
+    template = configs.template_env.get_template('README.md')
+    markdown = template.render(preview=preview)
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    md_file_path = os.path.join(path_define.outputs_dir, 'README.md')
+    with open(md_file_path, 'w', encoding='utf-8') as file:
+        file.write(markdown)
+    logger.info(f'make {md_file_path}')

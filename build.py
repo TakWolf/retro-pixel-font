@@ -21,6 +21,7 @@ def main():
         demo_text = info_service.get_demo_text(alphabet)
         image_service.make_preview_image_file(font_config, demo_text)
         html_service.make_alphabet_html_file(font_config, alphabet)
+    info_service.make_readme_md_file()
 
 
 if __name__ == '__main__':
