@@ -29,23 +29,24 @@ def _draw_text(image, xy, text, font, text_color=(0, 0, 0), line_height=None, li
     draw.text((x, y), text, fill=text_color, font=font, spacing=spacing)
 
 
-def make_preview_image_file(font_config, demo_text):
+def make_preview_image_file(font_config):
     font = _load_font(font_config)
     background_color = (30, 144, 255)
     text_color = (255, 255, 255)
+    lines = font_config.demo_text.split('\n')
 
     content_width = 0
-    for demo_line in demo_text:
-        line_width = math.ceil(font.getlength(demo_line))
+    for line in lines:
+        line_width = math.ceil(font.getlength(line))
         if line_width > content_width:
             content_width = line_width
-    content_height = font_config.line_height_px * len(demo_text)
+    content_height = font_config.line_height_px * len(lines)
 
     image = Image.new('RGBA', (font_config.px * 2 + content_width, font_config.px * 2 + content_height), background_color)
     cursor_x = font_config.px
     cursor_y = font_config.px
-    for demo_line in demo_text:
-        _draw_text(image, (cursor_x, cursor_y), demo_line, font, text_color=text_color)
+    for line in lines:
+        _draw_text(image, (cursor_x, cursor_y), line, font, text_color=text_color)
         cursor_y += font_config.line_height_px
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 

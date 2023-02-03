@@ -53,7 +53,6 @@ class FontConfig:
         self.outputs_dir = os.path.join(path_define.outputs_dir, output_name)
         self.docs_dir = os.path.join(path_define.docs_dir, output_name)
         self.www_dir = os.path.join(path_define.www_dir, output_name)
-
         self.full_display_name = full_display_name_format.format(name=self.display_name)
         self.full_unique_name = full_unique_name_format.format(name=self.unique_name)
         self.full_output_name = full_output_name_format.format(name=output_name)
@@ -64,6 +63,8 @@ class FontConfig:
         self.x_height_px = config_data['x_height_px']
         self.cap_height_px = config_data['cap_height_px']
         self.dot_em_units = dot_em_units
+
+        self.demo_text = config_data['demo_text'].strip()
 
     def get_name_strings(self):
         return {
