@@ -20,7 +20,8 @@ def _copy_file(file_name, from_dir, to_dir):
 
 
 def update_docs():
-    fs_util.make_dirs_if_not_exists(path_define.docs_dir)
+    fs_util.delete_dir(path_define.docs_dir)
+    os.mkdir(path_define.docs_dir)
     for font_config in configs.font_configs:
         fs_util.make_dirs_if_not_exists(font_config.docs_dir)
         _copy_file('preview.png', font_config.outputs_dir, font_config.docs_dir)
