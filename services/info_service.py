@@ -33,3 +33,23 @@ def make_alphabet_txt_file(font_config, alphabet):
     with open(txt_file_path, 'w', encoding='utf-8') as file:
         file.write(''.join(alphabet))
     logger.info(f'make {txt_file_path}')
+
+
+_default_demo_text = [
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    'abcdefghijklmnopqrstuvwxyz',
+    '0123456789',
+    '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~',
+]
+
+
+def get_demo_text(alphabet):
+    demo_text = []
+    for default_demo_line in _default_demo_text:
+        demo_line = []
+        for c in default_demo_line:
+            if c in alphabet:
+                demo_line.append(c)
+        if len(demo_line) > 0:
+            demo_text.append(''.join(demo_line))
+    return demo_text
