@@ -63,14 +63,13 @@ def get_demo_text(alphabet):
 
 def make_readme_md_file():
     preview = ''
-    for index, font_config in enumerate(configs.font_configs):
+    for font_config in configs.font_configs:
         preview += f'### {font_config.display_name}\n\n'
         preview += f'尺寸：{font_config.px}px／行高：{font_config.line_height_px}px\n\n'
         preview += f'{font_config.description_cn if font_config.description_cn is not None else font_config.description}\n\n'
         preview += f'![preview-{font_config.display_name}](docs/{font_config.output_name}/preview.png)\n\n'
-        preview += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.output_name}/alphabet.html)'
-        if index != len(configs.font_configs) - 1:
-            preview += '\n'
+        preview += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.output_name}/alphabet.html)\n'
+    preview = preview.strip()
     template = configs.template_env.get_template('README.md')
     markdown = template.render(preview=preview)
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
