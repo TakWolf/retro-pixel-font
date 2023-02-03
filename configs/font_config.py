@@ -44,6 +44,7 @@ class FontConfig:
         self.unique_name = config_data['unique_name']
         self.style_name = config_data['style_name']
         self.description = config_data['description']
+        self.description_cn = config_data.get('description_cn')
         self.designer = config_data['designer']
         self.designer_url = config_data['designer_url']
         self.copyright_year = config_data['copyright_year']
