@@ -8,7 +8,7 @@ full_display_name_format = 'Retro Pixel - {name}'
 full_unique_name_format = 'Retro-Pixel-{name}'
 full_output_name_format = 'retro-pixel-{name}'
 version = f'{time.strftime("%Y.%m.%d")}'
-copyright_string_format = 'Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name "Retro Pixel - {name}".'
+copyright_string_format = 'Copyright (c) {copyright_year}, {designer} ({designer_url}), with Reserved Font Name "Retro Pixel - {font_name}".'
 vendor_url = 'https://retro-pixel-font.takwolf.com'
 license_description = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
 license_info_url = 'https://scripts.sil.org/OFL'
@@ -46,6 +46,7 @@ class FontConfig:
         self.description = config_data['description']
         self.designer = config_data['designer']
         self.designer_url = config_data['designer_url']
+        self.copyright_year = config_data['copyright_year']
 
         self.output_name = output_name
         self.outputs_dir = os.path.join(path_define.outputs_dir, output_name)
@@ -65,7 +66,12 @@ class FontConfig:
 
     def get_name_strings(self):
         return {
-            'copyright': copyright_string_format.format(name=self.display_name),
+            'copyright': copyright_string_format.format(
+                font_name=self.display_name,
+                designer=self.designer,
+                designer_url=self.designer_url,
+                copyright_year=self.copyright_year,
+            ),
             'familyName': self.full_display_name,
             'styleName': self.style_name,
             'uniqueFontIdentifier': f'{self.full_unique_name};{version}',

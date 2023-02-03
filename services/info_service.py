@@ -23,7 +23,12 @@ def make_ofl_txt_file(font_config):
     fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
     txt_file_path = os.path.join(font_config.outputs_dir, 'OFL.txt')
     with open(txt_file_path, 'w', encoding='utf-8') as file:
-        ofl_string = _load_ofl_string_format().format(name=font_config.display_name)
+        ofl_string = _load_ofl_string_format().format(
+            font_name=font_config.display_name,
+            designer=font_config.designer,
+            designer_url=font_config.designer_url,
+            copyright_year=font_config.copyright_year,
+        )
         file.write(ofl_string)
     logger.info(f'make {txt_file_path}')
 
