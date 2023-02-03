@@ -4,17 +4,31 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
 
-开源的像素字体合集，字符大多数以英文字母、符号和数字为主。以游戏开发为主要的使用场景。
+开源的西文像素字体，有多种风格和尺寸。
+
+以游戏开发中基本信息和数值显示为主要的目标使用场景，因此大部分字体仅包含基础英文、数字和符号。
 
 这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
 
 ## 预览
 
+可以通过 [项目主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。
+
 {{ preview }}
 
-## 下载
+## 下载和使用
 
 可在 [Releases](https://github.com/TakWolf/retro-pixel-font/releases) 下载最新的版本。
+
+使用时请注意正确地设置渲染尺寸。
+
+## 本地构建
+
+这是一个标准的 [Python3](https://www.python.org) 项目。
+
+当您配置好运行环境后，执行 `python ./build.py` 命令来开始构建。
+
+等待任务完成后，可在 `build/outputs` 目录下找到生成的字体文件。
 
 ## 授权信息
 
