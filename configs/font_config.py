@@ -48,6 +48,8 @@ class FontConfig:
         self.style_name = config_data['style_name']
         self.output_name = output_name
         self.outputs_dir = os.path.join(path_define.outputs_dir, output_name)
+        self.docs_dir = os.path.join(path_define.docs_dir, output_name)
+        self.www_dir = os.path.join(path_define.www_dir, output_name)
 
         self.full_display_name = full_display_name_format.format(name=self.display_name)
         self.full_unique_name = full_unique_name_format.format(name=self.unique_name)

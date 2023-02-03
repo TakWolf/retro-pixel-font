@@ -14,3 +14,5 @@ glyphs_tmp_dir = os.path.join(tmp_dir, 'glyphs')
 outputs_dir = os.path.join(build_dir, 'outputs')
 releases_dir = os.path.join(build_dir, 'releases')
 www_dir = os.path.join(build_dir, 'www')
+
+docs_dir = os.path.join(project_root_dir, 'docs')
