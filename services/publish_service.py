@@ -19,9 +19,20 @@ def _copy_file(file_name, from_dir, to_dir):
     logger.info(f'copy from {from_path} to {to_path}')
 
 
+def update_docs():
+    fs_util.make_dirs_if_not_exists(path_define.docs_dir)
+    for font_config in configs.font_configs:
+        fs_util.make_dirs_if_not_exists(font_config.docs_dir)
+        _copy_file('preview.png', font_config.outputs_dir, font_config.docs_dir)
+
+
 def update_www():
     fs_util.delete_dir(path_define.www_dir)
     shutil.copytree(path_define.www_static_dir, path_define.www_dir)
+    for font_config in configs.font_configs:
+        fs_util.make_dirs_if_not_exists(font_config.www_dir)
+        _copy_file(f'{font_config.full_output_name}.woff2', font_config.outputs_dir, font_config.www_dir)
+        _copy_file('alphabet.html', font_config.outputs_dir, font_config.www_dir)
 
 
 def deploy_www():
