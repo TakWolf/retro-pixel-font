@@ -2,7 +2,7 @@ import logging
 
 import configs
 from configs import path_define
-from services import design_service, font_service, info_service, image_service, html_service
+from services import design_service, font_service, info_service, image_service, html_service, publish_service
 from utils import fs_util
 
 logging.basicConfig(level=logging.DEBUG)
@@ -21,6 +21,7 @@ def main():
         demo_text = info_service.get_demo_text(alphabet)
         image_service.make_preview_image_file(font_config, demo_text)
         html_service.make_alphabet_html_file(font_config, alphabet)
+    publish_service.make_release_zips()
     info_service.make_readme_md_file()
 
 
