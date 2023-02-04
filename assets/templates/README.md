@@ -10,9 +10,12 @@
 
 这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
 
+- [主页](https://retro-pixel-font.takwolf.com)
+- [itch.io](https://takwolf.itch.io/retro-pixel-font)
+
 ## 预览
 
-可以通过 [项目主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。
+可以通过 [主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。
 
 {{ preview }}
 
