@@ -21,6 +21,7 @@ def main():
         image_service.make_preview_image_file(font_config)
         html_service.make_alphabet_html_file(font_config, alphabet)
     publish_service.make_release_zips()
+    html_service.make_index_html_file()
     info_service.make_readme_md_file()
 
 

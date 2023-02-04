@@ -48,6 +48,7 @@ def update_docs():
 def update_www():
     fs_util.delete_dir(path_define.www_dir)
     shutil.copytree(path_define.www_static_dir, path_define.www_dir)
+    _copy_file('index.html', path_define.outputs_dir, path_define.www_dir)
     for font_config in configs.font_configs:
         fs_util.make_dirs_if_not_exists(font_config.www_dir)
         _copy_file(f'{font_config.full_output_name}.woff2', font_config.outputs_dir, font_config.www_dir)

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Retro Pixel Font</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        @font-face {
+            font-family: ark-pixel-12px-proportional;
+            src: url("https://ark-pixel-font.takwolf.com/ark-pixel-12px-proportional-latin.woff2");
+        }
+        body {
+            color: white;
+            background-color: dodgerblue;
+        }
+        a {
+            color: white;
+        }
+        .page {
+            width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @media screen and (max-width: 960px) {
+            .page {
+                width: 100%;
+            }
+        }
+        .title {
+            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-size: 48px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .link-group {
+            margin-top: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .link-tab {
+            margin-left: 12px;
+            margin-right: 12px;
+            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-size: 24px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .copyright {
+            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-size: 24px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .font-box {
+            width: 100%;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            padding: 8px 24px 24px;
+            background-color: deepskyblue;
+            border-radius: 16px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: royalblue;
+            box-shadow: 1px 1px 8px rgba(75, 75, 75, 0.8);
+        }
+        .font-box .name {
+            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-size: 24px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .font-box .info {
+            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-size: 24px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .font-box .demo-text {
+            margin-top: 8px;
+            display: block;
+        }
+        .font-box .demo-text textarea {
+            width: 100%;
+            height: 240px;
+            padding: 12px;
+            display: block;
+            resize: none;
+            word-break: break-all;
+            border-radius: 8px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: royalblue;
+        }
+        {% for font_config in font_configs %}
+            @font-face {
+                font-family: {{ font_config.full_output_name }};
+                src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2");
+            }
+            .font-{{ font_config.output_name }} {
+                font-family: {{ font_config.full_output_name }}, sans-serif;
+                font-size: {{ font_config.px * 2 }}px;
+            }
+        {% endfor %}
+    </style>
+    {% include "common/analytics.html" %}
+</head>
+<body>
+<div class="page">
+    <h1 class="title">Retro Pixel Font</h1>
+    <div class="link-group">
+        <a class="link-tab" href="https://github.com/TakWolf/retro-pixel-font" target="_blank">github</a>
+        <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
+    </div>
+    {% for font_config in font_configs %}
+        <div class="font-box">
+            <h2 class="name">{{ font_config.display_name }}</h2>
+            <p class="info">{{ font_config.px }}px ~ <a href="{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a></p>
+            <label class="demo-text">
+                <textarea class="font-{{ font_config.output_name }}">{{ font_config.demo_text }}</textarea>
+            </label>
+        </div>
+    {% endfor %}
+    <div class="copyright">© 2023 TakWolf</div>
+</div>
+</body>
+</html>
