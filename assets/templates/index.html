@@ -14,9 +14,16 @@
             font-family: ark-pixel-12px-proportional;
             src: url("https://ark-pixel-font.takwolf.com/ark-pixel-12px-proportional-latin.woff2");
         }
+        @keyframes background-scrolling {
+            100% {
+                background-position: 128px 128px;
+            }
+        }
         body {
             color: white;
-            background-color: dodgerblue;
+            background-image: linear-gradient(45deg, dodgerblue 25%, transparent 25%, transparent 75%, dodgerblue 75%), linear-gradient(-45deg, dodgerblue 25%, #1c82e5 25%, #1c82e5 75%, dodgerblue 75%);
+            background-size: 128px 128px;
+            animation: background-scrolling 4s infinite linear;
         }
         a {
             color: white;
