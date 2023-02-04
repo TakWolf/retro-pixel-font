@@ -13,6 +13,13 @@ vendor_url = 'https://retro-pixel-font.takwolf.com'
 license_description = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
 license_info_url = 'https://scripts.sil.org/OFL'
 
+_default_demo_text = """
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+"""
+
 
 class VerticalMetrics:
     def __init__(self, ascent, descent, x_height, cap_height):
@@ -44,7 +51,6 @@ class FontConfig:
         self.unique_name = config_data['unique_name']
         self.style_name = config_data['style_name']
         self.description = config_data['description']
-        self.description_cn = config_data.get('description_cn')
         self.designer = config_data['designer']
         self.designer_url = config_data['designer_url']
         self.copyright_year = config_data['copyright_year']
@@ -64,7 +70,8 @@ class FontConfig:
         self.cap_height_px = config_data['cap_height_px']
         self.dot_em_units = dot_em_units
 
-        self.demo_text = config_data['demo_text'].strip()
+        self.readme_intro = config_data.get('readme_intro', self.description)
+        self.demo_text = config_data.get('demo_text', _default_demo_text).strip()
 
     def get_name_strings(self):
         return {
