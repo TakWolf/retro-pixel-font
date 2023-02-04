@@ -21,8 +21,10 @@
         }
         body {
             color: white;
-            background-image: linear-gradient(45deg, dodgerblue 25%, transparent 25%, transparent 75%, dodgerblue 75%), linear-gradient(-45deg, dodgerblue 25%, #1c82e5 25%, #1c82e5 75%, dodgerblue 75%);
+            background-color: darkorange;
+            background-image: linear-gradient(45deg, orange 25%, transparent 25%, transparent 75%, orange 75%), linear-gradient(-45deg, orange 25%, transparent 25%, transparent 75%, orange 75%);
             background-size: 128px 128px;
+            background-attachment: fixed;
             animation: background-scrolling 4s infinite linear;
         }
         a {
@@ -71,11 +73,11 @@
             margin-top: 12px;
             margin-bottom: 12px;
             padding: 8px 24px 24px;
-            background-color: deepskyblue;
+            background-color: #ffca68;
             border-radius: 16px;
             border-width: 2px;
             border-style: solid;
-            border-color: royalblue;
+            border-color: orangered;
             box-shadow: 1px 1px 8px rgba(75, 75, 75, 0.8);
         }
         .font-box .name {
@@ -102,7 +104,7 @@
             border-radius: 8px;
             border-width: 2px;
             border-style: solid;
-            border-color: royalblue;
+            border-color: orangered;
         }
         {% for font_config in font_configs %}
             @font-face {
