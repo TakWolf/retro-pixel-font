@@ -4,9 +4,11 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
 
-开源的西文像素字体，有多种风格和尺寸。
+几款开源的西文像素字体。
 
-以游戏开发中基本信息和数值显示为主要的目标使用场景，因此大部分字体仅包含基础英文、数字和符号。
+以游戏中英文和数值的显示为目标使用场景，因此字体以英文、数字和符号为主，且风格化明显。
+
+如果您在寻找通用风格的西文、泛中日韩或 Unicode 开源像素字体，请尝试 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 。
 
 这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
 
