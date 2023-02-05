@@ -82,7 +82,7 @@
         }
         .font-card .name {
             font-family: ark-pixel-12px-proportional, sans-serif;
-            font-size: 24px;
+            font-size: 36px;
             text-shadow: 2px 2px #4b4b4b;
         }
         .font-card .info {
@@ -130,13 +130,14 @@
     {% for font_config in font_configs %}
         <div class="font-card">
             <h2 class="name">{{ font_config.display_name }}</h2>
-            <p class="info">{{ font_config.px }}px ~ <a href="{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a></p>
+            <p class="info">font-size: {{ font_config.px }}px / line-height: {{ font_config.line_height_px }}px ~ <a href="{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a></p>
+            <p class="info">{{ font_config.description }}</p>
             <label class="demo-text">
                 <textarea class="font-{{ font_config.output_name }}">{{ font_config.demo_text }}</textarea>
             </label>
         </div>
     {% endfor %}
-    <div class="copyright">© 2023 TakWolf - default font use <a href="https://ark-pixel-font.takwolf.com" target="_blank">Ark Pixel Font</a></div>
+    <div class="copyright">© 2023 TakWolf - Theme font use <a href="https://ark-pixel-font.takwolf.com" target="_blank">Ark Pixel Font</a></div>
 </div>
 </body>
 </html>
