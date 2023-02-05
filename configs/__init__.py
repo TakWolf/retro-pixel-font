@@ -8,6 +8,8 @@ from configs.font_config import FontConfig
 from configs.git_deploy_config import GitDeployConfig
 from utils.unidata_util import UnidataDB
 
+build_random_key = random.random()
+
 font_version = font_config.version
 
 font_configs = FontConfig.loads()
@@ -15,8 +17,6 @@ font_configs = FontConfig.loads()
 font_formats = ['otf', 'woff2', 'ttf']
 
 unidata_db = UnidataDB(os.path.join(path_define.unidata_dir, 'Blocks.txt'))
-
-build_random_key = random.random()
 
 template_env = Environment(loader=FileSystemLoader(path_define.templates_dir))
 
