@@ -1,4 +1,5 @@
 import os
+import random
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -14,6 +15,8 @@ font_configs = FontConfig.loads()
 font_formats = ['otf', 'woff2', 'ttf']
 
 unidata_db = UnidataDB(os.path.join(path_define.unidata_dir, 'Blocks.txt'))
+
+build_random_key = random.random()
 
 template_env = Environment(loader=FileSystemLoader(path_define.templates_dir))
 

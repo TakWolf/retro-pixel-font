@@ -106,10 +106,10 @@
             border-style: solid;
             border-color: orangered;
         }
-        {% for font_config in font_configs %}
+        {% for font_config in configs.font_configs %}
             @font-face {
                 font-family: {{ font_config.full_output_name }};
-                src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ random_key }}");
+                src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
             }
             .font-{{ font_config.output_name }} {
                 font-family: {{ font_config.full_output_name }}, sans-serif;
@@ -127,7 +127,7 @@
         <a class="link-tab" href="https://github.com/TakWolf/retro-pixel-font" target="_blank">github</a>
         <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
     </div>
-    {% for font_config in font_configs %}
+    {% for font_config in configs.font_configs %}
         <div class="font-card">
             <h2 class="name">{{ font_config.display_name }}</h2>
             <p class="info">font-size: {{ font_config.px }}px / line-height: {{ font_config.line_height_px }}px ~ <a href="{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a></p>

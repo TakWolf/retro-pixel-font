@@ -11,7 +11,7 @@
         }
         @font-face {
             font-family: {{ font_config.full_unique_name }};
-            src: url("{{ font_config.full_output_name }}.woff2");
+            src: url("{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
         }
         body {
             color: #4b4b4b;
