@@ -68,7 +68,7 @@
             font-size: 24px;
             text-shadow: 2px 2px #4b4b4b;
         }
-        .font-box {
+        .font-card {
             width: 100%;
             margin-top: 12px;
             margin-bottom: 12px;
@@ -80,21 +80,21 @@
             border-color: orangered;
             box-shadow: 1px 1px 8px rgba(75, 75, 75, 0.8);
         }
-        .font-box .name {
+        .font-card .name {
             font-family: ark-pixel-12px-proportional, sans-serif;
             font-size: 24px;
             text-shadow: 2px 2px #4b4b4b;
         }
-        .font-box .info {
+        .font-card .info {
             font-family: ark-pixel-12px-proportional, sans-serif;
             font-size: 24px;
             text-shadow: 2px 2px #4b4b4b;
         }
-        .font-box .demo-text {
+        .font-card .demo-text {
             margin-top: 8px;
             display: block;
         }
-        .font-box .demo-text textarea {
+        .font-card .demo-text textarea {
             width: 100%;
             height: 240px;
             padding: 12px;
@@ -109,11 +109,12 @@
         {% for font_config in font_configs %}
             @font-face {
                 font-family: {{ font_config.full_output_name }};
-                src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2");
+                src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ random_key }}");
             }
             .font-{{ font_config.output_name }} {
                 font-family: {{ font_config.full_output_name }}, sans-serif;
                 font-size: {{ font_config.px * 2 }}px;
+                line-height: {{ font_config.line_height_px * 2}}px;
             }
         {% endfor %}
     </style>
@@ -127,7 +128,7 @@
         <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
     </div>
     {% for font_config in font_configs %}
-        <div class="font-box">
+        <div class="font-card">
             <h2 class="name">{{ font_config.display_name }}</h2>
             <p class="info">{{ font_config.px }}px ~ <a href="{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a></p>
             <label class="demo-text">

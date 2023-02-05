@@ -1,5 +1,6 @@
 import logging
 import os
+import random
 
 import minify_html
 
@@ -26,7 +27,10 @@ def make_alphabet_html_file(font_config, alphabet):
 
 def make_index_html_file():
     template = configs.template_env.get_template('index.html')
-    html = template.render(font_configs=configs.font_configs)
+    html = template.render(
+        font_configs=configs.font_configs,
+        random_key=random.random(),
+    )
     # FIXME 这里样式压缩会造成背景动画闪烁
     html = minify_html.minify(html, minify_css=False, minify_js=True)
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
