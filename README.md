@@ -27,6 +27,14 @@
 
 ![preview-arcade](docs/arcade/preview.png)
 
+### Thick
+
+尺寸：16px / 行高：20px ~ [字母表](https://retro-pixel-font.takwolf.com/thick/alphabet.html)
+
+有一点厚重感觉的像素字体，笔画宽度为 2 像素，适合于标题或强调文本。
+
+![preview-thick](docs/thick/preview.png)
+
 ## 下载和使用
 
 可在 [Releases](https://github.com/TakWolf/retro-pixel-font/releases) 下载最新的版本。
