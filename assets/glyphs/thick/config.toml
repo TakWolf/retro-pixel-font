@@ -1,0 +1,23 @@
+[font]
+display_name = "Thick"
+unique_name = "Thick"
+style_name = "Bold"
+description = "A little thick feeling pixel font."
+designer = "TakWolf"
+designer_url = "https://takwolf.com"
+copyright_year = 2023
+
+px = 16
+line_height_px = 20
+box_origin_y_px = 13
+x_height_px = 7
+cap_height_px = 10
+
+readme_intro = "有一点厚重感觉的像素字体，笔画宽度为 2 像素，适合于标题或强调文本。"
+demo_text = """
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+‘’“”
+"""
