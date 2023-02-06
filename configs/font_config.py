@@ -65,6 +65,7 @@ class FontConfig:
 
         self.px = config_data['px']
         self.line_height_px = config_data['line_height_px']
+        assert (self.line_height_px - self.px) % 2 == 0, output_name
         self.box_origin_y_px = config_data['box_origin_y_px']
         self.x_height_px = config_data['x_height_px']
         self.cap_height_px = config_data['cap_height_px']

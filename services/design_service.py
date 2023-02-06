@@ -47,6 +47,7 @@ def verify_glyph_files(font_config):
             glyph_file_path = os.path.join(glyph_file_dir, glyph_file_name)
             glyph_data, width, height = glyph_util.load_glyph_data_from_png(glyph_file_path)
 
+            assert (height - font_config.px) % 2 == 0, glyph_file_path
             if height > font_config.line_height_px:
                 for i in range(int((height - font_config.line_height_px) / 2)):
                     glyph_data.pop(0)
