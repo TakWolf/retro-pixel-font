@@ -46,7 +46,7 @@ class FontConfig:
             font_configs.append(font_config)
         return font_configs
 
-    def __init__(self, config_data, output_name, dot_em_units=100):
+    def __init__(self, config_data, output_name, px_units=100):
         self.display_name = config_data['display_name']
         self.unique_name = config_data['unique_name']
         self.style_name = config_data['style_name']
@@ -69,7 +69,7 @@ class FontConfig:
         self.box_origin_y_px = config_data['box_origin_y_px']
         self.x_height_px = config_data['x_height_px']
         self.cap_height_px = config_data['cap_height_px']
-        self.dot_em_units = dot_em_units
+        self.px_units = px_units
 
         self.readme_intro = config_data.get('readme_intro', self.description)
         self.demo_text = config_data.get('demo_text', _default_demo_text).strip()
@@ -97,14 +97,14 @@ class FontConfig:
         }
 
     def get_units_per_em(self):
-        return self.px * self.dot_em_units
+        return self.px * self.px_units
 
     def get_box_origin_y(self):
-        return self.box_origin_y_px * self.dot_em_units
+        return self.box_origin_y_px * self.px_units
 
     def get_vertical_metrics(self):
-        ascent = (self.box_origin_y_px + int((self.line_height_px - self.px) / 2)) * self.dot_em_units
-        descent = ascent - self.line_height_px * self.dot_em_units
-        x_height = self.x_height_px * self.dot_em_units
-        cap_height = self.cap_height_px * self.dot_em_units
+        ascent = (self.box_origin_y_px + int((self.line_height_px - self.px) / 2)) * self.px_units
+        descent = ascent - self.line_height_px * self.px_units
+        x_height = self.x_height_px * self.px_units
+        cap_height = self.cap_height_px * self.px_units
         return VerticalMetrics(ascent, descent, x_height, cap_height)
