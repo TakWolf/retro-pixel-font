@@ -44,6 +44,7 @@ class FontConfig:
                 config_data = tomllib.load(config_file)['font']
             font_config = FontConfig(config_data, output_name)
             font_configs.append(font_config)
+        font_configs.sort(key=lambda font_config: font_config.output_name)
         return font_configs
 
     def __init__(self, config_data, output_name, px_units=100):
