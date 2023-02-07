@@ -23,7 +23,7 @@
 
 ### Arcade
 
-尺寸：8px / 行高：12px ~ [实时预览](https://retro-pixel-font.takwolf.com#font-arcade) ~ [字母表](https://retro-pixel-font.takwolf.com/arcade/alphabet.html) ~ [示例文本](https://retro-pixel-font.takwolf.com/arcade/demo.html)
+尺寸：8px / 行高：12px · [实时预览](https://retro-pixel-font.takwolf.com#font-arcade) · [字母表](https://retro-pixel-font.takwolf.com/arcade/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/arcade/demo.html)
 
 街机风格的像素字体，设计来源于雅达利和红白机的游戏字体，补充了小写字母和符号。全角码位提供了一种不同风格的数字。
 
@@ -31,7 +31,7 @@
 
 ### Thick
 
-尺寸：16px / 行高：20px ~ [实时预览](https://retro-pixel-font.takwolf.com#font-thick) ~ [字母表](https://retro-pixel-font.takwolf.com/thick/alphabet.html) ~ [示例文本](https://retro-pixel-font.takwolf.com/thick/demo.html)
+尺寸：16px / 行高：20px · [实时预览](https://retro-pixel-font.takwolf.com#font-thick) · [字母表](https://retro-pixel-font.takwolf.com/thick/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/thick/demo.html)
 
 有一点厚重感觉的像素字体，笔画宽度为 2 像素，适合于标题或强调文本。
 

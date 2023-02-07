@@ -45,9 +45,9 @@ def make_readme_md_file():
     preview = ''
     for font_config in configs.font_configs:
         preview += f'### {font_config.display_name}\n\n'
-        preview += f'尺寸：{font_config.px}px / 行高：{font_config.line_height_px}px ~ '
-        preview += f'[实时预览](https://retro-pixel-font.takwolf.com#font-{font_config.output_name}) ~ '
-        preview += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.output_name}/alphabet.html) ~ '
+        preview += f'尺寸：{font_config.px}px / 行高：{font_config.line_height_px}px · '
+        preview += f'[实时预览](https://retro-pixel-font.takwolf.com#font-{font_config.output_name}) · '
+        preview += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.output_name}/alphabet.html) · '
         preview += f'[示例文本](https://retro-pixel-font.takwolf.com/{font_config.output_name}/demo.html)\n\n'
         preview += f'{font_config.readme_intro}\n\n'
         preview += f'![preview-{font_config.output_name}](docs/{font_config.output_name}/preview.png)\n\n'
