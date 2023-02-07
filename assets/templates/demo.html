@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ font_config.full_display_name }} - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        @font-face {
+            font-family: {{ font_config.full_unique_name }};
+            src: url("{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
+        }
+        .theme-light {
+            color: #4b4b4b;
+            background-color: white;
+        }
+        .theme-dark {
+            color: white;
+            background-color: #4b4b4b;
+        }
+        .theme-light .char-notdef {
+            color: #f83737;
+        }
+        .theme-dark .char-notdef {
+            color: #ffd339;
+        }
+        a {
+            word-break: break-all;
+        }
+        a:link {
+            color: cornflowerblue;
+        }
+        a:visited {
+            color: cornflowerblue;
+        }
+        .btn-apply-theme {
+            position: fixed;
+            width: 48px;
+            height: 48px;
+            cursor: pointer;
+        }
+        #page {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 64px 192px;
+            font-family: {{ font_config.full_unique_name }}, sans-serif;
+        }
+        @media screen and (max-width: 1006px) {
+            #page {
+                width: 750px;
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+        }
+        @media screen and (max-width: 750px) {
+            #page {
+                width: 100%;
+                padding-left: 64px;
+                padding-right: 64px;
+            }
+        }
+        .title {
+            margin-top: {{ font_config.px * 4 }}px;
+            margin-bottom: {{ font_config.px * 2 }}px;
+            font-size: {{ font_config.px * 3 }}px;
+        }
+        .content {
+            margin-top: {{ font_config.px * 2 }}px;
+            margin-bottom: {{ font_config.px * 2 }}px;
+            font-size: {{ font_config.px * 2 }}px;
+        }
+    </style>
+    {% include "common/analytics.html" %}
+</head>
+<body class="theme-light">
+<div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="document.body.className = 'theme-light';"></div>
+<div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="document.body.className = 'theme-dark';"></div>
+<div id="page">
+    <h1 class="title">Retro Pixel Font</h1>
+    <p class="content">A set of open source old game style pixel fonts.</p>
+    <h1 class="title">Nintendo</h1>
+    <a class="content" href="https://en.wikipedia.org/wiki/Nintendo" target="_blank">https://en.wikipedia.org/wiki/Nintendo</a>
+    <p class="content">Nintendo Co., Ltd. is a Japanese multinational video game company headquartered in Kyoto, Japan. It develops video games and video game consoles.</p>
+    <p class="content">Nintendo was founded in 1889 as Nintendo Karuta by craftsman Fusajiro Yamauchi and originally produced handmade hanafuda playing cards. After venturing into various lines of business during the 1960s and acquiring a legal status as a public company, Nintendo distributed its first console, the Color TV-Game, in 1977. It gained international recognition with the release of Donkey Kong in 1981 and the Nintendo Entertainment System and Super Mario Bros. in 1985.</p>
+    <p class="content">Since then, Nintendo has produced some of the most successful consoles in the video game industry, such as the Game Boy, the Super Nintendo Entertainment System, the Nintendo DS, the Wii, and the Switch. It has created numerous major franchises, including Mario, Donkey Kong, The Legend of Zelda, Pokémon, Kirby, Metroid, Fire Emblem, Animal Crossing, Splatoon, Star Fox, Xenoblade Chronicles, and Super Smash Bros. Nintendo's mascot, Mario, is internationally recognized. The company has sold more than 5.4 billion video games and over 800 million hardware units globally as of 2022.</p>
+    <p class="content">Nintendo has multiple subsidiaries in Japan and abroad, in addition to business partners such as The Pokémon Company and HAL Laboratory. Nintendo and its staff have received awards including Emmy Awards for Technology & Engineering, Game Awards, Game Developers Choice Awards, and British Academy Games Awards. It is one of the wealthiest and most valuable companies in the Japanese market.</p>
+</div>
+</body>
+</html>
