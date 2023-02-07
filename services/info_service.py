@@ -33,11 +33,32 @@ def make_ofl_txt_file(font_config):
     logger.info(f'make {txt_file_path}')
 
 
+def make_info_txt_file(font_config):
+    fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
+    txt_file_path = os.path.join(font_config.outputs_dir, 'info.txt')
+    with open(txt_file_path, 'w', encoding='utf-8') as file:
+        file.write(f'{font_config.full_display_name}\n\n')
+        file.write(f'font-size: { font_config.px }px\n')
+        file.write(f'line-height: { font_config.line_height_px }px\n\n')
+        file.write(f'{font_config.description}\n')
+    logger.info(f'make {txt_file_path}')
+
+
 def make_alphabet_txt_file(font_config, alphabet):
     fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
     txt_file_path = os.path.join(font_config.outputs_dir, 'alphabet.txt')
     with open(txt_file_path, 'w', encoding='utf-8') as file:
         file.write(''.join(alphabet))
+    logger.info(f'make {txt_file_path}')
+
+
+def make_readme_txt_file():
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    txt_file_path = os.path.join(path_define.outputs_dir, 'readme.txt')
+    with open(txt_file_path, 'w', encoding='utf-8') as file:
+        file.write('Retro Pixel Font\n\n')
+        file.write('https://retro-pixel-font.takwolf.com\n\n')
+        file.write(f'version: {configs.font_version}\n')
     logger.info(f'make {txt_file_path}')
 
 

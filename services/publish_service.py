@@ -21,10 +21,12 @@ def make_release_zips(font_formats=None):
     for font_format in font_formats:
         zip_file_path = os.path.join(path_define.releases_dir, f'retro-pixel-font-{font_format}-v{configs.font_version}.zip')
         with zipfile.ZipFile(zip_file_path, 'w') as zip_file:
+            zip_file.write(os.path.join(path_define.outputs_dir, 'readme.txt'), 'readme.txt')
             for font_config in configs.font_configs:
                 font_file_name = f'{font_config.full_output_name}.{font_format}'
                 zip_file.write(os.path.join(font_config.outputs_dir, font_file_name), os.path.join(font_config.output_name, font_file_name))
                 zip_file.write(os.path.join(font_config.outputs_dir, 'OFL.txt'), os.path.join(font_config.output_name, 'OFL.txt'))
+                zip_file.write(os.path.join(font_config.outputs_dir, 'info.txt'), os.path.join(font_config.output_name, 'info.txt'))
                 zip_file.write(os.path.join(font_config.outputs_dir, 'preview.png'), os.path.join(font_config.output_name, 'preview.png'))
         logger.info(f'make {zip_file_path}')
 
