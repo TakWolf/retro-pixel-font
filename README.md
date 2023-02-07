@@ -1,3 +1,5 @@
+![banner](docs/readme-banner.png)
+
 # 复古像素字体 / Retro Pixel Font
 
 [![SIL Open Font License 1.1](https://img.shields.io/badge/license-OFL--1.1-orange)](https://scripts.sil.org/OFL)
