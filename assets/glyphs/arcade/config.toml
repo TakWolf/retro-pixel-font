@@ -2,7 +2,7 @@
 display_name = "Arcade"
 unique_name = "Arcade"
 style_name = "Regular"
-description = "Arcade Cabinet style pixel font."
+description = "Arcade Cabinet style pixel font. Design from Atari and Famicom game font."
 designer = "TakWolf"
 designer_url = "https://takwolf.com"
 copyright_year = 2023
@@ -13,7 +13,7 @@ box_origin_y_px = 7
 x_height_px = 5
 cap_height_px = 7
 
-readme_intro = "街机风格的像素字体，设计来源于雅达利和红白机的游戏字体，补充了小写字母和符号。全角码位提供了一种不同风格的数字。"
+readme_intro = "街机风格的像素字体。设计来源于雅达利和红白机的游戏字体。"
 demo_text = """
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz

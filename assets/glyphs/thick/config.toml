@@ -13,7 +13,7 @@ box_origin_y_px = 13
 x_height_px = 7
 cap_height_px = 10
 
-readme_intro = "有一点厚重感觉的像素字体，笔画宽度为 2 像素，适合于标题或强调文本。"
+readme_intro = "有一点厚重感觉的像素字体。"
 demo_text = """
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
