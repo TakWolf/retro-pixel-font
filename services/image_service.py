@@ -4,6 +4,8 @@ import os
 
 from PIL import Image, ImageFont, ImageDraw
 
+import configs
+from configs import path_define
 from utils import fs_util
 
 logger = logging.getLogger('image-service')
@@ -54,5 +56,102 @@ def make_preview_image_file(font_config):
 
     fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
     image_file_path = os.path.join(font_config.outputs_dir, 'preview.png')
+    image.save(image_file_path)
+    logger.info(f'make {image_file_path}')
+
+
+def make_readme_banner():
+    font_x1 = _load_font(configs.font_config_map['thick'])
+    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    text_color = (255, 255, 255)
+    shadow_color = (80, 80, 80)
+
+    image = Image.open(os.path.join(path_define.images_dir, 'readme-banner-background.png'))
+    _draw_text(image, (image.width / 2, 28), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 28 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
+
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    image_file_path = os.path.join(path_define.outputs_dir, 'readme-banner.png')
+    image.save(image_file_path)
+    logger.info(f'make {image_file_path}')
+
+
+def make_github_banner():
+    font_x1 = _load_font(configs.font_config_map['thick'])
+    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    text_color = (255, 255, 255)
+    shadow_color = (80, 80, 80)
+
+    image = Image.open(os.path.join(path_define.images_dir, 'github-banner-background.png'))
+    _draw_text(image, (image.width / 2, 40 + 16), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16 * 3), 'A set of open source old game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16 * 5), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16 * 6), 'abcdefghijklmnopqrstuvwxyz', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16 * 7), '0123456789', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16 * 8), '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
+
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    image_file_path = os.path.join(path_define.outputs_dir, 'github-banner.png')
+    image.save(image_file_path)
+    logger.info(f'make {image_file_path}')
+
+
+def make_itch_io_banner():
+    font_x1 = _load_font(configs.font_config_map['thick'])
+    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    text_color = (255, 255, 255)
+    shadow_color = (80, 80, 80)
+
+    image = Image.open(os.path.join(path_define.images_dir, 'itch-io-banner-background.png'))
+    _draw_text(image, (image.width / 2, 32), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 32 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
+
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    image_file_path = os.path.join(path_define.outputs_dir, 'itch-io-banner.png')
+    image.save(image_file_path)
+    logger.info(f'make {image_file_path}')
+
+
+def make_itch_io_cover():
+    font_x1 = _load_font(configs.font_config_map['thick'])
+    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    text_color = (255, 255, 255)
+    shadow_color = (80, 80, 80)
+
+    image = Image.open(os.path.join(path_define.images_dir, 'itch-io-cover-background.png'))
+    _draw_text(image, (image.width / 2, 6), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6 + 16 * 3), 'A set of open source\nold game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6 + 16 * 7), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6 + 16 * 8), 'abcdefghijklmnopqrstuvwxyz', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6 + 16 * 9), '0123456789', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6 + 16 * 11), '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
+
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    image_file_path = os.path.join(path_define.outputs_dir, 'itch-io-cover.png')
+    image.save(image_file_path)
+    logger.info(f'make {image_file_path}')
+
+
+def make_afdian_cover():
+    font_x1 = _load_font(configs.font_config_map['thick'])
+    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    text_color = (255, 255, 255)
+    shadow_color = (80, 80, 80)
+
+    image = Image.open(os.path.join(path_define.images_dir, 'afdian-cover-background.png'))
+    _draw_text(image, (image.width / 2, 18), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18 + 16 * 3), 'A set of open source\nold game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18 + 16 * 7), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18 + 16 * 9), 'abcdefghijklmnopqrstuvwxyz', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18 + 16 * 11), '0123456789', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18 + 16 * 13), '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
+
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    image_file_path = os.path.join(path_define.outputs_dir, 'afdian-cover.png')
     image.save(image_file_path)
     logger.info(f'make {image_file_path}')

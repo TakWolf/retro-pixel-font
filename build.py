@@ -22,6 +22,11 @@ def main():
         html_service.make_alphabet_html_file(font_config, alphabet)
     publish_service.make_release_zips()
     html_service.make_index_html_file()
+    image_service.make_readme_banner()
+    image_service.make_github_banner()
+    image_service.make_itch_io_banner()
+    image_service.make_itch_io_cover()
+    image_service.make_afdian_cover()
     info_service.make_readme_md_file()
 
 
