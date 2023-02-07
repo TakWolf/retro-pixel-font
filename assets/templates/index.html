@@ -11,7 +11,7 @@
             box-sizing: border-box;
         }
         @font-face {
-            font-family: ark-pixel-12px-proportional;
+            font-family: Ark-Pixel-12px-proportional;
             src: url("https://ark-pixel-font.takwolf.com/ark-pixel-12px-proportional-latin.woff2");
         }
         @keyframes background-scrolling {
@@ -45,7 +45,7 @@
             }
         }
         .title {
-            font-family: retro-pixel-thick, sans-serif;
+            font-family: Retro-Pixel-Thick, sans-serif;
             font-size: 64px;
             text-shadow: 4px 4px #4b4b4b;
         }
@@ -59,12 +59,12 @@
         .link-tab {
             margin-left: 12px;
             margin-right: 12px;
-            font-family: retro-pixel-thick, sans-serif;
+            font-family: Retro-Pixel-Thick, sans-serif;
             font-size: 32px;
             text-shadow: 2px 2px #4b4b4b;
         }
         .copyright {
-            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-family: Ark-Pixel-12px-proportional, sans-serif;
             font-size: 24px;
             text-shadow: 2px 2px #4b4b4b;
         }
@@ -81,12 +81,12 @@
             box-shadow: 1px 1px 8px rgba(75, 75, 75, 0.8);
         }
         .font-card .name {
-            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-family: Ark-Pixel-12px-proportional, sans-serif;
             font-size: 36px;
             text-shadow: 2px 2px #4b4b4b;
         }
         .font-card .info {
-            font-family: ark-pixel-12px-proportional, sans-serif;
+            font-family: Ark-Pixel-12px-proportional, sans-serif;
             font-size: 24px;
             text-shadow: 2px 2px #4b4b4b;
         }
@@ -109,11 +109,11 @@
         }
         {% for font_config in configs.font_configs %}
             @font-face {
-                font-family: {{ font_config.full_output_name }};
+                font-family: {{ font_config.full_unique_name }};
                 src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
             }
             .font-{{ font_config.output_name }} {
-                font-family: {{ font_config.full_output_name }}, sans-serif;
+                font-family: {{ font_config.full_unique_name }}, sans-serif;
                 font-size: {{ font_config.px * 2 }}px;
                 line-height: {{ font_config.line_height_px * 2}}px;
             }
