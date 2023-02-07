@@ -9,12 +9,12 @@ from utils import fs_util
 logger = logging.getLogger('image-service')
 
 
-def _load_font(font_config):
+def _load_font(font_config, px_scale=1):
     font_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_output_name}.woff2')
-    return ImageFont.truetype(font_file_path, font_config.px)
+    return ImageFont.truetype(font_file_path, font_config.px * px_scale)
 
 
-def _draw_text(image, xy, text, font, text_color=(0, 0, 0), line_height=None, line_gap=0, is_horizontal_centered=False, is_vertical_centered=False):
+def _draw_text(image, xy, text, font, text_color=(0, 0, 0), shadow_color=None, line_height=None, line_gap=0, is_horizontal_centered=False, is_vertical_centered=False):
     draw = ImageDraw.Draw(image)
     x, y = xy
     default_line_height = sum(font.getmetrics())
@@ -26,6 +26,8 @@ def _draw_text(image, xy, text, font, text_color=(0, 0, 0), line_height=None, li
         x -= draw.textbbox((0, 0), text, font=font)[2] / 2
     if is_vertical_centered:
         y -= line_height / 2
+    if shadow_color is not None:
+        draw.text((x + 1, y + 1), text, fill=shadow_color, font=font, spacing=spacing)
     draw.text((x, y), text, fill=text_color, font=font, spacing=spacing)
 
 
