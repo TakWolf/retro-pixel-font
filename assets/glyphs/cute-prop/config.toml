@@ -1,0 +1,16 @@
+[font]
+display_name = "Cute Prop"
+unique_name = "Cute-Prop"
+style_name = "Regular"
+description = "A proportional pixel font. The design is based on the lowercase letters with 5px height."
+designer = "TakWolf"
+designer_url = "https://takwolf.com"
+copyright_year = 2023
+
+px = 11
+line_height_px = 15
+box_origin_y_px = 9
+x_height_px = 5
+cap_height_px = 7
+
+readme_intro = "比例像素字体。以小写字母 5 像素高为基础尺寸来设计。"
