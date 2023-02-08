@@ -14,7 +14,7 @@ x_height_px = 5
 cap_height_px = 7
 
 readme_intro = "街机风格的像素字体。设计来源于雅达利和红白机的游戏字体。"
-demo_text = """
+preview_text = """
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 0123456789 ０１２３４５６７８９

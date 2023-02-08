@@ -44,7 +44,7 @@ def make_preview_image_file(font_config):
     font = _load_font(font_config)
     background_color = (30, 144, 255)
     text_color = (255, 255, 255)
-    lines = font_config.demo_text.split('\n')
+    lines = font_config.preview_text.split('\n')
 
     content_width = 0
     for line in lines:

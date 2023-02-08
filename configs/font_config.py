@@ -13,7 +13,7 @@ vendor_url = 'https://retro-pixel-font.takwolf.com'
 license_description = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
 license_info_url = 'https://scripts.sil.org/OFL'
 
-_default_demo_text = """
+_default_preview_text = """
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 0123456789
@@ -73,7 +73,7 @@ class FontConfig:
         self.px_units = px_units
 
         self.readme_intro = config_data.get('readme_intro', self.description)
-        self.demo_text = config_data.get('demo_text', _default_demo_text).strip()
+        self.preview_text = config_data.get('preview_text', _default_preview_text).strip()
 
     def get_name_strings(self):
         return {
