@@ -14,10 +14,3 @@ x_height_px = 7
 cap_height_px = 10
 
 readme_intro = "有一点厚重感觉的像素字体。"
-demo_text = """
-ABCDEFGHIJKLMNOPQRSTUVWXYZ
-abcdefghijklmnopqrstuvwxyz
-0123456789
-!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
-¡¦±¶·¿×÷‘’“”⁋⁌⁍
-"""
