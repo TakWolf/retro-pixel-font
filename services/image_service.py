@@ -33,6 +33,13 @@ def _draw_text(image, xy, text, font, text_color=(0, 0, 0), shadow_color=None, l
     draw.text((x, y), text, fill=text_color, font=font, spacing=spacing)
 
 
+def _draw_demo_lines(image, xy, line_infos, text_color, shadow_color):
+    x, y = xy
+    for line, font in line_infos:
+        _draw_text(image, (x, y), line, font, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+        y += sum(font.getmetrics())
+
+
 def make_preview_image_file(font_config):
     font = _load_font(font_config)
     background_color = (30, 144, 255)
@@ -61,14 +68,14 @@ def make_preview_image_file(font_config):
 
 
 def make_readme_banner():
-    font_x1 = _load_font(configs.font_config_map['thick'])
-    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    font_thick = _load_font(configs.font_config_map['thick'], 2)
+    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
     text_color = (255, 255, 255)
     shadow_color = (80, 80, 80)
 
     image = Image.open(os.path.join(path_define.images_dir, 'readme-banner-background.png'))
-    _draw_text(image, (image.width / 2, 28), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 28 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 28), 'Retro Pixel Font', font_thick, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 28 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
@@ -78,18 +85,28 @@ def make_readme_banner():
 
 
 def make_github_banner():
-    font_x1 = _load_font(configs.font_config_map['thick'])
-    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    font_title = _load_font(configs.font_config_map['thick'], 2)
+    font_arcade = _load_font(configs.font_config_map['arcade'])
+    font_cute_mono = _load_font(configs.font_config_map['cute-mono'])
+    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
+    font_thick = _load_font(configs.font_config_map['thick'])
     text_color = (255, 255, 255)
     shadow_color = (80, 80, 80)
 
     image = Image.open(os.path.join(path_define.images_dir, 'github-banner-background.png'))
-    _draw_text(image, (image.width / 2, 40 + 16), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 40 + 16 * 3), 'A set of open source old game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 40 + 16 * 5), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 40 + 16 * 6), 'abcdefghijklmnopqrstuvwxyz', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 40 + 16 * 7), '0123456789', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 40 + 16 * 8), '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 40 + 16 * 3), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    line_infos = [
+        ('The quick brown fox jumps over a lazy dog.', font_arcade),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_arcade),
+        ('The quick brown fox jumps over a lazy dog.', font_cute_mono),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_cute_mono),
+        ('The quick brown fox jumps over a lazy dog.', font_cute_prop),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_cute_prop),
+        ('The quick brown fox jumps over a lazy dog.', font_thick),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_thick),
+    ]
+    _draw_demo_lines(image, (image.width / 2, 40 + 16 * 5), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
@@ -99,14 +116,14 @@ def make_github_banner():
 
 
 def make_itch_io_banner():
-    font_x1 = _load_font(configs.font_config_map['thick'])
-    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    font_thick = _load_font(configs.font_config_map['thick'], 2)
+    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
     text_color = (255, 255, 255)
     shadow_color = (80, 80, 80)
 
     image = Image.open(os.path.join(path_define.images_dir, 'itch-io-banner-background.png'))
-    _draw_text(image, (image.width / 2, 32), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 32 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 32), 'Retro Pixel Font', font_thick, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 32 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
@@ -116,18 +133,29 @@ def make_itch_io_banner():
 
 
 def make_itch_io_cover():
-    font_x1 = _load_font(configs.font_config_map['thick'])
-    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    font_title = _load_font(configs.font_config_map['thick'], 2)
+    font_arcade = _load_font(configs.font_config_map['arcade'])
+    font_cute_mono = _load_font(configs.font_config_map['cute-mono'])
+    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
+    font_thick = _load_font(configs.font_config_map['thick'])
     text_color = (255, 255, 255)
     shadow_color = (80, 80, 80)
 
     image = Image.open(os.path.join(path_define.images_dir, 'itch-io-cover-background.png'))
-    _draw_text(image, (image.width / 2, 6), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 6 + 16 * 3), 'A set of open source\nold game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 6 + 16 * 7), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 6 + 16 * 8), 'abcdefghijklmnopqrstuvwxyz', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 6 + 16 * 9), '0123456789', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 6 + 16 * 11), '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 6 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    line_infos = [
+        ('ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_arcade),
+        ('0123456789', font_arcade),
+        ('The quick brown fox jumps over a lazy dog.', font_cute_mono),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_cute_mono),
+        ('The quick brown fox jumps over a lazy dog.', font_cute_prop),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_cute_prop),
+        ('The quick brown fox jumps over a lazy dog.', font_thick),
+        ('0123456789', font_thick),
+        ('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_thick),
+    ]
+    _draw_demo_lines(image, (image.width / 2, 6 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
@@ -137,18 +165,33 @@ def make_itch_io_cover():
 
 
 def make_afdian_cover():
-    font_x1 = _load_font(configs.font_config_map['thick'])
-    font_x2 = _load_font(configs.font_config_map['thick'], 2)
+    font_title = _load_font(configs.font_config_map['thick'], 2)
+    font_arcade = _load_font(configs.font_config_map['arcade'])
+    font_cute_mono = _load_font(configs.font_config_map['cute-mono'])
+    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
+    font_thick = _load_font(configs.font_config_map['thick'])
     text_color = (255, 255, 255)
     shadow_color = (80, 80, 80)
 
     image = Image.open(os.path.join(path_define.images_dir, 'afdian-cover-background.png'))
-    _draw_text(image, (image.width / 2, 18), 'Retro Pixel Font', font_x2, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 18 + 16 * 3), 'A set of open source\nold game style pixel fonts.', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 18 + 16 * 7), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 18 + 16 * 9), 'abcdefghijklmnopqrstuvwxyz', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 18 + 16 * 11), '0123456789', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
-    _draw_text(image, (image.width / 2, 18 + 16 * 13), '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_x1, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    _draw_text(image, (image.width / 2, 18 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
+    line_infos = [
+        ('ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_arcade),
+        ('abcdefghijklmnopqrstuvwxyz', font_arcade),
+        ('0123456789', font_arcade),
+        ('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_arcade),
+        ('ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_cute_mono),
+        ('abcdefghijklmnopqrstuvwxyz', font_cute_mono),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_cute_mono),
+        ('ABCDEFGHIJKLMNOPQRSTUVWXYZ', font_cute_prop),
+        ('abcdefghijklmnopqrstuvwxyz', font_cute_prop),
+        ('0123456789 !"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_cute_prop),
+        ('The quick brown fox jumps over a lazy dog.', font_thick),
+        ('0123456789', font_thick),
+        ('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~', font_thick),
+    ]
+    _draw_demo_lines(image, (image.width / 2, 18 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
     fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
