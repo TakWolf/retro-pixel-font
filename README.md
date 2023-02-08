@@ -6,11 +6,9 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
 
-一组开源的有怀旧游戏感觉的像素字体。
+一组开源的有怀旧游戏感觉的像素字体。字体基本上以英文、数字和符号为主。
 
-字体基本上以英文、数字和符号为主。
-
-如果您在寻找通用风格的西文、泛中日韩或 Unicode 开源像素字体，请尝试 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 。
+如果您在寻找开源的泛中日韩或 Unicode 像素字体，请尝试 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 。
 
 这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
 
@@ -25,15 +23,31 @@
 
 尺寸：8px / 行高：12px · [实时预览](https://retro-pixel-font.takwolf.com#font-arcade) · [字母表](https://retro-pixel-font.takwolf.com/arcade/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/arcade/demo.html)
 
-街机风格的像素字体，设计来源于雅达利和红白机的游戏字体，补充了小写字母和符号。全角码位提供了一种不同风格的数字。
+街机风格的像素字体。设计来源于雅达利和红白机的游戏字体。
 
 ![preview-arcade](docs/arcade/preview.png)
+
+### Cute Mono
+
+尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-mono) · [字母表](https://retro-pixel-font.takwolf.com/cute-mono/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-mono/demo.html)
+
+等宽像素字体。以小写字母 5 像素高为基础尺寸来设计。
+
+![preview-cute-mono](docs/cute-mono/preview.png)
+
+### Cute Prop
+
+尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-prop) · [字母表](https://retro-pixel-font.takwolf.com/cute-prop/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-prop/demo.html)
+
+比例像素字体。以小写字母 5 像素高为基础尺寸来设计。
+
+![preview-cute-prop](docs/cute-prop/preview.png)
 
 ### Thick
 
 尺寸：16px / 行高：20px · [实时预览](https://retro-pixel-font.takwolf.com#font-thick) · [字母表](https://retro-pixel-font.takwolf.com/thick/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/thick/demo.html)
 
-有一点厚重感觉的像素字体，笔画宽度为 2 像素，适合于标题或强调文本。
+有一点厚重感觉的像素字体。
 
 ![preview-thick](docs/thick/preview.png)
 
