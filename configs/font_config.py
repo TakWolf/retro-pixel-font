@@ -72,6 +72,11 @@ class FontConfig:
         self.cap_height_px = config_data['cap_height_px']
         self.px_units = px_units
 
+        self.mapping_lowercase_to_uppercase = config_data.get('mapping_lowercase_to_uppercase', False)
+        assert isinstance(self.mapping_lowercase_to_uppercase, bool), output_name
+        self.mapping_uppercase_to_lowercase = config_data.get('mapping_uppercase_to_lowercase', False)
+        assert isinstance(self.mapping_uppercase_to_lowercase, bool), output_name
+
         self.readme_intro = config_data.get('readme_intro', self.description)
         self.preview_text = config_data.get('preview_text', _default_preview_text).strip()
 

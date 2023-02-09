@@ -78,6 +78,22 @@ def collect_glyph_files(font_config):
                 glyph_file_paths[code_point] = glyph_file_path
                 c = chr(code_point)
                 alphabet.add(c)
+    if font_config.mapping_lowercase_to_uppercase:
+        for lowercase_code_point in range(ord('a'), ord('z') + 1):
+            uppercase_code_point = lowercase_code_point - 32
+            lowercase = chr(lowercase_code_point)
+            uppercase = chr(uppercase_code_point)
+            if lowercase not in alphabet and uppercase in alphabet:
+                glyph_file_paths[lowercase_code_point] = glyph_file_paths[uppercase_code_point]
+                alphabet.add(lowercase)
+    if font_config.mapping_uppercase_to_lowercase:
+        for uppercase_code_point in range(ord('A'), ord('Z') + 1):
+            lowercase_code_point = uppercase_code_point + 32
+            uppercase = chr(uppercase_code_point)
+            lowercase = chr(lowercase_code_point)
+            if uppercase not in alphabet and lowercase in alphabet:
+                glyph_file_paths[uppercase_code_point] = glyph_file_paths[lowercase_code_point]
+                alphabet.add(uppercase)
     alphabet = list(alphabet)
     alphabet.sort()
     return alphabet, glyph_file_paths
