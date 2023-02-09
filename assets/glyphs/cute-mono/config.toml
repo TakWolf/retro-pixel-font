@@ -2,7 +2,7 @@
 display_name = "Cute Mono"
 unique_name = "Cute-Mono"
 style_name = "Regular"
-description = "A monospaced pixel font. The design is based on the lowercase letters with 5px height."
+description = "The design is based on the lowercase letters with 5px height, monospaced mode."
 designer = "TakWolf"
 designer_url = "https://takwolf.com"
 copyright_year = 2023
@@ -13,4 +13,4 @@ box_origin_y_px = 9
 x_height_px = 5
 cap_height_px = 7
 
-readme_intro = "等宽像素字体。以小写字母 5 像素高为基础尺寸来设计。"
+readme_intro = "以小写字母为 5 像素高作为基础尺寸来设计，等宽模式。"

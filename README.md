@@ -31,7 +31,7 @@
 
 尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-mono) · [字母表](https://retro-pixel-font.takwolf.com/cute-mono/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-mono/demo.html)
 
-等宽像素字体。以小写字母 5 像素高为基础尺寸来设计。
+以小写字母为 5 像素高作为基础尺寸来设计，等宽模式。
 
 ![preview-cute-mono](docs/cute-mono/preview.png)
 
@@ -39,7 +39,7 @@
 
 尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-prop) · [字母表](https://retro-pixel-font.takwolf.com/cute-prop/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-prop/demo.html)
 
-比例像素字体。以小写字母 5 像素高为基础尺寸来设计。
+以小写字母为 5 像素高作为基础尺寸来设计，比例模式。
 
 ![preview-cute-prop](docs/cute-prop/preview.png)
 
