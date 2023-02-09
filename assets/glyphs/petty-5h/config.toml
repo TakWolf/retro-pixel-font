@@ -1,0 +1,23 @@
+[font]
+display_name = "Petty 5H"
+unique_name = "Petty-5H"
+style_name = "Regular"
+description = "Draw uppercase letters with minimum size by 5px height. Correspondingly, there are only uppercase letters and basic punctuation."
+designer = "TakWolf"
+designer_url = "https://takwolf.com"
+copyright_year = 2023
+
+px = 5
+line_height_px = 9
+box_origin_y_px = 5
+x_height_px = 5
+cap_height_px = 5
+
+mapping_lowercase_to_uppercase = true
+
+readme_intro = "以最小尺寸 5 像素高来绘制大写字母。相应的，只有大写字母和基础标点符号。"
+preview_text = """
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
+"""
