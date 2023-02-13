@@ -39,7 +39,6 @@ def _copy_file(file_name, from_dir, to_dir):
 
 
 def update_docs():
-    _copy_file('README.md', path_define.outputs_dir, path_define.project_root_dir)
     fs_util.delete_dir(path_define.docs_dir)
     os.mkdir(path_define.docs_dir)
     _copy_file('readme-banner.png', path_define.outputs_dir, path_define.docs_dir)

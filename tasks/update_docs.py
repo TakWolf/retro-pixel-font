@@ -1,11 +1,12 @@
 import logging
 
-from services import publish_service
+from services import info_service, publish_service
 
 logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
+    info_service.make_readme_md_file()
     publish_service.update_docs()
 
 

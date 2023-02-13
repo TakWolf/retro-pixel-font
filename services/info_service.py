@@ -73,10 +73,10 @@ def make_readme_md_file():
         preview += f'{font_config.readme_intro}\n\n'
         preview += f'![preview-{font_config.output_name}](docs/{font_config.output_name}/preview.png)\n\n'
     preview = preview.strip()
+
     template = configs.template_env.get_template('README.md')
     markdown = template.render(preview=preview)
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
-    md_file_path = os.path.join(path_define.outputs_dir, 'README.md')
+    md_file_path = os.path.join(path_define.project_root_dir, 'README.md')
     with open(md_file_path, 'w', encoding='utf-8') as file:
         file.write(markdown)
     logger.info(f'make {md_file_path}')

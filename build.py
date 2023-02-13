@@ -30,7 +30,6 @@ def main():
     image_service.make_itch_io_banner()
     image_service.make_itch_io_cover()
     image_service.make_afdian_cover()
-    info_service.make_readme_md_file()
 
 
 if __name__ == '__main__':
