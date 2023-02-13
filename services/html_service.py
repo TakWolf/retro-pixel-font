@@ -91,3 +91,13 @@ def make_index_html_file():
     with open(html_file_path, 'w', encoding='utf-8') as file:
         file.write(html)
     logger.info(f'make {html_file_path}')
+
+
+def make_itch_io_details_html_file():
+    template = configs.template_env.get_template('itch-io-details.html')
+    html = template.render(configs=configs)
+    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
+    html_file_path = os.path.join(path_define.outputs_dir, 'itch-io-details.html')
+    with open(html_file_path, 'w', encoding='utf-8') as file:
+        file.write(html)
+    logger.info(f'make {html_file_path}')
