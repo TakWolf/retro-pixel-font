@@ -74,12 +74,32 @@
     </style>
 {% endblock %}
 {% block body %}
-    <div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="document.body.className = 'theme-light';"></div>
-    <div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="document.body.className = 'theme-dark';"></div>
+    <div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="onThemeChange('light');"></div>
+    <div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="onThemeChange('dark');"></div>
     <div id="page">
         {{ content_html }}
     </div>
     <script>
-        document.body.className = 'theme-light';
+        let configs = {
+            theme: 'light',
+        };
+
+        function applyConfigs() {
+            localStorage.setItem('configs:demo-{{ font_config.output_name }}', JSON.stringify(configs));
+            document.body.className = 'theme-' + configs.theme;
+        }
+
+        function onThemeChange(theme) {
+            configs.theme = theme;
+            applyConfigs();
+        }
+
+        (function () {
+            let json = localStorage.getItem('configs:demo-{{ font_config.output_name }}');
+            if (json) {
+                Object.assign(configs, JSON.parse(json));
+            }
+            applyConfigs();
+        })();
     </script>
 {% endblock %}
