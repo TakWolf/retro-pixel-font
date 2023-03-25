@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Retro Pixel Font</title>
+{% extends "common/base.html" %}
+{% block title %}Retro Pixel Font{% endblock %}
+{% block style %}
     <style>
         * {
             margin: 0;
@@ -111,28 +108,27 @@
             resize: vertical;
         }
         {% for font_config in configs.font_configs %}
-            @font-face {
-                font-family: {{ font_config.full_unique_name }};
-                src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
-            }
-            .font-{{ font_config.output_name }} {
-                font-family: {{ font_config.full_unique_name }}, sans-serif;
-                font-size: {{ font_config.px * 2 }}px;
-                line-height: {{ font_config.line_height_px * 2}}px;
-            }
+        @font-face {
+            font-family: {{ font_config.full_unique_name }};
+            src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
+        }
+        .font-{{ font_config.output_name }} {
+            font-family: {{ font_config.full_unique_name }}, sans-serif;
+            font-size: {{ font_config.px * 2 }}px;
+            line-height: {{ font_config.line_height_px * 2}}px;
+        }
         {% endfor %}
     </style>
-    {% include "common/analytics.html" %}
-</head>
-<body>
-<div class="page">
-    <h1 class="title">Retro Pixel Font</h1>
-    <div class="summary">A set of open source old game style pixel fonts.</div>
-    <div class="link-group">
-        <a class="link-tab" href="https://github.com/TakWolf/retro-pixel-font" target="_blank">github</a>
-        <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
-    </div>
-    {% for font_config in configs.font_configs %}
+{% endblock %}
+{% block body %}
+    <div class="page">
+        <h1 class="title">Retro Pixel Font</h1>
+        <div class="summary">A set of open source old game style pixel fonts.</div>
+        <div class="link-group">
+            <a class="link-tab" href="https://github.com/TakWolf/retro-pixel-font" target="_blank">github</a>
+            <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
+        </div>
+        {% for font_config in configs.font_configs %}
         <div class="font-card" id="font-{{ font_config.output_name }}">
             <h2 class="name">{{ font_config.display_name }}</h2>
             <p class="info">
@@ -147,8 +143,7 @@
                 <textarea class="font-{{ font_config.output_name }}">{{ font_config.preview_text }}</textarea>
             </label>
         </div>
-    {% endfor %}
-    <div class="copyright">© 2023 TakWolf</div>
-</div>
-</body>
-</html>
+        {% endfor %}
+        <div class="copyright">© 2023 TakWolf</div>
+    </div>
+{% endblock %}

@@ -8,17 +8,17 @@
     <p>A set of open source old game style pixel fonts.</p>
     <p>Under <a href="https://github.com/TakWolf/retro-pixel-font/blob/master/LICENSE-OFL" target="_blank">OFL 1.1</a>.</p>
     {% for font_config in configs.font_configs %}
-        <div>
-            <h2>{{ font_config.display_name }}</h2>
-            <p>
-                <span>font-size: {{ font_config.px }}px / line-height: {{ font_config.line_height_px }}px</span>
-                <span> · </span>
-                <a href="https://retro-pixel-font.takwolf.com/{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a>
-                <span> · </span>
-                <a href="https://retro-pixel-font.takwolf.com/{{ font_config.output_name }}/demo.html" target="_blank">demo</a>
-            </p>
-            <p>{{ font_config.description }}</p>
-            <img src="https://raw.githubusercontent.com/TakWolf/retro-pixel-font/master/docs/{{ font_config.output_name }}/preview.png" alt="{{ font_config.output_name }}-preview">
-        </div>
+    <div>
+        <h2>{{ font_config.display_name }}</h2>
+        <p>
+            <span>font-size: {{ font_config.px }}px / line-height: {{ font_config.line_height_px }}px</span>
+            <span> · </span>
+            <a href="https://retro-pixel-font.takwolf.com/{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a>
+            <span> · </span>
+            <a href="https://retro-pixel-font.takwolf.com/{{ font_config.output_name }}/demo.html" target="_blank">demo</a>
+        </p>
+        <p>{{ font_config.description }}</p>
+        <img src="https://raw.githubusercontent.com/TakWolf/retro-pixel-font/master/docs/{{ font_config.output_name }}/preview.png" alt="{{ font_config.output_name }}-preview">
+    </div>
     {% endfor %}
 </div>

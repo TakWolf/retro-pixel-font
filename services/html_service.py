@@ -25,52 +25,59 @@ def make_alphabet_html_file(font_config, alphabet):
 
 
 def _handle_demo_html_element(soup, element, alphabet):
-    element_type = type(element)
-    if element_type == bs4.element.Tag:
+    if isinstance(element, bs4.element.Tag):
         for child_element in list(element.contents):
             _handle_demo_html_element(soup, child_element, alphabet)
-    elif element_type == bs4.element.NavigableString:
+    elif isinstance(element, bs4.element.NavigableString):
         text = str(element)
-        temp_parent = soup.new_tag('span')
-        current_status = True
+        tmp_parent = soup.new_tag('div')
+        last_status = False
         text_buffer = ''
         for c in text:
-            status = c in alphabet or not c.isprintable()
-            if current_status != status:
+            if c == ' ':
+                status = last_status
+            elif c == '\n':
+                status = True
+            else:
+                status = c in alphabet
+            if last_status != status:
                 if text_buffer != '':
-                    if current_status:
-                        temp_child = bs4.element.NavigableString(text_buffer)
+                    if last_status:
+                        tmp_child = bs4.element.NavigableString(text_buffer)
                     else:
-                        temp_child = soup.new_tag('span')
-                        temp_child['class'] = 'char-notdef'
-                        temp_child.string = text_buffer
-                    temp_parent.append(temp_child)
-                current_status = status
-                text_buffer = ''
+                        tmp_child = soup.new_tag('span')
+                        tmp_child.string = text_buffer
+                        tmp_child['class'] = 'char-notdef'
+                    tmp_parent.append(tmp_child)
+                    text_buffer = ''
+                last_status = status
             text_buffer += c
         if text_buffer != '':
-            if current_status:
-                temp_child = bs4.element.NavigableString(text_buffer)
+            if last_status:
+                tmp_child = bs4.element.NavigableString(text_buffer)
             else:
-                temp_child = soup.new_tag('span')
-                temp_child['class'] = 'char-notdef'
-                temp_child.string = text_buffer
-            temp_parent.append(temp_child)
-        element.replace_with(temp_parent)
-        temp_parent.unwrap()
+                tmp_child = soup.new_tag('span')
+                tmp_child.string = text_buffer
+                tmp_child['class'] = 'char-notdef'
+            tmp_parent.append(tmp_child)
+        element.replace_with(tmp_parent)
+        tmp_parent.unwrap()
 
 
 def make_demo_html_file(font_config, alphabet):
+    content_template = configs.template_env.get_template('demo-content.html')
+    content_html = content_template.render(font_config=font_config)
+    content_html = ''.join(line.strip() for line in content_html.split('\n'))
+    soup = bs4.BeautifulSoup(content_html, 'html.parser')
+    _handle_demo_html_element(soup, soup, alphabet)
+    content_html = str(soup)
+
     template = configs.template_env.get_template('demo.html')
     html = template.render(
         configs=configs,
         font_config=font_config,
+        content_html=content_html,
     )
-    soup = bs4.BeautifulSoup(html, 'html.parser')
-    elements = soup.select('#page')
-    for element in elements:
-        _handle_demo_html_element(soup, element, alphabet)
-    html = str(soup)
     fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
     html_file_path = os.path.join(font_config.outputs_dir, 'demo.html')
     with open(html_file_path, 'w', encoding='utf-8') as file:

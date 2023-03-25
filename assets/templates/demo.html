@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ font_config.full_display_name }} - Demo</title>
+{% extends "common/base.html" %}
+{% block title %}{{ font_config.full_display_name }} - Demo{% endblock %}
+{% block style %}
     <style>
         * {
             margin: 0;
@@ -75,23 +72,14 @@
             font-size: {{ font_config.px * 2 }}px;
         }
     </style>
-    {% include "common/analytics.html" %}
-</head>
-<body class="theme-light">
-<div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="document.body.className = 'theme-light';"></div>
-<div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="document.body.className = 'theme-dark';"></div>
-<div id="page">
-    <h1 class="title">Retro Pixel Font</h1>
-    <p class="content">A set of open source old game style pixel fonts.</p>
-    <h2 class="title">{{ font_config.full_display_name }}</h2>
-    <p class="content">font-size: {{ font_config.px }}px / line-height: {{ font_config.line_height_px }}px</p>
-    <p class="content">{{ font_config.description }}</p>
-    <h2 class="title">Nintendo</h2>
-    <a class="content" href="https://en.wikipedia.org/wiki/Nintendo" target="_blank">https://en.wikipedia.org/wiki/Nintendo</a>
-    <p class="content">Nintendo Co., Ltd. is a Japanese multinational video game company headquartered in Kyoto, Japan. It develops video games and video game consoles.</p>
-    <p class="content">Nintendo was founded in 1889 as Nintendo Karuta by craftsman Fusajiro Yamauchi and originally produced handmade hanafuda playing cards. After venturing into various lines of business during the 1960s and acquiring a legal status as a public company, Nintendo distributed its first console, the Color TV-Game, in 1977. It gained international recognition with the release of Donkey Kong in 1981 and the Nintendo Entertainment System and Super Mario Bros. in 1985.</p>
-    <p class="content">Since then, Nintendo has produced some of the most successful consoles in the video game industry, such as the Game Boy, the Super Nintendo Entertainment System, the Nintendo DS, the Wii, and the Switch. It has created numerous major franchises, including Mario, Donkey Kong, The Legend of Zelda, Pokémon, Kirby, Metroid, Fire Emblem, Animal Crossing, Splatoon, Star Fox, Xenoblade Chronicles, and Super Smash Bros. Nintendo's mascot, Mario, is internationally recognized. The company has sold more than 5.4 billion video games and over 800 million hardware units globally as of 2022.</p>
-    <p class="content">Nintendo has multiple subsidiaries in Japan and abroad, in addition to business partners such as The Pokémon Company and HAL Laboratory. Nintendo and its staff have received awards including Emmy Awards for Technology & Engineering, Game Awards, Game Developers Choice Awards, and British Academy Games Awards. It is one of the wealthiest and most valuable companies in the Japanese market.</p>
-</div>
-</body>
-</html>
+{% endblock %}
+{% block body %}
+    <div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="document.body.className = 'theme-light';"></div>
+    <div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="document.body.className = 'theme-dark';"></div>
+    <div id="page">
+        {{ content_html }}
+    </div>
+    <script>
+        document.body.className = 'theme-light';
+    </script>
+{% endblock %}
