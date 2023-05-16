@@ -1,4 +1,3 @@
-import os
 import random
 
 from jinja2 import Environment, FileSystemLoader
@@ -6,7 +5,6 @@ from jinja2 import Environment, FileSystemLoader
 from configs import path_define
 from configs.font_config import FontConfig
 from configs.git_deploy_config import GitDeployConfig
-from utils.unidata_util import UnidataDB
 
 build_random_key = random.random()
 
@@ -16,8 +14,6 @@ font_configs = FontConfig.loads()
 font_config_map = {font_config.output_name: font_config for font_config in font_configs}
 
 font_formats = ['otf', 'woff2', 'ttf']
-
-unidata_db = UnidataDB(os.path.join(path_define.unidata_dir, 'Blocks.txt'))
 
 template_env = Environment(
     trim_blocks=True,

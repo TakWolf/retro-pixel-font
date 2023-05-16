@@ -2,7 +2,8 @@ import logging
 import os
 import shutil
 
-import configs
+import unidata_blocks
+
 from configs import path_define
 from utils import fs_util, glyph_util
 
@@ -21,8 +22,8 @@ def classify_glyph_files(font_config):
             elif file_name.endswith('.png'):
                 uni_hex_name = file_name.removesuffix('.png').upper()
                 code_point = int(uni_hex_name, 16)
-                unicode_block = configs.unidata_db.get_block_by_code_point(code_point)
-                block_dir_name = f'{unicode_block.begin:04X}-{unicode_block.end:04X} {unicode_block.name}'
+                block = unidata_blocks.get_block_by_code_point(code_point)
+                block_dir_name = f'{block.code_start:04X}-{block.code_end:04X} {block.name}'
                 file_to_dir = os.path.join(glyphs_tmp_dir, block_dir_name)
                 file_name = f'{uni_hex_name}.png'
             else:
