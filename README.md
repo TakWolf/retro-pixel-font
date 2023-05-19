@@ -93,6 +93,17 @@
 
 使用 [MIT 许可证](LICENSE-MIT) 授权。
 
+## 程序依赖
+
+- [FontTools](https://github.com/fonttools/fonttools)
+- [Brotli](https://github.com/google/brotli)
+- [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
+- [PyPNG](https://gitlab.com/drj11/pypng)
+- [Pillow](https://github.com/python-pillow/Pillow)
+- [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
+- [Jinja](https://github.com/pallets/jinja)
+- [GitPython](https://github.com/gitpython-developers/GitPython)
+
 ## 赞助
 
 如果这个项目对您有帮助，请考虑赞助来支持开发工作。
