@@ -81,11 +81,11 @@ def format_glyph_files(font_config: FontConfig):
         glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(file_from_path)
         assert (glyph_height - font_config.size) % 2 == 0, f"Incorrect glyph data: '{file_from_path}'"
         if glyph_height > font_config.line_height:
-            for i in range(int((glyph_height - font_config.line_height) / 2)):
+            for i in range((glyph_height - font_config.line_height) // 2):
                 glyph_data.pop(0)
                 glyph_data.pop()
         elif glyph_height < font_config.line_height:
-            for i in range(int((font_config.line_height - glyph_height) / 2)):
+            for i in range((font_config.line_height - glyph_height) // 2):
                 glyph_data.insert(0, [0 for _ in range(glyph_width)])
                 glyph_data.append([0 for _ in range(glyph_width)])
 
@@ -141,7 +141,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.character_mapping.update(character_mapping)
     for glyph_name, glyph_file_path in glyph_file_paths.items():
         glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(glyph_file_path)
-        offset_y = font_config.box_origin_y + int((glyph_height - font_config.size) / 2) - glyph_height
+        offset_y = font_config.box_origin_y + (glyph_height - font_config.size) // 2 - glyph_height
         builder.add_glyph(Glyph(
             name=glyph_name,
             advance_width=glyph_width,

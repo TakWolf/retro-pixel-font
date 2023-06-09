@@ -53,7 +53,7 @@ class FontConfig:
         self.line_height: int = config_data['line_height']
         assert (self.line_height - self.size) % 2 == 0, f"Font config '{self.name}': the difference between 'line_height' and 'size' must be a multiple of 2"
         self.box_origin_y: int = config_data['box_origin_y']
-        self.ascent = self.box_origin_y + int((self.line_height - self.size) / 2)
+        self.ascent = self.box_origin_y + (self.line_height - self.size) // 2
         self.descent = self.ascent - self.line_height
         self.x_height: int = config_data['x_height']
         self.cap_height: int = config_data['cap_height']
