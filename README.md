@@ -67,11 +67,11 @@
 
 ![preview-thick](docs/thick/preview.png)
 
-## 下载和使用
+## 下载
 
 可在 [Releases](https://github.com/TakWolf/retro-pixel-font/releases) 下载最新的版本。
 
-使用时请注意正确地设置渲染尺寸。
+目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf` 四种格式。
 
 ## 本地构建
 
