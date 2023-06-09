@@ -13,29 +13,26 @@ from utils import fs_util
 logger = logging.getLogger('publish-service')
 
 
-def make_release_zips(font_formats=None):
-    if font_formats is None:
-        font_formats = configs.font_formats
-
-    fs_util.make_dirs_if_not_exists(path_define.releases_dir)
-    for font_format in font_formats:
-        zip_file_path = os.path.join(path_define.releases_dir, f'retro-pixel-font-{font_format}-v{configs.font_version}.zip')
-        with zipfile.ZipFile(zip_file_path, 'w') as zip_file:
-            zip_file.write(os.path.join(path_define.outputs_dir, 'readme.txt'), 'readme.txt')
+def make_release_zips():
+    fs_util.make_dirs(path_define.releases_dir)
+    for font_format in configs.font_formats:
+        file_path = os.path.join(path_define.releases_dir, f'retro-pixel-font-{font_format}-v{configs.version}.zip')
+        with zipfile.ZipFile(file_path, 'w') as file:
+            file.write(os.path.join(path_define.outputs_dir, 'readme.txt'), 'readme.txt')
             for font_config in configs.font_configs:
-                font_file_name = f'{font_config.full_output_name}.{font_format}'
-                zip_file.write(os.path.join(font_config.outputs_dir, font_file_name), os.path.join(font_config.output_name, font_file_name))
-                zip_file.write(os.path.join(font_config.outputs_dir, 'OFL.txt'), os.path.join(font_config.output_name, 'OFL.txt'))
-                zip_file.write(os.path.join(font_config.outputs_dir, 'info.txt'), os.path.join(font_config.output_name, 'info.txt'))
-                zip_file.write(os.path.join(font_config.outputs_dir, 'preview.png'), os.path.join(font_config.output_name, 'preview.png'))
-        logger.info(f'make {zip_file_path}')
+                font_file_name = f'{font_config.full_outputs_name}.{font_format}'
+                file.write(os.path.join(font_config.outputs_dir, font_file_name), os.path.join(font_config.outputs_name, font_file_name))
+                file.write(os.path.join(font_config.outputs_dir, 'OFL.txt'), os.path.join(font_config.outputs_name, 'OFL.txt'))
+                file.write(os.path.join(font_config.outputs_dir, 'info.txt'), os.path.join(font_config.outputs_name, 'info.txt'))
+                file.write(os.path.join(font_config.outputs_dir, 'preview.png'), os.path.join(font_config.outputs_name, 'preview.png'))
+        logger.info(f"Make release zip: '{file_path}'")
 
 
-def _copy_file(file_name, from_dir, to_dir):
+def _copy_file(file_name: str, from_dir: str, to_dir: str):
     from_path = os.path.join(from_dir, file_name)
     to_path = os.path.join(to_dir, file_name)
     shutil.copyfile(from_path, to_path)
-    logger.info(f'copy from {from_path} to {to_path}')
+    logger.info(f"Copy from '{from_path}' to '{to_path}'")
 
 
 def update_docs():
@@ -43,7 +40,7 @@ def update_docs():
     os.mkdir(path_define.docs_dir)
     _copy_file('readme-banner.png', path_define.outputs_dir, path_define.docs_dir)
     for font_config in configs.font_configs:
-        fs_util.make_dirs_if_not_exists(font_config.docs_dir)
+        fs_util.make_dirs(font_config.docs_dir)
         _copy_file('preview.png', font_config.outputs_dir, font_config.docs_dir)
 
 
@@ -52,8 +49,8 @@ def update_www():
     shutil.copytree(path_define.www_static_dir, path_define.www_dir)
     _copy_file('index.html', path_define.outputs_dir, path_define.www_dir)
     for font_config in configs.font_configs:
-        fs_util.make_dirs_if_not_exists(font_config.www_dir)
-        _copy_file(f'{font_config.full_output_name}.woff2', font_config.outputs_dir, font_config.www_dir)
+        fs_util.make_dirs(font_config.www_dir)
+        _copy_file(f'{font_config.full_outputs_name}.woff2', font_config.outputs_dir, font_config.www_dir)
         _copy_file('alphabet.html', font_config.outputs_dir, font_config.www_dir)
         _copy_file('demo.html', font_config.outputs_dir, font_config.www_dir)
 

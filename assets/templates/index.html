@@ -109,13 +109,13 @@
         }
         {% for font_config in configs.font_configs %}
         @font-face {
-            font-family: {{ font_config.full_unique_name }};
-            src: url("{{ font_config.output_name }}/{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
+            font-family: {{ font_config.full_outputs_name }};
+            src: url("{{ font_config.outputs_name }}/{{ font_config.full_outputs_name }}.woff2?r={{ configs.build_random_key }}");
         }
-        .font-{{ font_config.output_name }} {
-            font-family: {{ font_config.full_unique_name }}, sans-serif;
-            font-size: {{ font_config.px * 2 }}px;
-            line-height: {{ font_config.line_height_px * 2}}px;
+        .font-{{ font_config.outputs_name }} {
+            font-family: {{ font_config.full_outputs_name }}, sans-serif;
+            font-size: {{ font_config.size * 2 }}px;
+            line-height: {{ font_config.line_height * 2}}px;
         }
         {% endfor %}
     </style>
@@ -129,18 +129,18 @@
             <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
         </div>
         {% for font_config in configs.font_configs %}
-        <div class="font-card" id="font-{{ font_config.output_name }}">
-            <h2 class="name">{{ font_config.display_name }}</h2>
+        <div class="font-card" id="font-{{ font_config.outputs_name }}">
+            <h2 class="name">{{ font_config.name }}</h2>
             <p class="info">
-                <span>font-size: {{ font_config.px }}px / line-height: {{ font_config.line_height_px }}px</span>
+                <span>font-size: {{ font_config.size }}px / line-height: {{ font_config.line_height }}px</span>
                 <span> · </span>
-                <a href="{{ font_config.output_name }}/alphabet.html" target="_blank">alphabet</a>
+                <a href="{{ font_config.outputs_name }}/alphabet.html" target="_blank">alphabet</a>
                 <span> · </span>
-                <a href="{{ font_config.output_name }}/demo.html" target="_blank">demo</a>
+                <a href="{{ font_config.outputs_name }}/demo.html" target="_blank">demo</a>
             </p>
             <p class="info">{{ font_config.description }}</p>
             <label class="demo-text">
-                <textarea class="font-{{ font_config.output_name }}">{{ font_config.preview_text }}</textarea>
+                <textarea class="font-{{ font_config.outputs_name }}">{{ font_config.preview_text }}</textarea>
             </label>
         </div>
         {% endfor %}

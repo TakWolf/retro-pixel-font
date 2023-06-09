@@ -1,16 +1,14 @@
 [font]
-display_name = "Thick"
-unique_name = "Thick"
+name = "Thick"
 style_name = "Bold"
+serif_mode = "Sans-Serif"
+width_mode = "Proportional"
 description = "A little thick feeling pixel font."
-designer = "TakWolf"
-designer_url = "https://takwolf.com"
-copyright_year = 2023
 
-px = 16
-line_height_px = 20
-box_origin_y_px = 13
-x_height_px = 7
-cap_height_px = 10
+size = 16
+line_height = 20
+box_origin_y = 13
+x_height = 7
+cap_height = 10
 
 readme_intro = "有一点厚重感觉的像素字体。"

@@ -3,20 +3,32 @@ import math
 import os
 
 from PIL import Image, ImageFont, ImageDraw
+from PIL.ImageFont import FreeTypeFont
 
 import configs
-from configs import path_define
+from configs import path_define, FontConfig
 from utils import fs_util
 
 logger = logging.getLogger('image-service')
 
 
-def _load_font(font_config, px_scale=1):
-    font_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_output_name}.woff2')
-    return ImageFont.truetype(font_file_path, font_config.px * px_scale)
+def _load_font(font_config: FontConfig, scale: int = 1) -> FreeTypeFont:
+    file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.woff2')
+    return ImageFont.truetype(file_path, font_config.size * scale)
 
 
-def _draw_text(image, xy, text, font, text_color=(0, 0, 0), shadow_color=None, line_height=None, line_gap=0, is_horizontal_centered=False, is_vertical_centered=False):
+def _draw_text(
+        image: Image.Image,
+        xy: tuple[float, float],
+        text: str,
+        font: FreeTypeFont,
+        text_color: tuple[int, int, int, int] = (0, 0, 0, 255),
+        shadow_color: tuple[int, int, int, int] = None,
+        line_height: int = None,
+        line_gap: int = 0,
+        is_horizontal_centered: bool = False,
+        is_vertical_centered: bool = False,
+):
     draw = ImageDraw.Draw(image)
     x, y = xy
     default_line_height = sum(font.getmetrics())
@@ -33,17 +45,22 @@ def _draw_text(image, xy, text, font, text_color=(0, 0, 0), shadow_color=None, l
     draw.text((x, y), text, fill=text_color, font=font, spacing=spacing)
 
 
-def _draw_demo_lines(image, xy, line_infos, text_color, shadow_color):
+def _draw_demo_lines(
+        image: Image.Image,
+        xy: tuple[float, float],
+        line_infos: list[tuple[str, FreeTypeFont]],
+        text_color: tuple[int, int, int, int],
+        shadow_color: tuple[int, int, int, int],
+):
     x, y = xy
     for line, font in line_infos:
         _draw_text(image, (x, y), line, font, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
         y += sum(font.getmetrics())
 
 
-def make_preview_image_file(font_config):
+def make_preview_image_file(font_config: FontConfig):
     font = _load_font(font_config)
-    background_color = (30, 144, 255)
-    text_color = (255, 255, 255)
+    text_color = (255, 255, 255, 255)
     lines = font_config.preview_text.split('\n')
 
     content_width = 0
@@ -51,47 +68,47 @@ def make_preview_image_file(font_config):
         line_width = math.ceil(font.getlength(line))
         if line_width > content_width:
             content_width = line_width
-    content_height = font_config.line_height_px * len(lines)
+    content_height = font_config.line_height * len(lines)
 
-    image = Image.new('RGBA', (font_config.px * 2 + content_width, font_config.px * 2 + content_height), background_color)
-    cursor_x = font_config.px
-    cursor_y = font_config.px
+    image = Image.new('RGBA', (font_config.size * 2 + content_width, font_config.size * 2 + content_height), (30, 144, 255, 255))
+    cursor_x = font_config.size
+    cursor_y = font_config.size
     for line in lines:
         _draw_text(image, (cursor_x, cursor_y), line, font, text_color=text_color)
-        cursor_y += font_config.line_height_px
+        cursor_y += font_config.line_height
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(font_config.outputs_dir)
-    image_file_path = os.path.join(font_config.outputs_dir, 'preview.png')
-    image.save(image_file_path)
-    logger.info(f'make {image_file_path}')
+    fs_util.make_dirs(font_config.outputs_dir)
+    file_path = os.path.join(font_config.outputs_dir, 'preview.png')
+    image.save(file_path)
+    logger.info(f"Make preview image file: '{file_path}'")
 
 
 def make_readme_banner():
-    font_thick = _load_font(configs.font_config_map['thick'], 2)
-    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
-    text_color = (255, 255, 255)
-    shadow_color = (80, 80, 80)
+    font_thick = _load_font(configs.outputs_name_to_config['thick'], 2)
+    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    text_color = (255, 255, 255, 255)
+    shadow_color = (80, 80, 80, 255)
 
     image = Image.open(os.path.join(path_define.images_dir, 'readme-banner-background.png'))
     _draw_text(image, (image.width / 2, 28), 'Retro Pixel Font', font_thick, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 28 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
-    image_file_path = os.path.join(path_define.outputs_dir, 'readme-banner.png')
-    image.save(image_file_path)
-    logger.info(f'make {image_file_path}')
+    fs_util.make_dirs(path_define.outputs_dir)
+    file_path = os.path.join(path_define.outputs_dir, 'readme-banner.png')
+    image.save(file_path)
+    logger.info(f"Make readme banner: '{file_path}'")
 
 
 def make_github_banner():
-    font_title = _load_font(configs.font_config_map['thick'], 2)
-    font_arcade = _load_font(configs.font_config_map['arcade'])
-    font_cute_mono = _load_font(configs.font_config_map['cute-mono'])
-    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
-    font_thick = _load_font(configs.font_config_map['thick'])
-    text_color = (255, 255, 255)
-    shadow_color = (80, 80, 80)
+    font_title = _load_font(configs.outputs_name_to_config['thick'], 2)
+    font_arcade = _load_font(configs.outputs_name_to_config['arcade'])
+    font_cute_mono = _load_font(configs.outputs_name_to_config['cute-mono'])
+    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    font_thick = _load_font(configs.outputs_name_to_config['thick'])
+    text_color = (255, 255, 255, 255)
+    shadow_color = (80, 80, 80, 255)
 
     image = Image.open(os.path.join(path_define.images_dir, 'github-banner-background.png'))
     _draw_text(image, (image.width / 2, 40 + 16), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
@@ -109,37 +126,37 @@ def make_github_banner():
     _draw_demo_lines(image, (image.width / 2, 40 + 16 * 5), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
-    image_file_path = os.path.join(path_define.outputs_dir, 'github-banner.png')
-    image.save(image_file_path)
-    logger.info(f'make {image_file_path}')
+    fs_util.make_dirs(path_define.outputs_dir)
+    file_path = os.path.join(path_define.outputs_dir, 'github-banner.png')
+    image.save(file_path)
+    logger.info(f"Make github banner: '{file_path}'")
 
 
 def make_itch_io_banner():
-    font_thick = _load_font(configs.font_config_map['thick'], 2)
-    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
-    text_color = (255, 255, 255)
-    shadow_color = (80, 80, 80)
+    font_thick = _load_font(configs.outputs_name_to_config['thick'], 2)
+    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    text_color = (255, 255, 255, 255)
+    shadow_color = (80, 80, 80, 255)
 
     image = Image.open(os.path.join(path_define.images_dir, 'itch-io-banner-background.png'))
     _draw_text(image, (image.width / 2, 32), 'Retro Pixel Font', font_thick, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 32 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
-    image_file_path = os.path.join(path_define.outputs_dir, 'itch-io-banner.png')
-    image.save(image_file_path)
-    logger.info(f'make {image_file_path}')
+    fs_util.make_dirs(path_define.outputs_dir)
+    file_path = os.path.join(path_define.outputs_dir, 'itch-io-banner.png')
+    image.save(file_path)
+    logger.info(f"Make itch.io banner: '{file_path}'")
 
 
 def make_itch_io_cover():
-    font_title = _load_font(configs.font_config_map['thick'], 2)
-    font_arcade = _load_font(configs.font_config_map['arcade'])
-    font_cute_mono = _load_font(configs.font_config_map['cute-mono'])
-    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
-    font_thick = _load_font(configs.font_config_map['thick'])
-    text_color = (255, 255, 255)
-    shadow_color = (80, 80, 80)
+    font_title = _load_font(configs.outputs_name_to_config['thick'], 2)
+    font_arcade = _load_font(configs.outputs_name_to_config['arcade'])
+    font_cute_mono = _load_font(configs.outputs_name_to_config['cute-mono'])
+    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    font_thick = _load_font(configs.outputs_name_to_config['thick'])
+    text_color = (255, 255, 255, 255)
+    shadow_color = (80, 80, 80, 255)
 
     image = Image.open(os.path.join(path_define.images_dir, 'itch-io-cover-background.png'))
     _draw_text(image, (image.width / 2, 6), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
@@ -158,20 +175,20 @@ def make_itch_io_cover():
     _draw_demo_lines(image, (image.width / 2, 6 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
-    image_file_path = os.path.join(path_define.outputs_dir, 'itch-io-cover.png')
-    image.save(image_file_path)
-    logger.info(f'make {image_file_path}')
+    fs_util.make_dirs(path_define.outputs_dir)
+    file_path = os.path.join(path_define.outputs_dir, 'itch-io-cover.png')
+    image.save(file_path)
+    logger.info(f"Make itch.io cover: '{file_path}'")
 
 
 def make_afdian_cover():
-    font_title = _load_font(configs.font_config_map['thick'], 2)
-    font_arcade = _load_font(configs.font_config_map['arcade'])
-    font_cute_mono = _load_font(configs.font_config_map['cute-mono'])
-    font_cute_prop = _load_font(configs.font_config_map['cute-prop'])
-    font_thick = _load_font(configs.font_config_map['thick'])
-    text_color = (255, 255, 255)
-    shadow_color = (80, 80, 80)
+    font_title = _load_font(configs.outputs_name_to_config['thick'], 2)
+    font_arcade = _load_font(configs.outputs_name_to_config['arcade'])
+    font_cute_mono = _load_font(configs.outputs_name_to_config['cute-mono'])
+    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    font_thick = _load_font(configs.outputs_name_to_config['thick'])
+    text_color = (255, 255, 255, 255)
+    shadow_color = (80, 80, 80, 255)
 
     image = Image.open(os.path.join(path_define.images_dir, 'afdian-cover-background.png'))
     _draw_text(image, (image.width / 2, 18), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
@@ -194,7 +211,7 @@ def make_afdian_cover():
     _draw_demo_lines(image, (image.width / 2, 18 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.NEAREST)
 
-    fs_util.make_dirs_if_not_exists(path_define.outputs_dir)
-    image_file_path = os.path.join(path_define.outputs_dir, 'afdian-cover.png')
-    image.save(image_file_path)
-    logger.info(f'make {image_file_path}')
+    fs_util.make_dirs(path_define.outputs_dir)
+    file_path = os.path.join(path_define.outputs_dir, 'afdian-cover.png')
+    image.save(file_path)
+    logger.info(f"Make afdian cover: '{file_path}'")

@@ -1,5 +1,5 @@
 {% extends "common/base.html" %}
-{% block title %}{{ font_config.full_display_name }} - Demo{% endblock %}
+{% block title %}{{ font_config.family_name }} - Demo{% endblock %}
 {% block style %}
     <style>
         * {
@@ -8,8 +8,8 @@
             box-sizing: border-box;
         }
         @font-face {
-            font-family: {{ font_config.full_unique_name }};
-            src: url("{{ font_config.full_output_name }}.woff2?r={{ configs.build_random_key }}");
+            font-family: {{ font_config.full_outputs_name }};
+            src: url("{{ font_config.full_outputs_name }}.woff2?r={{ configs.build_random_key }}");
         }
         .theme-light {
             color: #4b4b4b;
@@ -45,7 +45,7 @@
             margin-left: auto;
             margin-right: auto;
             padding: 64px 192px;
-            font-family: {{ font_config.full_unique_name }}, sans-serif;
+            font-family: {{ font_config.full_outputs_name }}, sans-serif;
         }
         @media screen and (max-width: 1006px) {
             #page {
@@ -62,14 +62,14 @@
             }
         }
         .title {
-            margin-top: {{ font_config.px * 4 }}px;
-            margin-bottom: {{ font_config.px * 2 }}px;
-            font-size: {{ font_config.px * 3 }}px;
+            margin-top: {{ font_config.size * 4 }}px;
+            margin-bottom: {{ font_config.size * 2 }}px;
+            font-size: {{ font_config.size * 3 }}px;
         }
         .content {
-            margin-top: {{ font_config.px * 2 }}px;
-            margin-bottom: {{ font_config.px * 2 }}px;
-            font-size: {{ font_config.px * 2 }}px;
+            margin-top: {{ font_config.size * 2 }}px;
+            margin-bottom: {{ font_config.size * 2 }}px;
+            font-size: {{ font_config.size * 2 }}px;
         }
     </style>
 {% endblock %}

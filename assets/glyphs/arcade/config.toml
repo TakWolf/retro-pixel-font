@@ -1,17 +1,15 @@
 [font]
-display_name = "Arcade"
-unique_name = "Arcade"
+name = "Arcade"
 style_name = "Regular"
+serif_mode = "Sans-Serif"
+width_mode = "Monospaced"
 description = "Arcade Cabinet style pixel font. Design from Atari and Famicom game font."
-designer = "TakWolf"
-designer_url = "https://takwolf.com"
-copyright_year = 2023
 
-px = 8
-line_height_px = 12
-box_origin_y_px = 7
-x_height_px = 5
-cap_height_px = 7
+size = 8
+line_height = 12
+box_origin_y = 7
+x_height = 5
+cap_height = 7
 
 readme_intro = "街机风格的像素字体。设计来源于雅达利和红白机的游戏字体。"
 preview_text = """

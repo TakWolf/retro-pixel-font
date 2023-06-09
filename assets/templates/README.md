@@ -49,8 +49,7 @@
 
 ## 程序依赖
 
-- [FontTools](https://github.com/fonttools/fonttools)
-- [Brotli](https://github.com/google/brotli)
+- [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
 - [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [PyPNG](https://gitlab.com/drj11/pypng)
 - [Pillow](https://github.com/python-pillow/Pillow)
