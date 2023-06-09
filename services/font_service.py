@@ -13,10 +13,6 @@ from utils import fs_util
 logger = logging.getLogger('font-service')
 
 
-def _get_glyph_name(code_point: int) -> str:
-    return f'uni{code_point:04X}'
-
-
 def _load_glyph_data_from_png(file_path: str) -> tuple[list[list[int]], int, int]:
     width, height, bitmap, _ = png.Reader(filename=file_path).read()
     data = []
@@ -101,6 +97,7 @@ def format_glyph_files(font_config: FontConfig):
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], dict[str, str]]:
     character_mapping = {}
     glyph_file_paths = {}
+
     root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
     for glyph_file_dir, glyph_file_name in fs_util.walk_files(root_dir):
         if not glyph_file_name.endswith('.png'):
@@ -111,21 +108,25 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
         else:
             hex_name = glyph_file_name.removesuffix('.png')
             code_point = int(hex_name, 16)
-            glyph_name = _get_glyph_name(code_point)
+            glyph_name = f'uni{code_point:04X}'
             character_mapping[code_point] = glyph_name
             glyph_file_paths[glyph_name] = glyph_file_path
+
     if font_config.fallback_lower_from_upper:
         for code_point in range(ord('A'), ord('Z') + 1):
             fallback_code_point = code_point + 32
             if code_point in character_mapping and fallback_code_point not in character_mapping:
-                character_mapping[fallback_code_point] = _get_glyph_name(code_point)
+                character_mapping[fallback_code_point] = character_mapping[code_point]
+
     if font_config.fallback_upper_from_lower:
         for code_point in range(ord('a'), ord('z') + 1):
             fallback_code_point = code_point - 32
             if code_point in character_mapping and fallback_code_point not in character_mapping:
-                character_mapping[fallback_code_point] = _get_glyph_name(code_point)
+                character_mapping[fallback_code_point] = character_mapping[code_point]
+
     alphabet = [chr(code_point) for code_point in character_mapping]
     alphabet.sort()
+
     return alphabet, character_mapping, glyph_file_paths
 
 
