@@ -1,7 +1,6 @@
 import logging
 import os.path
 
-import configs
 from configs import path_define, FontConfig
 from utils import fs_util
 
@@ -51,5 +50,5 @@ def make_readme_txt_file():
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write('Retro Pixel Font\n\n')
         file.write('https://retro-pixel-font.takwolf.com\n\n')
-        file.write(f'version: {configs.version}\n')
+        file.write(f'version: {FontConfig.VERSION}\n')
     logger.info(f"Make readme txt file: '{file_path}'")

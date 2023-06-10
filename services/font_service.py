@@ -6,7 +6,6 @@ import png
 import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph
 
-import configs
 from configs import path_define, FontConfig
 from utils import fs_util
 
@@ -150,7 +149,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
             data=glyph_data,
         ))
 
-    builder.meta_infos.version = configs.version
+    builder.meta_infos.version = FontConfig.VERSION
     builder.meta_infos.family_name = font_config.family_name
     builder.meta_infos.style_name = font_config.style_name
     builder.meta_infos.serif_mode = font_config.serif_mode

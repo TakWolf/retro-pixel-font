@@ -1,19 +1,22 @@
 import os
+import time
 import tomllib
 from typing import Final
 
 from configs import path_define
 
-_DEFAULT_PREVIEW_TEXT = """
+_DEFAULT_PREVIEW_TEXT = '''
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 0123456789
 !"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~
-"""
+'''
 
 
 class FontConfig:
+    VERSION: Final[str] = f'{time.strftime("%Y.%m.%d")}'
     FAMILY_NAME_FORMAT: Final[str] = 'Retro Pixel {font_name}'
+    ZIP_OUTPUTS_NAME: Final[str] = 'retro-pixel-font'
     MANUFACTURER: Final[str] = 'TakWolf'
     DESIGNER: Final[str] = 'TakWolf'
     COPYRIGHT_INFO_FORMAT: Final[str] = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Retro Pixel {font_name}'."
