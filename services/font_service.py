@@ -53,7 +53,7 @@ def format_glyph_files(font_config: FontConfig):
         if file_name == 'config.toml':
             file_to_dir = tmp_dir
             file_to_path = os.path.join(file_to_dir, file_name)
-            assert not os.path.exists(file_to_path), f"Config file already exists: '{file_to_path}'"
+            assert not os.path.exists(file_to_path), f"Config file duplication: '{file_from_path}'"
             fs_util.make_dirs(file_to_dir)
             shutil.copyfile(file_from_path, file_to_path)
             logger.info(f"Copy config file: '{file_to_path}'")
@@ -71,7 +71,7 @@ def format_glyph_files(font_config: FontConfig):
             block_dir_name = f'{block.code_start:04X}-{block.code_end:04X} {block.name}'
             file_to_dir = os.path.join(tmp_dir, block_dir_name)
         file_to_path = os.path.join(file_to_dir, file_name)
-        assert not os.path.exists(file_to_path), f"Glyph file already exists: '{file_to_path}'"
+        assert not os.path.exists(file_to_path), f"Glyph file duplication: '{file_from_path}'"
 
         glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(file_from_path)
         assert (glyph_height - font_config.size) % 2 == 0, f"Incorrect glyph data: '{file_from_path}'"
