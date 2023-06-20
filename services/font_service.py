@@ -87,10 +87,8 @@ def format_glyph_files(font_config: FontConfig):
         fs_util.make_dirs(file_to_dir)
         _save_glyph_data_to_png(glyph_data, file_to_path)
         logger.info(f"Format glyph file: '{file_to_path}'")
-    old_dir = os.path.join(path_define.glyphs_tmp_dir, f'{font_config.outputs_name}.old')
-    os.rename(root_dir, old_dir)
+    shutil.rmtree(root_dir)
     os.rename(tmp_dir, root_dir)
-    shutil.rmtree(old_dir)
 
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], dict[str, str]]:
