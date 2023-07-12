@@ -66,24 +66,6 @@ def deploy_www():
 
 
 def update_readme_md():
-    file_path = os.path.join(path_define.project_root_dir, 'README.md')
-
-    front_lines = []
-    back_lines = []
-    with open(file_path, 'r', encoding='utf-8') as file:
-        current_lines = front_lines
-        for line in file.readlines():
-            line = line.rstrip()
-            if line == '可以通过 [主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。':
-                current_lines.append(line)
-                current_lines.append('')
-                current_lines = None
-            elif line == '## 下载':
-                current_lines = back_lines
-                current_lines.append(line)
-            elif current_lines is not None:
-                current_lines.append(line)
-
     preview_lines = []
     for font_config in configs.font_configs:
         preview_lines.append(f'### {font_config.name}')
@@ -99,7 +81,25 @@ def update_readme_md():
         preview_lines.append(f'![preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)')
         preview_lines.append('')
 
+    file_path = os.path.join(path_define.project_root_dir, 'README.md')
+
+    front_lines = []
+    back_lines = []
+    with open(file_path, 'r', encoding='utf-8') as file:
+        current_lines = front_lines
+        for line in file.readlines():
+            line = line.rstrip()
+            if line == '可以通过 [主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。':
+                current_lines.append(line)
+                current_lines.append('')
+                current_lines = None
+            elif current_lines is None and line.startswith('## '):
+                current_lines = back_lines
+                current_lines.append(line)
+            elif current_lines is not None:
+                current_lines.append(line)
+
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write('\n'.join(front_lines + preview_lines + back_lines))
         file.write('\n')
-    logger.info(f"Make readme markdown file: '{file_path}'")
+    logger.info(f"Update: 'README.md'")
