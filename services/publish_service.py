@@ -63,3 +63,43 @@ def deploy_www():
     for git_deploy_config in configs.git_deploy_configs:
         repo.git.remote('add', git_deploy_config.remote_name, git_deploy_config.url)
         repo.git.push(git_deploy_config.remote_name, f'{current_branch_name}:{git_deploy_config.branch_name}', '-f')
+
+
+def update_readme_md():
+    file_path = os.path.join(path_define.project_root_dir, 'README.md')
+
+    front_lines = []
+    back_lines = []
+    with open(file_path, 'r', encoding='utf-8') as file:
+        current_lines = front_lines
+        for line in file.readlines():
+            line = line.rstrip()
+            if line == '可以通过 [主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。':
+                current_lines.append(line)
+                current_lines.append('')
+                current_lines = None
+            elif line == '## 下载':
+                current_lines = back_lines
+                current_lines.append(line)
+            elif current_lines is not None:
+                current_lines.append(line)
+
+    preview_lines = []
+    for font_config in configs.font_configs:
+        preview_lines.append(f'### {font_config.name}')
+        preview_lines.append('')
+        info = f'尺寸：{font_config.size}px / 行高：{font_config.line_height}px · '
+        info += f'[实时预览](https://retro-pixel-font.takwolf.com#font-{font_config.outputs_name}) · '
+        info += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/alphabet.html) · '
+        info += f'[示例文本](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/demo.html)'
+        preview_lines.append(info)
+        preview_lines.append('')
+        preview_lines.append(f'{font_config.readme_intro}')
+        preview_lines.append('')
+        preview_lines.append(f'![preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)')
+        preview_lines.append('')
+
+    with open(file_path, 'w', encoding='utf-8') as file:
+        file.write('\n'.join(front_lines + preview_lines + back_lines))
+        file.write('\n')
+    logger.info(f"Make readme markdown file: '{file_path}'")

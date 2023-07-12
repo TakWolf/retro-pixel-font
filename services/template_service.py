@@ -110,24 +110,3 @@ def make_itch_io_details_html_file():
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(html)
     logger.info(f"Make itch.io details html file: '{file_path}'")
-
-
-def make_readme_md_file():
-    preview = ''
-    for font_config in configs.font_configs:
-        preview += f'### {font_config.name}\n\n'
-        preview += f'尺寸：{font_config.size}px / 行高：{font_config.line_height}px · '
-        preview += f'[实时预览](https://retro-pixel-font.takwolf.com#font-{font_config.outputs_name}) · '
-        preview += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/alphabet.html) · '
-        preview += f'[示例文本](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/demo.html)\n\n'
-        preview += f'{font_config.readme_intro}\n\n'
-        preview += f'![preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)\n\n'
-    preview = preview.strip()
-
-    template = _environment.get_template('README.md')
-    markdown = template.render(preview=preview)
-    file_path = os.path.join(path_define.project_root_dir, 'README.md')
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(markdown)
-        file.write('\n')
-    logger.info(f"Make readme markdown file: '{file_path}'")
