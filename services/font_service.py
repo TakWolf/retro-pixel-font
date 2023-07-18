@@ -2,45 +2,13 @@ import logging
 import os
 import shutil
 
-import png
 import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph
 
 from configs import path_define, FontConfig
-from utils import fs_util
+from utils import fs_util, glyph_util
 
 logger = logging.getLogger('font-service')
-
-
-def _load_glyph_data_from_png(file_path: str) -> tuple[list[list[int]], int, int]:
-    width, height, bitmap, _ = png.Reader(filename=file_path).read()
-    data = []
-    for bitmap_row in bitmap:
-        data_row = []
-        for x in range(0, width * 4, 4):
-            alpha = bitmap_row[x + 3]
-            if alpha > 127:
-                data_row.append(1)
-            else:
-                data_row.append(0)
-        data.append(data_row)
-    return data, width, height
-
-
-def _save_glyph_data_to_png(data: list[list[int]], file_path: str):
-    bitmap = []
-    for data_row in data:
-        bitmap_row = []
-        for x in data_row:
-            bitmap_row.append(0)
-            bitmap_row.append(0)
-            bitmap_row.append(0)
-            if x == 0:
-                bitmap_row.append(0)
-            else:
-                bitmap_row.append(255)
-        bitmap.append(bitmap_row)
-    png.from_array(bitmap, 'RGBA').save(file_path)
 
 
 def format_glyph_files(font_config: FontConfig):
@@ -73,7 +41,7 @@ def format_glyph_files(font_config: FontConfig):
         file_to_path = os.path.join(file_to_dir, file_name)
         assert not os.path.exists(file_to_path), f"Glyph file duplication: '{file_from_path}'"
 
-        glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(file_from_path)
+        glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(file_from_path)
         assert (glyph_height - font_config.size) % 2 == 0, f"Incorrect glyph data: '{file_from_path}'"
         if glyph_height > font_config.line_height:
             for i in range((glyph_height - font_config.line_height) // 2):
@@ -85,7 +53,7 @@ def format_glyph_files(font_config: FontConfig):
                 glyph_data.append([0 for _ in range(glyph_width)])
 
         fs_util.make_dirs(file_to_dir)
-        _save_glyph_data_to_png(glyph_data, file_to_path)
+        glyph_util.save_glyph_data_to_png(glyph_data, file_to_path)
         logger.info(f"Format glyph file: '{file_to_path}'")
     shutil.rmtree(root_dir)
     os.rename(tmp_dir, root_dir)
@@ -138,7 +106,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
     builder.character_mapping.update(character_mapping)
     for glyph_name, glyph_file_path in glyph_file_paths.items():
-        glyph_data, glyph_width, glyph_height = _load_glyph_data_from_png(glyph_file_path)
+        glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(glyph_file_path)
         offset_y = font_config.box_origin_y + (glyph_height - font_config.size) // 2 - glyph_height
         builder.add_glyph(Glyph(
             name=glyph_name,
