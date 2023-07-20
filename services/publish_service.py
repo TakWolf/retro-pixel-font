@@ -25,14 +25,14 @@ def make_release_zips():
                 file.write(os.path.join(font_config.outputs_dir, 'OFL.txt'), os.path.join(font_config.outputs_name, 'OFL.txt'))
                 file.write(os.path.join(font_config.outputs_dir, 'info.txt'), os.path.join(font_config.outputs_name, 'info.txt'))
                 file.write(os.path.join(font_config.outputs_dir, 'preview.png'), os.path.join(font_config.outputs_name, 'preview.png'))
-        logger.info(f"Make release zip: '{file_path}'")
+        logger.info("Make release zip: '%s'", file_path)
 
 
 def _copy_file(file_name: str, from_dir: str, to_dir: str):
     from_path = os.path.join(from_dir, file_name)
     to_path = os.path.join(to_dir, file_name)
     shutil.copyfile(from_path, to_path)
-    logger.info(f"Copy from '{from_path}' to '{to_path}'")
+    logger.info("Copy from '%s' to '%s'", from_path, to_path)
 
 
 def update_docs():
@@ -102,4 +102,4 @@ def update_readme_md():
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write('\n'.join(front_lines + preview_lines + back_lines))
         file.write('\n')
-    logger.info(f"Update: 'README.md'")
+    logger.info("Update: 'README.md'")

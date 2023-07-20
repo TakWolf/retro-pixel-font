@@ -22,7 +22,7 @@ def make_ofl_txt_file(font_config: FontConfig):
     with open(file_path, 'w', encoding='utf-8') as file:
         ofl_string = _load_ofl_string_format().format(font_name=font_config.name)
         file.write(ofl_string)
-    logger.info(f"Make ofl txt file: '{file_path}'")
+    logger.info("Make ofl txt file: '%s'", file_path)
 
 
 def make_info_txt_file(font_config: FontConfig):
@@ -33,7 +33,7 @@ def make_info_txt_file(font_config: FontConfig):
         file.write(f'font-size: { font_config.size }px\n')
         file.write(f'line-height: { font_config.line_height }px\n\n')
         file.write(f'{font_config.description}\n')
-    logger.info(f"Make info txt file: '{file_path}'")
+    logger.info("Make info txt file: '%s'", file_path)
 
 
 def make_alphabet_txt_file(font_config: FontConfig, alphabet: list[str]):
@@ -41,7 +41,7 @@ def make_alphabet_txt_file(font_config: FontConfig, alphabet: list[str]):
     file_path = os.path.join(font_config.outputs_dir, 'alphabet.txt')
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(''.join(alphabet))
-    logger.info(f"Make alphabet txt file: '{file_path}'")
+    logger.info("Make alphabet txt file: '%s'", file_path)
 
 
 def make_readme_txt_file():
@@ -51,4 +51,4 @@ def make_readme_txt_file():
         file.write('Retro Pixel Font\n\n')
         file.write('https://retro-pixel-font.takwolf.com\n\n')
         file.write(f'version: {FontConfig.VERSION}\n')
-    logger.info(f"Make readme txt file: '{file_path}'")
+    logger.info("Make readme txt file: '%s'", file_path)
