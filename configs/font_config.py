@@ -14,7 +14,7 @@ abcdefghijklmnopqrstuvwxyz
 
 
 class FontConfig:
-    VERSION: Final[str] = f'{time.strftime("%Y.%m.%d")}'
+    VERSION: Final[str] = time.strftime("%Y.%m.%d")
     FAMILY_NAME_FORMAT: Final[str] = 'Retro Pixel {font_name}'
     ZIP_OUTPUTS_NAME: Final[str] = 'retro-pixel-font'
     MANUFACTURER: Final[str] = 'TakWolf'

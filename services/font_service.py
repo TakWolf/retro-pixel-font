@@ -33,9 +33,8 @@ def format_glyph_files(font_config: FontConfig):
         if file_name == 'notdef.png':
             file_to_dir = tmp_dir
         else:
-            hex_name = file_name.removesuffix('.png').upper()
-            code_point = int(hex_name, 16)
-            file_name = f'{hex_name}.png'
+            code_point = int(file_name.removesuffix('.png'), 16)
+            file_name = f'{code_point:04X}.png'
             block = unidata_blocks.get_block_by_code_point(code_point)
             block_dir_name = f'{block.code_start:04X}-{block.code_end:04X} {block.name}'
             file_to_dir = os.path.join(tmp_dir, block_dir_name)
@@ -72,8 +71,7 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
         if glyph_file_name == 'notdef.png':
             glyph_file_paths['.notdef'] = glyph_file_path
         else:
-            hex_name = glyph_file_name.removesuffix('.png')
-            code_point = int(hex_name, 16)
+            code_point = int(glyph_file_name.removesuffix('.png'), 16)
             glyph_name = f'uni{code_point:04X}'
             character_mapping[code_point] = glyph_name
             glyph_file_paths[glyph_name] = glyph_file_path
