@@ -6,8 +6,8 @@ width_mode = "Monospaced"
 description = "Draw uppercase letters with minimum size by 5*5px. Correspondingly, there are only uppercase letters and basic punctuation."
 
 size = 5
-line_height = 9
-box_origin_y = 5
+ascent = 7
+descent = -2
 x_height = 5
 cap_height = 5
 

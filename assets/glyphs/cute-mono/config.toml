@@ -6,8 +6,8 @@ width_mode = "Monospaced"
 description = "The design is based on the lowercase letters with 5px height, monospaced mode."
 
 size = 11
-line_height = 15
-box_origin_y = 9
+ascent = 11
+descent = -4
 x_height = 5
 cap_height = 7
 

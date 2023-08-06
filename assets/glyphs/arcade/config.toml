@@ -6,8 +6,8 @@ width_mode = "Monospaced"
 description = "Arcade Cabinet style pixel font. Design from Atari and Famicom game font."
 
 size = 8
-line_height = 12
-box_origin_y = 7
+ascent = 9
+descent = -3
 x_height = 5
 cap_height = 7
 
