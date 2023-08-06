@@ -7,7 +7,7 @@ from configs.git_deploy_config import GitDeployConfig
 build_random_key = random.random()
 
 font_configs = FontConfig.loads()
-outputs_name_to_config: dict[str, FontConfig] = {font_config.outputs_name: font_config for font_config in font_configs}
+outputs_name_to_config = {font_config.outputs_name: font_config for font_config in font_configs}
 
 font_formats = ['otf', 'woff2', 'ttf', 'bdf']
 
