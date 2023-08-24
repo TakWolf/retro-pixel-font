@@ -5,6 +5,7 @@
 [![SIL Open Font License 1.1](https://img.shields.io/badge/license-OFL--1.1-orange)](https://scripts.sil.org/OFL)
 [![MIT License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
+[![itch.io](https://img.shields.io/badge/itch.io-retro--pixel--font-red?logo=itch.io&logoColor=white)](https://takwolf.itch.io/retro-pixel-font)
 [![Discord](https://img.shields.io/discord/949265373964947458?logo=discord&logoColor=white&label=discord)](https://discord.gg/3GKtPKtjdU)
 [![QQ Group](https://img.shields.io/badge/QQ群-302383204-brightgreen?logo=tencentqq)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
@@ -13,11 +14,6 @@
 如果您在寻找开源的泛中日韩或 Unicode 像素字体，请尝试 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font) 。
 
 这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
-
-- [主页](https://retro-pixel-font.takwolf.com)
-- [itch.io](https://takwolf.itch.io/retro-pixel-font)
-- [Discord](https://discord.gg/3GKtPKtjdU)
-- [QQ 群](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
 ## 预览
 
@@ -73,7 +69,10 @@
 
 ## 下载
 
-可在 [Releases](https://github.com/TakWolf/retro-pixel-font/releases) 下载最新的版本。
+可通过以下渠道下载最新的版本：
+
+- [GitHub Releases](https://github.com/TakWolf/retro-pixel-font/releases)
+- [itch.io](https://takwolf.itch.io/retro-pixel-font)
 
 目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf` 四种格式。
 
@@ -85,7 +84,7 @@
 
 等待任务完成后，可在 `build/outputs` 目录下找到生成的字体文件。
 
-## 授权信息
+## 授权许可
 
 分为「字体」和「构建程序」两个部分。
 
@@ -96,6 +95,11 @@
 ### 构建程序
 
 使用 [MIT 许可证](LICENSE-MIT) 授权。
+
+## 官方社区
+
+- [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
+- [「像素字体工房」QQ 群 (302383204)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
 ## 程序依赖
 
