@@ -1,7 +1,6 @@
 import logging
 import math
 import os
-import shutil
 
 import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph

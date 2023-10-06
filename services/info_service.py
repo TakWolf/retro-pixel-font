@@ -30,8 +30,8 @@ def make_info_txt_file(font_config: FontConfig):
     file_path = os.path.join(font_config.outputs_dir, 'info.txt')
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(f'{font_config.family_name}\n\n')
-        file.write(f'font-size: { font_config.size }px\n')
-        file.write(f'line-height: { font_config.line_height }px\n\n')
+        file.write(f'font-size: {font_config.size}px\n')
+        file.write(f'line-height: {font_config.line_height}px\n\n')
         file.write(f'{font_config.description}\n')
     logger.info("Make info txt file: '%s'", file_path)
 
