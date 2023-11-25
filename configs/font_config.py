@@ -1,5 +1,5 @@
+import datetime
 import os
-import time
 import tomllib
 from typing import Final
 
@@ -14,7 +14,7 @@ abcdefghijklmnopqrstuvwxyz
 
 
 class FontConfig:
-    VERSION: Final[str] = time.strftime("%Y.%m.%d")
+    VERSION: Final[str] = datetime.datetime.now(datetime.UTC).strftime("%Y.%m.%d")
     FAMILY_NAME_FORMAT: Final[str] = 'Retro Pixel {font_name}'
     ZIP_OUTPUTS_NAME: Final[str] = 'retro-pixel-font'
     MANUFACTURER: Final[str] = 'TakWolf'
