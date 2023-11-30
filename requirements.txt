@@ -1,4 +1,4 @@
-pixel-font-builder==0.0.10
+pixel-font-builder==0.0.11
 unidata-blocks==0.0.8
 pypng==0.20220715.0
 Pillow==10.1.0
