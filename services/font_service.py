@@ -102,13 +102,7 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
 
 
 def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_file_infos: list[tuple[str, str]]) -> FontBuilder:
-    builder = FontBuilder()
-
-    builder.metrics.size = font_config.size
-    builder.metrics.ascent = font_config.ascent
-    builder.metrics.descent = font_config.descent
-    builder.metrics.x_height = font_config.x_height
-    builder.metrics.cap_height = font_config.cap_height
+    builder = FontBuilder(font_config.size)
 
     builder.meta_infos.version = FontConfig.VERSION
     builder.meta_infos.family_name = font_config.family_name
@@ -123,6 +117,11 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.meta_infos.vendor_url = FontConfig.VENDOR_URL
     builder.meta_infos.designer_url = FontConfig.DESIGNER_URL
     builder.meta_infos.license_url = FontConfig.LICENSE_URL
+
+    builder.horizontal_header.ascent = font_config.ascent
+    builder.horizontal_header.descent = font_config.descent
+    builder.horizontal_header.x_height = font_config.x_height
+    builder.horizontal_header.cap_height = font_config.cap_height
 
     builder.character_mapping.update(character_mapping)
 
