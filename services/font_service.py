@@ -123,15 +123,21 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.horizontal_header.x_height = font_config.x_height
     builder.horizontal_header.cap_height = font_config.cap_height
 
+    builder.vertical_header.ascent = font_config.ascent
+    builder.vertical_header.descent = font_config.descent
+
     builder.character_mapping.update(character_mapping)
 
     for glyph_name, glyph_file_path in glyph_file_infos:
         glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(glyph_file_path)
-        offset_y = math.floor((font_config.ascent + font_config.descent - glyph_height) / 2)
+        horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_height) / 2)
+        vertical_origin_y = (glyph_height - font_config.size) // 2
         builder.glyphs.append(Glyph(
             name=glyph_name,
             advance_width=glyph_width,
-            offset=(0, offset_y),
+            advance_height=font_config.size,
+            horizontal_origin=(0, horizontal_origin_y),
+            vertical_origin_y=vertical_origin_y,
             data=glyph_data,
         ))
 
