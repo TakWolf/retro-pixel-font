@@ -120,11 +120,12 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
     builder.horizontal_header.ascent = font_config.ascent
     builder.horizontal_header.descent = font_config.descent
-    builder.horizontal_header.x_height = font_config.x_height
-    builder.horizontal_header.cap_height = font_config.cap_height
 
     builder.vertical_header.ascent = font_config.ascent
     builder.vertical_header.descent = font_config.descent
+
+    builder.properties.x_height = font_config.x_height
+    builder.properties.cap_height = font_config.cap_height
 
     builder.character_mapping.update(character_mapping)
 
