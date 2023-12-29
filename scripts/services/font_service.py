@@ -56,9 +56,8 @@ def format_glyph_files(font_config: FontConfig):
 
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[tuple[str, str]]]:
-    root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
-
     registry = {}
+    root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
     for file_dir, _, file_names in os.walk(root_dir):
         for file_name in file_names:
             if not file_name.endswith('.png'):
