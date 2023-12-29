@@ -1,8 +1,8 @@
 import logging
 import os.path
 
-from configs import path_define, FontConfig
-from utils import fs_util
+from scripts.configs import path_define, FontConfig
+from scripts.utils import fs_util
 
 logger = logging.getLogger('info-service')
 

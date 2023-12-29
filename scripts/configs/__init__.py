@@ -1,8 +1,8 @@
 import random
 
-from configs import path_define
-from configs.font_config import FontConfig
-from configs.git_deploy_config import GitDeployConfig
+from scripts.configs import path_define
+from scripts.configs.font_config import FontConfig
+from scripts.configs.git_deploy_config import GitDeployConfig
 
 build_random_key = random.random()
 

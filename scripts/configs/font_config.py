@@ -3,7 +3,7 @@ import os
 import tomllib
 from typing import Final
 
-from configs import path_define
+from scripts.configs import path_define
 
 _DEFAULT_PREVIEW_TEXT = '''
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
