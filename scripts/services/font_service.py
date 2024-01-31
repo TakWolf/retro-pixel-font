@@ -103,19 +103,19 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
 def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_file_infos: list[tuple[str, str]]) -> FontBuilder:
     builder = FontBuilder(font_config.size)
 
-    builder.meta_infos.version = FontConfig.VERSION
-    builder.meta_infos.family_name = font_config.family_name
-    builder.meta_infos.style_name = font_config.style_name
-    builder.meta_infos.serif_mode = font_config.serif_mode
-    builder.meta_infos.width_mode = font_config.width_mode
-    builder.meta_infos.manufacturer = FontConfig.MANUFACTURER
-    builder.meta_infos.designer = FontConfig.DESIGNER
-    builder.meta_infos.description = font_config.description
-    builder.meta_infos.copyright_info = font_config.copyright_info
-    builder.meta_infos.license_info = FontConfig.LICENSE_INFO
-    builder.meta_infos.vendor_url = FontConfig.VENDOR_URL
-    builder.meta_infos.designer_url = FontConfig.DESIGNER_URL
-    builder.meta_infos.license_url = FontConfig.LICENSE_URL
+    builder.meta_info.version = FontConfig.VERSION
+    builder.meta_info.family_name = font_config.family_name
+    builder.meta_info.style_name = font_config.style_name
+    builder.meta_info.serif_mode = font_config.serif_mode
+    builder.meta_info.width_mode = font_config.width_mode
+    builder.meta_info.manufacturer = FontConfig.MANUFACTURER
+    builder.meta_info.designer = FontConfig.DESIGNER
+    builder.meta_info.description = font_config.description
+    builder.meta_info.copyright_info = font_config.copyright_info
+    builder.meta_info.license_info = FontConfig.LICENSE_INFO
+    builder.meta_info.vendor_url = FontConfig.VENDOR_URL
+    builder.meta_info.designer_url = FontConfig.DESIGNER_URL
+    builder.meta_info.license_url = FontConfig.LICENSE_URL
 
     builder.horizontal_header.ascent = font_config.ascent
     builder.horizontal_header.descent = font_config.descent
@@ -123,8 +123,8 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.vertical_header.ascent = font_config.ascent
     builder.vertical_header.descent = font_config.descent
 
-    builder.properties.x_height = font_config.x_height
-    builder.properties.cap_height = font_config.cap_height
+    builder.os2_config.x_height = font_config.x_height
+    builder.os2_config.cap_height = font_config.cap_height
 
     builder.character_mapping.update(character_mapping)
 
