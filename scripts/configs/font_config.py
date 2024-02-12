@@ -23,7 +23,7 @@ class FontConfig:
     LICENSE_INFO: Final[str] = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
     VENDOR_URL: Final[str] = 'https://retro-pixel-font.takwolf.com'
     DESIGNER_URL: Final[str] = 'https://takwolf.com'
-    LICENSE_URL: Final[str] = 'https://scripts.sil.org/OFL'
+    LICENSE_URL: Final[str] = 'https://openfontlicense.org'
 
     @staticmethod
     def loads() -> list['FontConfig']:
