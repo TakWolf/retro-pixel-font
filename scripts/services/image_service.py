@@ -78,7 +78,7 @@ def make_preview_image_file(font_config: FontConfig):
         cursor_y += font_config.line_height
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    fs_util.make_dirs(font_config.outputs_dir)
+    fs_util.make_dir(font_config.outputs_dir)
     file_path = os.path.join(font_config.outputs_dir, 'preview.png')
     image.save(file_path)
     logger.info("Make preview image file: '%s'", file_path)
@@ -95,7 +95,7 @@ def make_readme_banner():
     _draw_text(image, (image.width / 2, 28 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'readme-banner.png')
     image.save(file_path)
     logger.info("Make readme banner: '%s'", file_path)
@@ -126,7 +126,7 @@ def make_github_banner():
     _draw_demo_lines(image, (image.width / 2, 40 + 16 * 5), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'github-banner.png')
     image.save(file_path)
     logger.info("Make github banner: '%s'", file_path)
@@ -143,7 +143,7 @@ def make_itch_io_banner():
     _draw_text(image, (image.width / 2, 32 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'itch-io-banner.png')
     image.save(file_path)
     logger.info("Make itch.io banner: '%s'", file_path)
@@ -175,7 +175,7 @@ def make_itch_io_cover():
     _draw_demo_lines(image, (image.width / 2, 6 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'itch-io-cover.png')
     image.save(file_path)
     logger.info("Make itch.io cover: '%s'", file_path)
@@ -211,7 +211,7 @@ def make_afdian_cover():
     _draw_demo_lines(image, (image.width / 2, 18 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'afdian-cover.png')
     image.save(file_path)
     logger.info("Make afdian cover: '%s'", file_path)

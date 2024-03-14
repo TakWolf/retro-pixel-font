@@ -14,7 +14,7 @@ logger = logging.getLogger('publish-service')
 
 
 def make_release_zips():
-    fs_util.make_dirs(path_define.releases_dir)
+    fs_util.make_dir(path_define.releases_dir)
     for font_format in configs.font_formats:
         file_path = os.path.join(path_define.releases_dir, f'{FontConfig.ZIP_OUTPUTS_NAME}-{font_format}-v{FontConfig.VERSION}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
@@ -40,7 +40,7 @@ def update_docs():
     os.mkdir(path_define.docs_dir)
     _copy_file('readme-banner.png', path_define.outputs_dir, path_define.docs_dir)
     for font_config in configs.font_configs:
-        fs_util.make_dirs(font_config.docs_dir)
+        fs_util.make_dir(font_config.docs_dir)
         _copy_file('preview.png', font_config.outputs_dir, font_config.docs_dir)
 
 
@@ -49,7 +49,7 @@ def update_www():
     shutil.copytree(path_define.www_static_dir, path_define.www_dir)
     _copy_file('index.html', path_define.outputs_dir, path_define.www_dir)
     for font_config in configs.font_configs:
-        fs_util.make_dirs(font_config.www_dir)
+        fs_util.make_dir(font_config.www_dir)
         _copy_file(f'{font_config.full_outputs_name}.woff2', font_config.outputs_dir, font_config.www_dir)
         _copy_file('alphabet.html', font_config.outputs_dir, font_config.www_dir)
         _copy_file('demo.html', font_config.outputs_dir, font_config.www_dir)

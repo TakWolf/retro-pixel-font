@@ -17,7 +17,7 @@ _ofl_string_format = _load_ofl_string_format()
 
 
 def make_ofl_txt_file(font_config: FontConfig):
-    fs_util.make_dirs(font_config.outputs_dir)
+    fs_util.make_dir(font_config.outputs_dir)
     file_path = os.path.join(font_config.outputs_dir, 'OFL.txt')
     with open(file_path, 'w', encoding='utf-8') as file:
         ofl_string = _load_ofl_string_format().format(font_name=font_config.name)
@@ -26,7 +26,7 @@ def make_ofl_txt_file(font_config: FontConfig):
 
 
 def make_info_txt_file(font_config: FontConfig):
-    fs_util.make_dirs(font_config.outputs_dir)
+    fs_util.make_dir(font_config.outputs_dir)
     file_path = os.path.join(font_config.outputs_dir, 'info.txt')
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(f'{font_config.family_name}\n\n')
@@ -37,7 +37,7 @@ def make_info_txt_file(font_config: FontConfig):
 
 
 def make_alphabet_txt_file(font_config: FontConfig, alphabet: list[str]):
-    fs_util.make_dirs(font_config.outputs_dir)
+    fs_util.make_dir(font_config.outputs_dir)
     file_path = os.path.join(font_config.outputs_dir, 'alphabet.txt')
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(''.join(alphabet))
@@ -45,7 +45,7 @@ def make_alphabet_txt_file(font_config: FontConfig, alphabet: list[str]):
 
 
 def make_readme_txt_file():
-    fs_util.make_dirs(path_define.outputs_dir)
+    fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'readme.txt')
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write('Retro Pixel Font\n\n')
