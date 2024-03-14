@@ -14,23 +14,23 @@ logger = logging.getLogger('font-service')
 
 def format_glyph_files(font_config: FontConfig):
     root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
-    for file_from_dir, _, file_names in list(os.walk(root_dir, topdown=False)):
+    for file_dir_from, _, file_names in list(os.walk(root_dir, topdown=False)):
         for file_name in file_names:
             if not file_name.endswith('.png'):
                 continue
-            file_from_path = os.path.join(file_from_dir, file_name)
+            file_path_from = os.path.join(file_dir_from, file_name)
             if file_name == 'notdef.png':
-                file_to_dir = root_dir
+                file_dir_to = root_dir
             else:
                 code_point = int(file_name.removesuffix('.png'), 16)
                 file_name = f'{code_point:04X}.png'
                 block = unidata_blocks.get_block_by_code_point(code_point)
                 block_dir_name = f'{block.code_start:04X}-{block.code_end:04X} {block.name}'
-                file_to_dir = os.path.join(root_dir, block_dir_name)
-            file_to_path = os.path.join(file_to_dir, file_name)
+                file_dir_to = os.path.join(root_dir, block_dir_name)
+            file_path_to = os.path.join(file_dir_to, file_name)
 
-            glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(file_from_path)
-            assert (glyph_height - font_config.size) % 2 == 0, f"Incorrect glyph data: '{file_from_path}'"
+            glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(file_path_from)
+            assert (glyph_height - font_config.size) % 2 == 0, f"Incorrect glyph data: '{file_path_from}'"
             if glyph_height > font_config.line_height:
                 for i in range((glyph_height - font_config.line_height) // 2):
                     glyph_data.pop(0)
@@ -40,19 +40,19 @@ def format_glyph_files(font_config: FontConfig):
                     glyph_data.insert(0, [0 for _ in range(glyph_width)])
                     glyph_data.append([0 for _ in range(glyph_width)])
 
-            if file_to_path != file_from_path:
-                assert not os.path.exists(file_to_path), f"Glyph file duplication: '{file_from_path}'"
-                fs_util.make_dirs(file_to_dir)
-                os.remove(file_from_path)
-            glyph_util.save_glyph_data_to_png(glyph_data, file_to_path)
-            logger.info("Format glyph file: '%s'", file_to_path)
+            if file_path_to != file_path_from:
+                assert not os.path.exists(file_path_to), f"Glyph file duplication: '{file_path_from}'"
+                fs_util.make_dirs(file_dir_to)
+                os.remove(file_path_from)
+            glyph_util.save_glyph_data_to_png(glyph_data, file_path_to)
+            logger.info("Format glyph file: '%s'", file_path_to)
 
-        entry_names = os.listdir(file_from_dir)
+        entry_names = os.listdir(file_dir_from)
         if '.DS_Store' in entry_names:
-            os.remove(os.path.join(file_from_dir, '.DS_Store'))
+            os.remove(os.path.join(file_dir_from, '.DS_Store'))
             entry_names.remove('.DS_Store')
         if len(entry_names) == 0:
-            os.rmdir(file_from_dir)
+            os.rmdir(file_dir_from)
 
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[tuple[str, str]]]:
