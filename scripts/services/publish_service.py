@@ -98,8 +98,7 @@ def update_readme_md():
                 current_lines.append(line)
             elif current_lines is not None:
                 current_lines.append(line)
+        current_lines.append('')
 
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write('\n'.join(front_lines + preview_lines + back_lines))
-        file.write('\n')
+    fs_util.write_str('\n'.join(front_lines + preview_lines + back_lines), file_path)
     logger.info("Update: 'README.md'")

@@ -26,8 +26,7 @@ def make_alphabet_html_file(font_config: FontConfig, alphabet: list[str]):
     )
     fs_util.make_dir(font_config.outputs_dir)
     file_path = os.path.join(font_config.outputs_dir, 'alphabet.html')
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(html)
+    fs_util.write_str(html, file_path)
     logger.info("Make alphabet html file: '%s'", file_path)
 
 
@@ -87,8 +86,7 @@ def make_demo_html_file(font_config: FontConfig, alphabet: list[str]):
     )
     fs_util.make_dir(font_config.outputs_dir)
     file_path = os.path.join(font_config.outputs_dir, 'demo.html')
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(html)
+    fs_util.write_str(html, file_path)
     logger.info("Make demo html file: '%s'", file_path)
 
 
@@ -97,8 +95,7 @@ def make_index_html_file():
     html = template.render(configs=configs)
     fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'index.html')
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(html)
+    fs_util.write_str(html, file_path)
     logger.info("Make index html file: '%s'", file_path)
 
 
@@ -107,6 +104,5 @@ def make_itch_io_details_html_file():
     html = template.render(configs=configs)
     fs_util.make_dir(path_define.outputs_dir)
     file_path = os.path.join(path_define.outputs_dir, 'itch-io-details.html')
-    with open(file_path, 'w', encoding='utf-8') as file:
-        file.write(html)
+    fs_util.write_str(html, file_path)
     logger.info("Make itch.io details html file: '%s'", file_path)

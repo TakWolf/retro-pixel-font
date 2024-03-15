@@ -1,9 +1,9 @@
 import datetime
 import os
-import tomllib
 from typing import Final
 
 from scripts.configs import path_define
+from scripts.utils import fs_util
 
 _DEFAULT_PREVIEW_TEXT = '''
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -32,8 +32,7 @@ class FontConfig:
             config_file_path = os.path.join(path_define.glyphs_dir, outputs_name, 'config.toml')
             if not os.path.isfile(config_file_path):
                 continue
-            with open(config_file_path, 'rb') as file:
-                config_data: dict = tomllib.load(file)['font']
+            config_data: dict = fs_util.read_toml(config_file_path)['font']
             config = FontConfig(config_data)
             assert config.outputs_name == outputs_name
             configs.append(config)
