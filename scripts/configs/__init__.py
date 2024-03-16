@@ -1,10 +1,6 @@
-import random
-
 from scripts.configs import path_define
 from scripts.configs.font_config import FontConfig
 from scripts.configs.git_deploy_config import GitDeployConfig
-
-build_random_key = random.random()
 
 font_formats = ['otf', 'woff2', 'ttf', 'bdf']
 
