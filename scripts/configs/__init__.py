@@ -1,6 +1,6 @@
 from scripts.configs import path_define
-from scripts.configs.font_config import FontConfig
-from scripts.configs.git_deploy_config import GitDeployConfig
+from scripts.configs.font import FontConfig
+from scripts.configs.deploy import GitDeployConfig
 
 font_formats = ['otf', 'woff2', 'ttf', 'bdf']
 
