@@ -9,7 +9,7 @@ from scripts import configs
 from scripts.configs import path_define, FontConfig
 from scripts.utils import fs_util
 
-logger = logging.getLogger('template-service')
+logger = logging.getLogger('template_service')
 
 _environment = Environment(
     trim_blocks=True,

@@ -4,7 +4,7 @@ import os.path
 from scripts.configs import path_define, FontConfig
 from scripts.utils import fs_util
 
-logger = logging.getLogger('info-service')
+logger = logging.getLogger('info_service')
 
 _ofl_string_format = fs_util.read_str(os.path.join(path_define.project_root_dir, 'LICENSE-OFL'))
 
