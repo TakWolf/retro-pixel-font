@@ -19,7 +19,7 @@ def make_release_zips():
         file_path = os.path.join(path_define.releases_dir, f'{FontConfig.ZIP_OUTPUTS_NAME}-{font_format}-v{FontConfig.VERSION}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
             file.write(os.path.join(path_define.outputs_dir, 'readme.txt'), 'readme.txt')
-            for font_config in configs.font_configs:
+            for font_config in configs.font_configs.values():
                 font_file_name = f'{font_config.full_outputs_name}.{font_format}'
                 file.write(os.path.join(font_config.outputs_dir, font_file_name), os.path.join(font_config.outputs_name, font_file_name))
                 file.write(os.path.join(font_config.outputs_dir, 'OFL.txt'), os.path.join(font_config.outputs_name, 'OFL.txt'))
@@ -30,7 +30,7 @@ def make_release_zips():
 
 def update_readme_md():
     preview_lines = []
-    for font_config in configs.font_configs:
+    for font_config in configs.font_configs.values():
         preview_lines.append(f'### {font_config.name}')
         preview_lines.append('')
         info = f'尺寸：{font_config.size}px / 行高：{font_config.line_height}px · '
@@ -72,7 +72,7 @@ def update_docs():
     fs_util.make_dir(path_define.docs_dir)
 
     fs_util.copy_the_file('readme-banner.png', path_define.outputs_dir, path_define.docs_dir)
-    for font_config in configs.font_configs:
+    for font_config in configs.font_configs.values():
         fs_util.make_dir(font_config.docs_dir)
         fs_util.copy_the_file('preview.png', font_config.outputs_dir, font_config.docs_dir)
 
@@ -88,7 +88,7 @@ def update_www():
         fs_util.copy_the_item(name, path_define.www_static_dir, path_define.www_dir)
 
     fs_util.copy_the_file('index.html', path_define.outputs_dir, path_define.www_dir)
-    for font_config in configs.font_configs:
+    for font_config in configs.font_configs.values():
         fs_util.make_dir(font_config.www_dir)
         fs_util.copy_the_file(f'{font_config.full_outputs_name}.woff2', font_config.outputs_dir, font_config.www_dir)
         fs_util.copy_the_file('alphabet.html', font_config.outputs_dir, font_config.www_dir)

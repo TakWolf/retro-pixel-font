@@ -85,8 +85,8 @@ def make_preview_image_file(font_config: FontConfig):
 
 
 def make_readme_banner():
-    font_thick = _load_font(configs.outputs_name_to_config['thick'], 2)
-    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    font_thick = _load_font(configs.font_configs['thick'], 2)
+    font_cute_prop = _load_font(configs.font_configs['cute-prop'])
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
@@ -102,11 +102,11 @@ def make_readme_banner():
 
 
 def make_github_banner():
-    font_title = _load_font(configs.outputs_name_to_config['thick'], 2)
-    font_arcade = _load_font(configs.outputs_name_to_config['arcade'])
-    font_cute_mono = _load_font(configs.outputs_name_to_config['cute-mono'])
-    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
-    font_thick = _load_font(configs.outputs_name_to_config['thick'])
+    font_title = _load_font(configs.font_configs['thick'], 2)
+    font_arcade = _load_font(configs.font_configs['arcade'])
+    font_cute_mono = _load_font(configs.font_configs['cute-mono'])
+    font_cute_prop = _load_font(configs.font_configs['cute-prop'])
+    font_thick = _load_font(configs.font_configs['thick'])
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
@@ -133,8 +133,8 @@ def make_github_banner():
 
 
 def make_itch_io_banner():
-    font_thick = _load_font(configs.outputs_name_to_config['thick'], 2)
-    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
+    font_thick = _load_font(configs.font_configs['thick'], 2)
+    font_cute_prop = _load_font(configs.font_configs['cute-prop'])
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
@@ -150,11 +150,11 @@ def make_itch_io_banner():
 
 
 def make_itch_io_cover():
-    font_title = _load_font(configs.outputs_name_to_config['thick'], 2)
-    font_arcade = _load_font(configs.outputs_name_to_config['arcade'])
-    font_cute_mono = _load_font(configs.outputs_name_to_config['cute-mono'])
-    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
-    font_thick = _load_font(configs.outputs_name_to_config['thick'])
+    font_title = _load_font(configs.font_configs['thick'], 2)
+    font_arcade = _load_font(configs.font_configs['arcade'])
+    font_cute_mono = _load_font(configs.font_configs['cute-mono'])
+    font_cute_prop = _load_font(configs.font_configs['cute-prop'])
+    font_thick = _load_font(configs.font_configs['thick'])
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
@@ -182,11 +182,11 @@ def make_itch_io_cover():
 
 
 def make_afdian_cover():
-    font_title = _load_font(configs.outputs_name_to_config['thick'], 2)
-    font_arcade = _load_font(configs.outputs_name_to_config['arcade'])
-    font_cute_mono = _load_font(configs.outputs_name_to_config['cute-mono'])
-    font_cute_prop = _load_font(configs.outputs_name_to_config['cute-prop'])
-    font_thick = _load_font(configs.outputs_name_to_config['thick'])
+    font_title = _load_font(configs.font_configs['thick'], 2)
+    font_arcade = _load_font(configs.font_configs['arcade'])
+    font_cute_mono = _load_font(configs.font_configs['cute-mono'])
+    font_cute_prop = _load_font(configs.font_configs['cute-prop'])
+    font_thick = _load_font(configs.font_configs['thick'])
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 

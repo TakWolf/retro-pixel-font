@@ -26,7 +26,7 @@ class FontConfig:
     LICENSE_URL: Final[str] = 'https://openfontlicense.org'
 
     @staticmethod
-    def loads() -> list['FontConfig']:
+    def load_all() -> dict[str, 'FontConfig']:
         configs = []
         for outputs_name in os.listdir(path_define.glyphs_dir):
             config_file_path = os.path.join(path_define.glyphs_dir, outputs_name, 'config.toml')
@@ -37,7 +37,7 @@ class FontConfig:
             assert config.outputs_name == outputs_name
             configs.append(config)
         configs.sort(key=lambda x: x.name)
-        return configs
+        return {config.outputs_name: config for config in configs}
 
     def __init__(self, config_data: dict):
         self.name: str = config_data['name']

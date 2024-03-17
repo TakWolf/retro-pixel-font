@@ -25,7 +25,6 @@ def _make_html_file(template_name: str, outputs_dir: str, file_name: str, params
     params['configs'] = {
         'build_random_key': _build_random_key,
         'font_configs': configs.font_configs,
-        'outputs_name_to_config': configs.outputs_name_to_config,
     }
 
     html = _environment.get_template(template_name).render(params)

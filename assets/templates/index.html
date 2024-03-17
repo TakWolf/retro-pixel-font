@@ -107,7 +107,7 @@
             border-color: orangered;
             resize: vertical;
         }
-        {% for font_config in configs.font_configs %}
+        {% for font_config in configs.font_configs.values() %}
         @font-face {
             font-family: {{ font_config.full_outputs_name }};
             src: url("{{ font_config.outputs_name }}/{{ font_config.full_outputs_name }}.woff2?r={{ configs.build_random_key }}");
@@ -128,7 +128,7 @@
             <a class="link-tab" href="https://github.com/TakWolf/retro-pixel-font" target="_blank">github</a>
             <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
         </div>
-        {% for font_config in configs.font_configs %}
+        {% for font_config in configs.font_configs.values() %}
         <div class="font-card" id="font-{{ font_config.outputs_name }}">
             <h2 class="name">{{ font_config.name }}</h2>
             <p class="info">
