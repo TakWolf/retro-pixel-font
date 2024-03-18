@@ -2,11 +2,11 @@
 
 # 复古像素字体 / Retro Pixel Font
 
-[![SIL Open Font License 1.1](https://img.shields.io/badge/license-OFL--1.1-orange)](https://openfontlicense.org)
-[![MIT License](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
+[![License OFL](https://img.shields.io/badge/license-OFL--1.1-orange)](https://openfontlicense.org)
+[![License MIT](https://img.shields.io/badge/license-MIT-green)](https://opensource.org/licenses/MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
-[![itch.io](https://img.shields.io/badge/itch.io-retro--pixel--font-red?logo=itch.io&logoColor=white)](https://takwolf.itch.io/retro-pixel-font)
-[![Discord](https://img.shields.io/discord/949265373964947458?logo=discord&logoColor=white&label=discord)](https://discord.gg/3GKtPKtjdU)
+[![Itch.io](https://img.shields.io/badge/itch.io-retro--pixel--font-FF2449?logo=itch.io&logoColor=white)](https://takwolf.itch.io/retro-pixel-font)
+[![Discord](https://img.shields.io/discord/949265373964947458?color=4E5AF0&logo=discord&logoColor=white&label=discord)](https://discord.gg/3GKtPKtjdU)
 [![QQ Group](https://img.shields.io/badge/QQ群-302383204-brightgreen?logo=tencentqq)](https://jq.qq.com/?_wv=1027&k=EXtKGHar)
 
 一组开源的有怀旧游戏感觉的像素字体。字体基本上以英文、数字和符号为主。
@@ -116,8 +116,8 @@
 
 如果这个项目对您有帮助，请考虑赞助来支持开发工作。
 
-[![赞赏码](https://raw.githubusercontent.com/TakWolf/TakWolf/master/images/payqr-badge-x2.png)](https://github.com/TakWolf/TakWolf/blob/master/payment-qr-codes.md)
-[![爱发电](https://raw.githubusercontent.com/TakWolf/TakWolf/master/images/afdian-badge-x2.png)](https://afdian.net/@takwolf)
+[![赞赏码](https://raw.githubusercontent.com/TakWolf/TakWolf/master/images/badge-payqr@2x.png)](https://github.com/TakWolf/TakWolf/blob/master/payment-qr-codes.md)
+[![爱发电](https://raw.githubusercontent.com/TakWolf/TakWolf/master/images/badge-afdian@2x.png)](https://afdian.net/@takwolf)
 
 请通过下面的链接来查看收到的赞助的具体情况：
 
