@@ -110,7 +110,7 @@
         {% for font_config in configs.font_configs.values() %}
         @font-face {
             font-family: {{ font_config.full_outputs_name }};
-            src: url("{{ font_config.outputs_name }}/{{ font_config.full_outputs_name }}.woff2?r={{ configs.build_random_key }}");
+            src: url("{{ font_config.outputs_name }}/{{ font_config.full_outputs_name }}.woff2?r={{ build_random_key }}");
         }
         .font-{{ font_config.outputs_name }} {
             font-family: {{ font_config.full_outputs_name }}, sans-serif;

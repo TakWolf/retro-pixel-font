@@ -22,10 +22,8 @@ _build_random_key = random.random()
 
 def _make_html_file(template_name: str, outputs_dir: str, file_name: str, params: dict[str, object] = None):
     params = {} if params is None else dict(params)
-    params['configs'] = {
-        'build_random_key': _build_random_key,
-        'font_configs': configs.font_configs,
-    }
+    params['build_random_key'] = _build_random_key
+    params['configs'] = configs
 
     html = _environment.get_template(template_name).render(params)
 
