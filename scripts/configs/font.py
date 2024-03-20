@@ -34,7 +34,8 @@ class FontConfig:
                 continue
             config_data: dict = fs_util.read_toml(config_file_path)['font']
             config = FontConfig(config_data)
-            assert config.outputs_name == outputs_name
+            assert config.outputs_name == outputs_name, f"Config 'name' error: '{config_file_path}'"
+            assert (config.line_height - config.size) % 2 == 0, f"Config 'line_height' error: '{config_file_path}'"
             configs.append(config)
         configs.sort(key=lambda x: x.name)
         return {config.outputs_name: config for config in configs}
@@ -54,7 +55,6 @@ class FontConfig:
         self.size: int = config_data['size']
         self.ascent: int = config_data['ascent']
         self.descent: int = config_data['descent']
-        assert (self.line_height - self.size) % 2 == 0, f"Font config '{self.name}': the difference between 'line_height' and 'size' must be a multiple of 2"
         self.x_height: int = config_data['x_height']
         self.cap_height: int = config_data['cap_height']
 
