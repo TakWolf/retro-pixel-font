@@ -12,42 +12,30 @@ from scripts.utils import fs_util, glyph_util
 logger = logging.getLogger('font_service')
 
 
-def format_glyph_files(font_config: FontConfig):
-    root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
-    for file_dir_from, _, file_names in list(os.walk(root_dir, topdown=False)):
-        for file_name in file_names:
-            if not file_name.endswith('.png'):
-                continue
-            file_path_from = os.path.join(file_dir_from, file_name)
-            if file_name == 'notdef.png':
-                file_dir_to = root_dir
-            else:
-                code_point = int(file_name.removesuffix('.png'), 16)
-                file_name = f'{code_point:04X}.png'
-                block = unidata_blocks.get_block_by_code_point(code_point)
-                block_dir_name = f'{block.code_start:04X}-{block.code_end:04X} {block.name}'
-                file_dir_to = os.path.join(root_dir, block_dir_name)
-            file_path_to = os.path.join(file_dir_to, file_name)
+class GlyphFile:
+    @staticmethod
+    def load(file_path: str) -> 'GlyphFile':
+        hex_name = os.path.basename(file_path).removesuffix('.png')
+        if hex_name == 'notdef':
+            code_point = -1
+        else:
+            code_point = int(hex_name, 16)
+        return GlyphFile(file_path, code_point)
 
-            glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(file_path_from)
-            assert glyph_height == font_config.line_height, f"Glyph data error: '{file_path_from}'"
+    def __init__(self, file_path: str, code_point: int):
+        self.file_path = file_path
+        self.code_point = code_point
+        self.glyph_data, self.glyph_width, self.glyph_height = glyph_util.load_glyph_data_from_png(file_path)
 
-            if file_path_to != file_path_from:
-                assert not os.path.exists(file_path_to), f"Glyph file duplication: '{file_path_from}'"
-                fs_util.make_dir(file_dir_to)
-                os.remove(file_path_from)
-            glyph_util.save_glyph_data_to_png(glyph_data, file_path_to)
-            logger.info("Format glyph file: '%s'", file_path_to)
-
-        entry_names = os.listdir(file_dir_from)
-        if '.DS_Store' in entry_names:
-            os.remove(os.path.join(file_dir_from, '.DS_Store'))
-            entry_names.remove('.DS_Store')
-        if len(entry_names) == 0:
-            os.rmdir(file_dir_from)
+    @property
+    def glyph_name(self) -> str:
+        if self.code_point == -1:
+            return '.notdef'
+        else:
+            return f'uni{self.code_point:04X}'
 
 
-def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[tuple[str, str]]]:
+def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
     registry = {}
     root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
     for file_dir, _, file_names in os.walk(root_dir):
@@ -55,24 +43,16 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
             if not file_name.endswith('.png'):
                 continue
             file_path = os.path.join(file_dir, file_name)
-            if file_name == 'notdef.png':
-                code_point = -1
-            else:
-                code_point = int(file_name.removesuffix('.png'), 16)
-            registry[code_point] = file_path
-
-    sequence = list(registry)
-    sequence.sort()
+            glyph_file = GlyphFile.load(file_path)
+            registry[glyph_file.code_point] = glyph_file
 
     character_mapping = {}
-    glyph_file_infos = []
-    for code_point in sequence:
-        if code_point == -1:
-            glyph_name = '.notdef'
-        else:
-            glyph_name = f'uni{code_point:04X}'
-            character_mapping[code_point] = glyph_name
-        glyph_file_infos.append((glyph_name, registry[code_point]))
+    glyph_files = []
+    for glyph_file in registry.values():
+        if glyph_file.code_point != -1:
+            character_mapping[glyph_file.code_point] = glyph_file.glyph_name
+        glyph_files.append(glyph_file)
+    glyph_files.sort(key=lambda x: x.code_point)
 
     if font_config.fallback_lower_from_upper:
         for code_point in range(ord('A'), ord('Z') + 1):
@@ -89,10 +69,40 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
     alphabet = [chr(code_point) for code_point in character_mapping]
     alphabet.sort()
 
-    return alphabet, character_mapping, glyph_file_infos
+    return alphabet, character_mapping, glyph_files
 
 
-def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_file_infos: list[tuple[str, str]]) -> FontBuilder:
+def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
+    root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
+    for glyph_file in glyph_files:
+        assert glyph_file.glyph_height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
+        glyph_util.save_glyph_data_to_png(glyph_file.glyph_data, glyph_file.file_path)
+
+        if glyph_file.code_point == -1:
+            file_name = 'notdef.png'
+            file_dir = root_dir
+        else:
+            file_name = f'{glyph_file.code_point:04X}.png'
+            block = unidata_blocks.get_block_by_code_point(glyph_file.code_point)
+            file_dir = os.path.join(root_dir, f'{block.code_start:04X}-{block.code_end:04X} {block.name}')
+
+        file_path = os.path.join(file_dir, file_name)
+        if glyph_file.file_path != file_path:
+            assert not os.path.exists(file_path), f"Glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
+            fs_util.make_dir(file_dir)
+            os.rename(glyph_file.file_path, file_path)
+            file_dir_from = os.path.dirname(glyph_file.file_path)
+            glyph_file.file_path = file_path
+            logger.info(f"Standardize glyph file path: '{glyph_file.file_path}'")
+
+            remained_file_names = os.listdir(file_dir_from)
+            if '.DS_Store' in remained_file_names:
+                remained_file_names.remove('.DS_Store')
+            if len(remained_file_names) == 0:
+                fs_util.delete_dir(file_dir_from)
+
+
+def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]) -> FontBuilder:
     builder = FontBuilder(font_config.size)
 
     builder.meta_info.version = FontConfig.VERSION
@@ -120,26 +130,25 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
     builder.character_mapping.update(character_mapping)
 
-    for glyph_name, file_path in glyph_file_infos:
-        glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(file_path)
-        horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_height) / 2)
-        vertical_origin_y = (glyph_height - font_config.size) // 2
+    for glyph_file in glyph_files:
+        horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.glyph_height) / 2)
+        vertical_origin_y = (glyph_file.glyph_height - font_config.size) // 2
         builder.glyphs.append(Glyph(
-            name=glyph_name,
-            advance_width=glyph_width,
+            name=glyph_file.glyph_name,
+            advance_width=glyph_file.glyph_width,
             advance_height=font_config.size,
             horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            data=glyph_data,
+            data=glyph_file.glyph_data,
         ))
 
     return builder
 
 
-def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], glyph_file_infos: list[tuple[str, str]]):
+def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]):
     fs_util.make_dir(font_config.outputs_dir)
 
-    builder = _create_builder(font_config, character_mapping, glyph_file_infos)
+    builder = _create_builder(font_config, character_mapping, glyph_files)
 
     otf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.otf')
     builder.save_otf(otf_file_path)

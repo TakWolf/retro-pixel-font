@@ -9,9 +9,9 @@ def main():
     fs_util.delete_dir(path_define.releases_dir)
 
     for font_config in configs.font_configs.values():
-        font_service.format_glyph_files(font_config)
-        alphabet, character_mapping, glyph_file_infos = font_service.collect_glyph_files(font_config)
-        font_service.make_font_files(font_config, character_mapping, glyph_file_infos)
+        alphabet, character_mapping, glyph_files = font_service.collect_glyph_files(font_config)
+        font_service.format_glyph_files(font_config, glyph_files)
+        font_service.make_font_files(font_config, character_mapping, glyph_files)
         info_service.make_ofl_txt_file(font_config)
         info_service.make_info_txt_file(font_config)
         info_service.make_alphabet_txt_file(font_config, alphabet)
