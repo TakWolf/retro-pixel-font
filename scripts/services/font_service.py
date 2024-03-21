@@ -105,6 +105,9 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
 def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]) -> FontBuilder:
     builder = FontBuilder(font_config.size)
 
+    builder.created_time = FontConfig.VERSION_TIME
+    builder.modified_time = FontConfig.VERSION_TIME
+
     builder.meta_info.version = FontConfig.VERSION
     builder.meta_info.family_name = font_config.family_name
     builder.meta_info.style_name = font_config.style_name

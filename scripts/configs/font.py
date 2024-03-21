@@ -14,7 +14,8 @@ abcdefghijklmnopqrstuvwxyz
 
 
 class FontConfig:
-    VERSION: Final[str] = datetime.datetime.now(datetime.UTC).strftime('%Y.%m.%d')
+    VERSION: Final[str] = '2023.07.12'
+    VERSION_TIME: Final[datetime.datetime] = datetime.datetime.fromisoformat(f'{VERSION.replace('.', '-')}T00:00:00Z')
     FAMILY_NAME_FORMAT: Final[str] = 'Retro Pixel {font_name}'
     ZIP_OUTPUTS_NAME: Final[str] = 'retro-pixel-font'
     MANUFACTURER: Final[str] = 'TakWolf'
