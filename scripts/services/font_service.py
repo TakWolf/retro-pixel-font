@@ -61,7 +61,7 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
                 code_point = int(file_name.removesuffix('.png'), 16)
             registry[code_point] = file_path
 
-    sequence = list(registry.keys())
+    sequence = list(registry)
     sequence.sort()
 
     character_mapping = {}
