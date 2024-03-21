@@ -30,7 +30,7 @@ def format_glyph_files(font_config: FontConfig):
             file_path_to = os.path.join(file_dir_to, file_name)
 
             glyph_data, glyph_width, glyph_height = glyph_util.load_glyph_data_from_png(file_path_from)
-            assert glyph_height == font_config.line_height, f"Incorrect glyph data: '{file_path_from}'"
+            assert glyph_height == font_config.line_height, f"Glyph data error: '{file_path_from}'"
 
             if file_path_to != file_path_from:
                 assert not os.path.exists(file_path_to), f"Glyph file duplication: '{file_path_from}'"
