@@ -73,7 +73,7 @@
 
 - [GitHub Releases](https://github.com/TakWolf/retro-pixel-font/releases)
 - [itch.io](https://takwolf.itch.io/retro-pixel-font)
-- [云盘](https://www.123pan.com/s/qKSojv-jW6Sh.html)
+- [123云盘](https://www.123pan.com/s/qKSojv-QUVSh.html)
 
 目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf` 四种格式。
 
