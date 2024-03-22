@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Retro Pixel Font</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        @keyframes background-scrolling {
+            100% {
+                background-position: 128px 128px;
+            }
+        }
+        body {
+            color: white;
+            background-color: darkorange;
+            background-image: linear-gradient(45deg, orange 25%, transparent 25%, transparent 75%, orange 75%), linear-gradient(-45deg, orange 25%, transparent 25%, transparent 75%, orange 75%);
+            background-size: 128px 128px;
+            background-attachment: fixed;
+            animation: background-scrolling 4s infinite linear;
+        }
+        a {
+            color: white;
+        }
+        .page {
+            width: 960px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @media screen and (max-width: 960px) {
+            .page {
+                width: 100%;
+            }
+        }
+        .title {
+            font-family: Retro-Pixel-Thick, sans-serif;
+            font-size: 64px;
+            text-shadow: 4px 4px #4b4b4b;
+        }
+        .summary {
+            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-size: 22px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .link-group {
+            margin-top: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .link-tab {
+            margin-left: 12px;
+            margin-right: 12px;
+            font-family: Retro-Pixel-Thick, sans-serif;
+            font-size: 32px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .copyright {
+            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-size: 22px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .font-card {
+            width: 100%;
+            margin-top: 12px;
+            margin-bottom: 12px;
+            padding: 8px 24px 24px;
+            background-color: #ffca68;
+            border-radius: 16px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: orangered;
+            box-shadow: 1px 1px 8px rgba(75, 75, 75, 0.8);
+        }
+        .font-card .name {
+            margin-top: 12px;
+            margin-bottom: 8px;
+            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-size: 33px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .font-card .info {
+            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-size: 22px;
+            text-shadow: 2px 2px #4b4b4b;
+        }
+        .font-card .demo-text {
+            margin-top: 8px;
+            display: block;
+        }
+        .font-card .demo-text textarea {
+            width: 100%;
+            min-height: 300px;
+            padding: 12px;
+            display: block;
+            outline: none;
+            word-break: break-all;
+            border-radius: 8px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: orangered;
+            resize: vertical;
+        }
+        @font-face {
+            font-family: retro-pixel-arcade;
+            src: url("arcade/retro-pixel-arcade.woff2?r=0.4208949771105007");
+        }
+        .font-arcade {
+            font-family: retro-pixel-arcade, sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+        }
+        @font-face {
+            font-family: retro-pixel-cute-mono;
+            src: url("cute-mono/retro-pixel-cute-mono.woff2?r=0.4208949771105007");
+        }
+        .font-cute-mono {
+            font-family: retro-pixel-cute-mono, sans-serif;
+            font-size: 22px;
+            line-height: 30px;
+        }
+        @font-face {
+            font-family: retro-pixel-cute-prop;
+            src: url("cute-prop/retro-pixel-cute-prop.woff2?r=0.4208949771105007");
+        }
+        .font-cute-prop {
+            font-family: retro-pixel-cute-prop, sans-serif;
+            font-size: 22px;
+            line-height: 30px;
+        }
+        @font-face {
+            font-family: retro-pixel-petty-5h;
+            src: url("petty-5h/retro-pixel-petty-5h.woff2?r=0.4208949771105007");
+        }
+        .font-petty-5h {
+            font-family: retro-pixel-petty-5h, sans-serif;
+            font-size: 10px;
+            line-height: 18px;
+        }
+        @font-face {
+            font-family: retro-pixel-petty-5x5;
+            src: url("petty-5x5/retro-pixel-petty-5x5.woff2?r=0.4208949771105007");
+        }
+        .font-petty-5x5 {
+            font-family: retro-pixel-petty-5x5, sans-serif;
+            font-size: 10px;
+            line-height: 18px;
+        }
+        @font-face {
+            font-family: retro-pixel-thick;
+            src: url("thick/retro-pixel-thick.woff2?r=0.4208949771105007");
+        }
+        .font-thick {
+            font-family: retro-pixel-thick, sans-serif;
+            font-size: 32px;
+            line-height: 40px;
+        }
+    </style>
+
+    <script charset="UTF-8" id="LA_COLLECT" src="https://sdk.51.la/js-sdk-pro.min.js"></script>
+    <script>LA.init({id: 'KDw3ECPOPWB4lQFE', ck: 'KDw3ECPOPWB4lQFE'});</script>
+</head>
+<body>
+    <div class="page">
+        <h1 class="title">Retro Pixel Font</h1>
+        <div class="summary">A set of open source old game style pixel fonts.</div>
+        <div class="link-group">
+            <a class="link-tab" href="https://github.com/TakWolf/retro-pixel-font" target="_blank">github</a>
+            <a class="link-tab" href="https://takwolf.itch.io/retro-pixel-font" target="_blank">itch.io</a>
+        </div>
+        <div class="font-card" id="font-arcade">
+            <h2 class="name">Arcade</h2>
+            <p class="info">
+                <span>font-size: 8px / line-height: 12px</span>
+                <span> · </span>
+                <a href="arcade/alphabet.html" target="_blank">alphabet</a>
+                <span> · </span>
+                <a href="arcade/demo.html" target="_blank">demo</a>
+            </p>
+            <p class="info">Arcade Cabinet style pixel font. Design from Atari and Famicom game font.</p>
+            <label class="demo-text">
+                <textarea class="font-arcade">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789 ０１２３４５６７８９
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
+©‘’“”★♠♣♥♦</textarea>
+            </label>
+        </div>
+        <div class="font-card" id="font-cute-mono">
+            <h2 class="name">Cute Mono</h2>
+            <p class="info">
+                <span>font-size: 11px / line-height: 15px</span>
+                <span> · </span>
+                <a href="cute-mono/alphabet.html" target="_blank">alphabet</a>
+                <span> · </span>
+                <a href="cute-mono/demo.html" target="_blank">demo</a>
+            </p>
+            <p class="info">The design is based on the lowercase letters with 5px height, monospaced mode.</p>
+            <label class="demo-text">
+                <textarea class="font-cute-mono">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</textarea>
+            </label>
+        </div>
+        <div class="font-card" id="font-cute-prop">
+            <h2 class="name">Cute Prop</h2>
+            <p class="info">
+                <span>font-size: 11px / line-height: 15px</span>
+                <span> · </span>
+                <a href="cute-prop/alphabet.html" target="_blank">alphabet</a>
+                <span> · </span>
+                <a href="cute-prop/demo.html" target="_blank">demo</a>
+            </p>
+            <p class="info">The design is based on the lowercase letters with 5px height, proportional mode.</p>
+            <label class="demo-text">
+                <textarea class="font-cute-prop">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</textarea>
+            </label>
+        </div>
+        <div class="font-card" id="font-petty-5h">
+            <h2 class="name">Petty 5H</h2>
+            <p class="info">
+                <span>font-size: 5px / line-height: 9px</span>
+                <span> · </span>
+                <a href="petty-5h/alphabet.html" target="_blank">alphabet</a>
+                <span> · </span>
+                <a href="petty-5h/demo.html" target="_blank">demo</a>
+            </p>
+            <p class="info">Draw uppercase letters with minimum size by 5px height. Correspondingly, there are only uppercase letters and basic punctuation.</p>
+            <label class="demo-text">
+                <textarea class="font-petty-5h">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</textarea>
+            </label>
+        </div>
+        <div class="font-card" id="font-petty-5x5">
+            <h2 class="name">Petty 5x5</h2>
+            <p class="info">
+                <span>font-size: 5px / line-height: 9px</span>
+                <span> · </span>
+                <a href="petty-5x5/alphabet.html" target="_blank">alphabet</a>
+                <span> · </span>
+                <a href="petty-5x5/demo.html" target="_blank">demo</a>
+            </p>
+            <p class="info">Draw uppercase letters with minimum size by 5*5px. Correspondingly, there are only uppercase letters and basic punctuation.</p>
+            <label class="demo-text">
+                <textarea class="font-petty-5x5">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</textarea>
+            </label>
+        </div>
+        <div class="font-card" id="font-thick">
+            <h2 class="name">Thick</h2>
+            <p class="info">
+                <span>font-size: 16px / line-height: 20px</span>
+                <span> · </span>
+                <a href="thick/alphabet.html" target="_blank">alphabet</a>
+                <span> · </span>
+                <a href="thick/demo.html" target="_blank">demo</a>
+            </p>
+            <p class="info">A little thick feeling pixel font.</p>
+            <label class="demo-text">
+                <textarea class="font-thick">ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789
+!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~</textarea>
+            </label>
+        </div>
+        <div class="copyright">© 2023 TakWolf</div>
+    </div>
+</body>
+</html>
