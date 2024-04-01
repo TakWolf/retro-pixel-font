@@ -11,7 +11,7 @@
 
 一组开源的有怀旧游戏感觉的像素字体。字体基本上以英文、数字和符号为主。
 
-如果您在寻找开源的泛中日韩或 Unicode 像素字体，请尝试[「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font)。
+如果您在寻找开源的泛中日韩或 Unicode 像素字体，请尝试 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font)。
 
 这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
 
@@ -91,11 +91,11 @@
 
 ### 字体
 
-使用[「SIL 开放字体许可证第 1.1 版」](LICENSE-OFL)授权。
+使用 [「SIL 开放字体许可证第 1.1 版」](LICENSE-OFL) 授权。
 
 ### 构建程序
 
-使用[「MIT 许可证」](LICENSE-MIT)授权。
+使用 [「MIT 许可证」](LICENSE-MIT) 授权。
 
 ## 官方社区
 
