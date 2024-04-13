@@ -4,7 +4,7 @@ from scripts.configs.deploy import GitDeployConfig
 
 font_configs = FontConfig.load_all()
 
-font_formats = ['otf', 'woff2', 'ttf', 'bdf']
+font_formats = ['otf', 'woff2', 'ttf', 'bdf', 'pcf']
 
 git_deploy_config = GitDeployConfig(
     url='git@github.com:TakWolf/retro-pixel-font.git',

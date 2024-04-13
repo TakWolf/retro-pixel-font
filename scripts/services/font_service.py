@@ -168,3 +168,7 @@ def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], 
     bdf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.bdf')
     builder.save_bdf(bdf_file_path)
     logger.info("Make font file: '%s'", bdf_file_path)
+
+    pcf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.pcf')
+    builder.save_pcf(pcf_file_path)
+    logger.info("Make font file: '%s'", pcf_file_path)
