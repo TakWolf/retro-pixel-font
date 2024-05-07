@@ -129,8 +129,8 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.vertical_header.ascent = math.ceil(font_config.line_height / 2)
     builder.vertical_header.descent = math.floor(font_config.line_height / 2)
 
-    builder.os2_config.x_height = font_config.x_height
-    builder.os2_config.cap_height = font_config.cap_height
+    builder.os2_configs.x_height = font_config.x_height
+    builder.os2_configs.cap_height = font_config.cap_height
 
     builder.character_mapping.update(character_mapping)
 
@@ -144,7 +144,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
             advance_height=font_config.size,
             horizontal_origin=(horizontal_origin_x, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            data=glyph_file.bitmap.data,
+            bitmap=glyph_file.bitmap.data,
         ))
 
     return builder
