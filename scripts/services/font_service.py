@@ -7,8 +7,7 @@ from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
 
 from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util
-from scripts.utils.bitmap_util import CroppedBitmap
+from scripts.utils import fs_util, bitmap_util
 
 logger = logging.getLogger('font_service')
 
@@ -26,7 +25,7 @@ class GlyphFile:
     def __init__(self, file_path: str, code_point: int):
         self.file_path = file_path
         self.code_point = code_point
-        self.bitmap = CroppedBitmap.load(file_path)
+        self.bitmap, self.width, self.height = bitmap_util.load_png(file_path)
 
     @property
     def glyph_name(self) -> str:
@@ -76,8 +75,8 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
 def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
     root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
     for glyph_file in glyph_files:
-        assert glyph_file.bitmap.raw_height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
-        glyph_file.bitmap.save(glyph_file.file_path)
+        assert glyph_file.height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
+        bitmap_util.save_png(glyph_file.bitmap, glyph_file.file_path)
 
         if glyph_file.code_point == -1:
             file_name = 'notdef.png'
@@ -135,16 +134,15 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.character_mapping.update(character_mapping)
 
     for glyph_file in glyph_files:
-        horizontal_origin_x = glyph_file.bitmap.cropped_left
-        horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.bitmap.raw_height) / 2) + glyph_file.bitmap.cropped_bottom
-        vertical_origin_y = (font_config.size - glyph_file.bitmap.raw_height) // 2 + glyph_file.bitmap.cropped_top
+        horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.height) / 2)
+        vertical_origin_y = (font_config.size - glyph_file.height) // 2
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
-            advance_width=glyph_file.bitmap.raw_width,
+            advance_width=glyph_file.width,
             advance_height=font_config.size,
-            horizontal_origin=(horizontal_origin_x, horizontal_origin_y),
+            horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            bitmap=glyph_file.bitmap.data,
+            bitmap=glyph_file.bitmap,
         ))
 
     return builder
