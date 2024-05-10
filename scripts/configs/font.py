@@ -2,6 +2,8 @@ import datetime
 import os
 from typing import Final
 
+from pixel_font_builder import WeightName, SerifStyle, SlantStyle, WidthMode
+
 from scripts.configs import path_define
 from scripts.utils import fs_util
 
@@ -47,9 +49,10 @@ class FontConfig:
         self.outputs_name = self.name.lower().replace(' ', '-')
         self.full_outputs_name = self.family_name.lower().replace(' ', '-')
 
-        self.style_name: str = config_data['style_name']
-        self.serif_mode: str = config_data['serif_mode']
-        self.width_mode: str = config_data['width_mode']
+        self.weight_name: str = WeightName(config_data['weight_name'])
+        self.serif_style: str = SerifStyle(config_data['serif_style'])
+        self.slant_style: str = SlantStyle(config_data['slant_style'])
+        self.width_mode: str = WidthMode(config_data['width_mode'])
         self.description: str = config_data['description']
         self.copyright_info = FontConfig.COPYRIGHT_INFO_FORMAT.format(font_name=self.name)
 

@@ -1,7 +1,8 @@
 [font]
 name = "Petty 5x5"
-style_name = "Regular"
-serif_mode = "Sans-Serif"
+weight_name = "Regular"
+serif_style = "Sans Serif"
+slant_style = "Normal"
 width_mode = "Monospaced"
 description = "Draw uppercase letters with minimum size by 5*5px. Correspondingly, there are only uppercase letters and basic punctuation."
 

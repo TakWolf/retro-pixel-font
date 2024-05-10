@@ -1,7 +1,8 @@
 [font]
 name = "Thick"
-style_name = "Bold"
-serif_mode = "Sans-Serif"
+weight_name = "Bold"
+serif_style = "Sans Serif"
+slant_style = "Normal"
 width_mode = "Proportional"
 description = "A little thick feeling pixel font."
 

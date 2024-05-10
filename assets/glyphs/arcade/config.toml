@@ -1,7 +1,8 @@
 [font]
 name = "Arcade"
-style_name = "Regular"
-serif_mode = "Sans-Serif"
+weight_name = "Regular"
+serif_style = "Sans Serif"
+slant_style = "Normal"
 width_mode = "Monospaced"
 description = "Arcade Cabinet style pixel font. Design from Atari and Famicom game font."
 

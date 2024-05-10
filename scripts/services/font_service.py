@@ -103,15 +103,22 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
 
 
 def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]) -> FontBuilder:
-    builder = FontBuilder(font_config.size)
-
-    builder.created_time = FontConfig.VERSION_TIME
-    builder.modified_time = FontConfig.VERSION_TIME
+    builder = FontBuilder()
+    builder.font_metric.font_size = font_config.size
+    builder.font_metric.horizontal_layout.ascent = font_config.ascent
+    builder.font_metric.horizontal_layout.descent = font_config.descent
+    builder.font_metric.vertical_layout.ascent = math.ceil(font_config.line_height / 2)
+    builder.font_metric.vertical_layout.descent = math.floor(font_config.line_height / 2)
+    builder.font_metric.x_height = font_config.x_height
+    builder.font_metric.cap_height = font_config.cap_height
 
     builder.meta_info.version = FontConfig.VERSION
+    builder.meta_info.created_time = FontConfig.VERSION_TIME
+    builder.meta_info.modified_time = FontConfig.VERSION_TIME
     builder.meta_info.family_name = font_config.family_name
-    builder.meta_info.style_name = font_config.style_name
-    builder.meta_info.serif_mode = font_config.serif_mode
+    builder.meta_info.weight_name = font_config.weight_name
+    builder.meta_info.serif_style = font_config.serif_style
+    builder.meta_info.slant_style = font_config.slant_style
     builder.meta_info.width_mode = font_config.width_mode
     builder.meta_info.manufacturer = FontConfig.MANUFACTURER
     builder.meta_info.designer = FontConfig.DESIGNER
@@ -121,15 +128,6 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.meta_info.vendor_url = FontConfig.VENDOR_URL
     builder.meta_info.designer_url = FontConfig.DESIGNER_URL
     builder.meta_info.license_url = FontConfig.LICENSE_URL
-
-    builder.horizontal_header.ascent = font_config.ascent
-    builder.horizontal_header.descent = font_config.descent
-
-    builder.vertical_header.ascent = math.ceil(font_config.line_height / 2)
-    builder.vertical_header.descent = math.floor(font_config.line_height / 2)
-
-    builder.os2_configs.x_height = font_config.x_height
-    builder.os2_configs.cap_height = font_config.cap_height
 
     builder.character_mapping.update(character_mapping)
 

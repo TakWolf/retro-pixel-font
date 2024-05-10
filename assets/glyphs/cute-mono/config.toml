@@ -1,7 +1,8 @@
 [font]
 name = "Cute Mono"
-style_name = "Regular"
-serif_mode = "Sans-Serif"
+weight_name = "Regular"
+serif_style = "Sans Serif"
+slant_style = "Normal"
 width_mode = "Monospaced"
 description = "The design is based on the lowercase letters with 5px height, monospaced mode."
 
