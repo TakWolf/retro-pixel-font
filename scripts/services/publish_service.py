@@ -33,7 +33,7 @@ def update_readme_md():
     for font_config in configs.font_configs.values():
         preview_lines.append(f'### {font_config.name}')
         preview_lines.append('')
-        info = f'尺寸：{font_config.size}px / 行高：{font_config.line_height}px · '
+        info = f'尺寸：{font_config.font_size}px / 行高：{font_config.line_height}px · '
         info += f'[实时预览](https://retro-pixel-font.takwolf.com#font-{font_config.outputs_name}) · '
         info += f'[字母表](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/alphabet.html) · '
         info += f'[示例文本](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/demo.html)'

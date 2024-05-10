@@ -114,7 +114,7 @@
         }
         .font-{{ font_config.outputs_name }} {
             font-family: {{ font_config.full_outputs_name }}, sans-serif;
-            font-size: {{ font_config.size * 2 }}px;
+            font-size: {{ font_config.font_size * 2 }}px;
             line-height: {{ font_config.line_height * 2}}px;
         }
         {% endfor %}
@@ -132,7 +132,7 @@
         <div class="font-card" id="font-{{ font_config.outputs_name }}">
             <h2 class="name">{{ font_config.name }}</h2>
             <p class="info">
-                <span>font-size: {{ font_config.size }}px / line-height: {{ font_config.line_height }}px</span>
+                <span>font-size: {{ font_config.font_size }}px / line-height: {{ font_config.line_height }}px</span>
                 <span> · </span>
                 <a href="{{ font_config.outputs_name }}/alphabet.html" target="_blank">alphabet</a>
                 <span> · </span>

@@ -104,7 +104,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
 
 def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]) -> FontBuilder:
     builder = FontBuilder()
-    builder.font_metric.font_size = font_config.size
+    builder.font_metric.font_size = font_config.font_size
     builder.font_metric.horizontal_layout.ascent = font_config.ascent
     builder.font_metric.horizontal_layout.descent = font_config.descent
     builder.font_metric.vertical_layout.ascent = math.ceil(font_config.line_height / 2)
@@ -133,11 +133,11 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
     for glyph_file in glyph_files:
         horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.height) / 2)
-        vertical_origin_y = (font_config.size - glyph_file.height) // 2
+        vertical_origin_y = (font_config.font_size - glyph_file.height) // 2
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
             advance_width=glyph_file.width,
-            advance_height=font_config.size,
+            advance_height=font_config.font_size,
             horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
             bitmap=glyph_file.bitmap,

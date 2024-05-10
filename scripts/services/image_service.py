@@ -14,7 +14,7 @@ logger = logging.getLogger('image_service')
 
 def _load_font(font_config: FontConfig, scale: int = 1) -> FreeTypeFont:
     file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.woff2')
-    return ImageFont.truetype(file_path, font_config.size * scale)
+    return ImageFont.truetype(file_path, font_config.font_size * scale)
 
 
 def _draw_text(
@@ -70,9 +70,9 @@ def make_preview_image_file(font_config: FontConfig):
             content_width = line_width
     content_height = font_config.line_height * len(lines)
 
-    image = Image.new('RGBA', (font_config.size * 2 + content_width, font_config.size * 2 + content_height), (30, 144, 255, 255))
-    cursor_x = font_config.size
-    cursor_y = font_config.size
+    image = Image.new('RGBA', (font_config.font_size * 2 + content_width, font_config.font_size * 2 + content_height), (30, 144, 255, 255))
+    cursor_x = font_config.font_size
+    cursor_y = font_config.font_size
     for line in lines:
         _draw_text(image, (cursor_x, cursor_y), line, font, text_color=text_color)
         cursor_y += font_config.line_height

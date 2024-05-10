@@ -38,7 +38,7 @@ class FontConfig:
             config_data: dict = fs_util.read_toml(config_file_path)['font']
             config = FontConfig(config_data)
             assert config.outputs_name == outputs_name, f"Config 'name' error: '{config_file_path}'"
-            assert (config.line_height - config.size) % 2 == 0, f"Config 'line_height' error: '{config_file_path}'"
+            assert (config.line_height - config.font_size) % 2 == 0, f"Config 'line_height' error: '{config_file_path}'"
             configs.append(config)
         configs.sort(key=lambda x: x.name)
         return {config.outputs_name: config for config in configs}
@@ -56,7 +56,7 @@ class FontConfig:
         self.description: str = config_data['description']
         self.copyright_info = FontConfig.COPYRIGHT_INFO_FORMAT.format(font_name=self.name)
 
-        self.size: int = config_data['size']
+        self.font_size: int = config_data['size']
         self.ascent: int = config_data['ascent']
         self.descent: int = config_data['descent']
         self.x_height: int = config_data['x_height']

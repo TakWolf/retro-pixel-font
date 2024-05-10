@@ -21,7 +21,7 @@ def make_info_txt_file(font_config: FontConfig):
     lines = [
         f'{font_config.family_name}',
         '',
-        f'font-size: {font_config.size}px',
+        f'font-size: {font_config.font_size}px',
         f'line-height: {font_config.line_height}px',
         '',
         f'{font_config.description}',
