@@ -1,6 +1,6 @@
 from scripts.configs import path_define
-from scripts.configs.font import FontConfig
 from scripts.configs.deploy import GitDeployConfig
+from scripts.configs.font import FontConfig
 
 font_configs = FontConfig.load_all()
 
