@@ -74,6 +74,34 @@ class FontConfig:
         configs.sort(key=lambda x: x.name)
         return {config.outputs_name: config for config in configs}
 
+    name: str
+    family_name: str
+    outputs_name: str
+    full_outputs_name: str
+
+    weight_name: WeightName
+    serif_style: SerifStyle
+    slant_style: SlantStyle
+    width_mode: WidthMode
+    description: str
+    copyright_info: str
+
+    font_size: int
+    ascent: int
+    descent: int
+    x_height: int
+    cap_height: int
+
+    fallback_lower_from_upper: bool
+    fallback_upper_from_lower: bool
+
+    readme_intro: str
+    preview_text: str
+
+    outputs_dir: str
+    docs_dir: str
+    www_dir: str
+
     def __init__(
             self,
             name: str,
