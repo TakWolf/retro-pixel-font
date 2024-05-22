@@ -1,6 +1,7 @@
 import datetime
 import logging
 import os
+import shutil
 import zipfile
 
 import git
@@ -13,7 +14,7 @@ logger = logging.getLogger('publish_service')
 
 
 def make_release_zips():
-    fs_util.make_dir(path_define.releases_dir)
+    os.makedirs(path_define.releases_dir, exist_ok=True)
 
     for font_format in configs.font_formats:
         file_path = os.path.join(path_define.releases_dir, f'{FontConfig.ZIP_OUTPUTS_NAME}-{font_format}-v{FontConfig.VERSION}.zip')
@@ -69,30 +70,40 @@ def update_readme_md():
 
 def update_docs():
     fs_util.delete_dir(path_define.docs_dir)
-    fs_util.make_dir(path_define.docs_dir)
+    os.makedirs(path_define.docs_dir)
 
-    fs_util.copy_the_file('readme-banner.png', path_define.outputs_dir, path_define.docs_dir)
+    shutil.copyfile(os.path.join(path_define.outputs_dir, 'readme-banner.png'), os.path.join(path_define.docs_dir, 'readme-banner.png'))
     for font_config in configs.font_configs.values():
-        fs_util.make_dir(font_config.docs_dir)
-        fs_util.copy_the_file('preview.png', font_config.outputs_dir, font_config.docs_dir)
+        os.makedirs(font_config.docs_dir)
+        shutil.copyfile(os.path.join(font_config.outputs_dir, 'preview.png'), os.path.join(font_config.docs_dir, 'preview.png'))
 
 
 def update_www():
-    fs_util.make_dir(path_define.www_dir)
+    os.makedirs(path_define.www_dir, exist_ok=True)
     for name in os.listdir(path_define.www_dir):
         if name == '.git':
             continue
-        fs_util.delete_item(os.path.join(path_define.www_dir, name))
+        path = os.path.join(path_define.www_dir, name)
+        if os.path.isfile(path):
+            os.remove(path)
+        elif os.path.isdir(path):
+            shutil.rmtree(path)
 
     for name in os.listdir(path_define.www_static_dir):
-        fs_util.copy_the_item(name, path_define.www_static_dir, path_define.www_dir)
+        path_from = os.path.join(path_define.www_static_dir, name)
+        path_to = os.path.join(path_define.www_dir, name)
+        if os.path.isfile(path_from):
+            shutil.copyfile(path_from, path_to)
+        elif os.path.isdir(path_from):
+            shutil.copytree(path_from, path_to)
 
-    fs_util.copy_the_file('index.html', path_define.outputs_dir, path_define.www_dir)
+    shutil.copyfile(os.path.join(path_define.outputs_dir, 'index.html'), os.path.join(path_define.www_dir, 'index.html'))
     for font_config in configs.font_configs.values():
-        fs_util.make_dir(font_config.www_dir)
-        fs_util.copy_the_file(f'{font_config.full_outputs_name}.woff2', font_config.outputs_dir, font_config.www_dir)
-        fs_util.copy_the_file('alphabet.html', font_config.outputs_dir, font_config.www_dir)
-        fs_util.copy_the_file('demo.html', font_config.outputs_dir, font_config.www_dir)
+        os.makedirs(font_config.www_dir)
+        font_file_name = f'{font_config.full_outputs_name}.woff2'
+        shutil.copyfile(os.path.join(font_config.outputs_dir, font_file_name), os.path.join(font_config.www_dir, font_file_name))
+        shutil.copyfile(os.path.join(font_config.outputs_dir, 'alphabet.html'), os.path.join(font_config.www_dir, 'alphabet.html'))
+        shutil.copyfile(os.path.join(font_config.outputs_dir, 'demo.html'), os.path.join(font_config.www_dir, 'demo.html'))
 
 
 def deploy_www(config: GitDeployConfig):

@@ -27,7 +27,7 @@ def _make_html_file(template_name: str, outputs_dir: str, file_name: str, params
 
     html = _environment.get_template(template_name).render(params)
 
-    fs_util.make_dir(outputs_dir)
+    os.makedirs(outputs_dir, exist_ok=True)
     file_path = os.path.join(outputs_dir, file_name)
     fs_util.write_str(html, file_path)
     logger.info("Make html file: '%s'", file_path)

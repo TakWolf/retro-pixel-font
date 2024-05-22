@@ -95,7 +95,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
         file_path = os.path.join(file_dir, file_name)
         if glyph_file.file_path != file_path:
             assert not os.path.exists(file_path), f"Glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
-            fs_util.make_dir(file_dir)
+            os.makedirs(file_dir, exist_ok=True)
             os.rename(glyph_file.file_path, file_path)
             glyph_file.file_path = file_path
             logger.info(f"Standardize glyph file path: '{glyph_file.file_path}'")
@@ -153,7 +153,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
 
 def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]):
-    fs_util.make_dir(font_config.outputs_dir)
+    os.makedirs(font_config.outputs_dir, exist_ok=True)
 
     builder = _create_builder(font_config, character_mapping, glyph_files)
 
