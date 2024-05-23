@@ -1,19 +1,17 @@
 import logging
-import os.path
 
 from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util
 
 logger = logging.getLogger('info_service')
 
-_ofl_string_format = fs_util.read_str(os.path.join(path_define.project_root_dir, 'LICENSE-OFL'))
+_ofl_string_format = path_define.project_root_dir.joinpath('LICENSE-OFL').read_text('utf-8')
 
 
 def make_ofl_txt_file(font_config: FontConfig):
-    os.makedirs(font_config.outputs_dir, exist_ok=True)
-    file_path = os.path.join(font_config.outputs_dir, 'OFL.txt')
+    font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = font_config.outputs_dir.joinpath('OFL.txt')
     ofl_string = _ofl_string_format.format(font_name=font_config.name)
-    fs_util.write_str(ofl_string, file_path)
+    file_path.write_text(ofl_string, 'utf-8')
     logger.info("Make ofl txt file: '%s'", file_path)
 
 
@@ -28,16 +26,16 @@ def make_info_txt_file(font_config: FontConfig):
         '',
     ]
 
-    os.makedirs(font_config.outputs_dir, exist_ok=True)
-    file_path = os.path.join(font_config.outputs_dir, 'info.txt')
-    fs_util.write_str('\n'.join(lines), file_path)
+    font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = font_config.outputs_dir.joinpath('info.txt')
+    file_path.write_text('\n'.join(lines), 'utf-8')
     logger.info("Make info txt file: '%s'", file_path)
 
 
 def make_alphabet_txt_file(font_config: FontConfig, alphabet: list[str]):
-    os.makedirs(font_config.outputs_dir, exist_ok=True)
-    file_path = os.path.join(font_config.outputs_dir, 'alphabet.txt')
-    fs_util.write_str(''.join(alphabet), file_path)
+    font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = font_config.outputs_dir.joinpath('alphabet.txt')
+    file_path.write_text(''.join(alphabet), 'utf-8')
     logger.info("Make alphabet txt file: '%s'", file_path)
 
 
@@ -51,7 +49,7 @@ def make_readme_txt_file():
         '',
     ]
 
-    os.makedirs(path_define.outputs_dir, exist_ok=True)
-    file_path = os.path.join(path_define.outputs_dir, 'readme.txt')
-    fs_util.write_str('\n'.join(lines), file_path)
+    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = path_define.outputs_dir.joinpath('readme.txt')
+    file_path.write_text('\n'.join(lines), 'utf-8')
     logger.info("Make readme txt file: '%s'", file_path)

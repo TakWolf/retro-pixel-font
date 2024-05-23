@@ -1,13 +1,12 @@
 import logging
-import os
 import random
+from pathlib import Path
 
 import bs4
 from jinja2 import Environment, FileSystemLoader
 
 from scripts import configs
 from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util
 
 logger = logging.getLogger('template_service')
 
@@ -20,16 +19,16 @@ _environment = Environment(
 _build_random_key = random.random()
 
 
-def _make_html_file(template_name: str, outputs_dir: str, file_name: str, params: dict[str, object] = None):
+def _make_html_file(template_name: str, outputs_dir: Path, file_name: str, params: dict[str, object] = None):
     params = {} if params is None else dict(params)
     params['build_random_key'] = _build_random_key
     params['configs'] = configs
 
     html = _environment.get_template(template_name).render(params)
 
-    os.makedirs(outputs_dir, exist_ok=True)
-    file_path = os.path.join(outputs_dir, file_name)
-    fs_util.write_str(html, file_path)
+    outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = outputs_dir.joinpath(file_name)
+    file_path.write_text(html, 'utf-8')
     logger.info("Make html file: '%s'", file_path)
 
 

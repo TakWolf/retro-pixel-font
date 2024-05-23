@@ -1,5 +1,5 @@
 import datetime
-import os
+from pathlib import Path
 from typing import Final
 
 from pixel_font_builder import WeightName, SerifStyle, SlantStyle, WidthMode
@@ -31,9 +31,9 @@ class FontConfig:
     @staticmethod
     def load_all() -> dict[str, 'FontConfig']:
         configs = []
-        for outputs_name in os.listdir(path_define.glyphs_dir):
-            file_path = os.path.join(path_define.glyphs_dir, outputs_name, 'config.toml')
-            if not os.path.isfile(file_path):
+        for file_dir in path_define.glyphs_dir.iterdir():
+            file_path = file_dir.joinpath('config.toml')
+            if not file_path.is_file():
                 continue
             config_data = fs_util.read_toml(file_path)['font']
             name = config_data['name']
@@ -68,7 +68,7 @@ class FontConfig:
                 readme_intro,
                 preview_text,
             )
-            assert config.outputs_name == outputs_name, f"Config 'name' error: '{file_path}'"
+            assert config.outputs_name == file_dir.name, f"Config 'name' error: '{file_path}'"
             assert (config.line_height - font_size) % 2 == 0, f"Config 'line_height' error: '{file_path}'"
             configs.append(config)
         configs.sort(key=lambda x: x.name)
@@ -98,9 +98,9 @@ class FontConfig:
     readme_intro: str
     preview_text: str
 
-    outputs_dir: str
-    docs_dir: str
-    www_dir: str
+    outputs_dir: Path
+    docs_dir: Path
+    www_dir: Path
 
     def __init__(
             self,
@@ -144,9 +144,9 @@ class FontConfig:
         self.readme_intro = readme_intro
         self.preview_text = preview_text
 
-        self.outputs_dir = os.path.join(path_define.outputs_dir, self.outputs_name)
-        self.docs_dir = os.path.join(path_define.docs_dir, self.outputs_name)
-        self.www_dir = os.path.join(path_define.www_dir, self.outputs_name)
+        self.outputs_dir = path_define.outputs_dir.joinpath(self.outputs_name)
+        self.docs_dir = path_define.docs_dir.joinpath(self.outputs_name)
+        self.www_dir = path_define.www_dir.joinpath(self.outputs_name)
 
     @property
     def line_height(self) -> int:

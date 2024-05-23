@@ -1,6 +1,7 @@
 import logging
 import math
-import os
+import shutil
+from pathlib import Path
 
 import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph
@@ -14,21 +15,21 @@ logger = logging.getLogger('font_service')
 
 class GlyphFile:
     @staticmethod
-    def load(file_path: str) -> 'GlyphFile':
-        hex_name = os.path.basename(file_path).removesuffix('.png')
+    def load(file_path: Path) -> 'GlyphFile':
+        hex_name = file_path.stem
         if hex_name == 'notdef':
             code_point = -1
         else:
             code_point = int(hex_name, 16)
         return GlyphFile(file_path, code_point)
 
-    file_path: str
+    file_path: Path
     code_point: int
     bitmap: list[list[int]]
     width: int
     height: int
 
-    def __init__(self, file_path: str, code_point: int):
+    def __init__(self, file_path: Path, code_point: int):
         self.file_path = file_path
         self.code_point = code_point
         self.bitmap, self.width, self.height = bitmap_util.load_png(file_path)
@@ -43,12 +44,12 @@ class GlyphFile:
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
     registry = {}
-    root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
-    for file_dir, _, file_names in os.walk(root_dir):
+    root_dir = path_define.glyphs_dir.joinpath(font_config.outputs_name)
+    for file_dir, _, file_names in root_dir.walk():
         for file_name in file_names:
             if not file_name.endswith('.png'):
                 continue
-            file_path = os.path.join(file_dir, file_name)
+            file_path = file_dir.joinpath(file_name)
             glyph_file = GlyphFile.load(file_path)
             registry[glyph_file.code_point] = glyph_file
 
@@ -79,7 +80,7 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
 
 
 def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
-    root_dir = os.path.join(path_define.glyphs_dir, font_config.outputs_name)
+    root_dir = path_define.glyphs_dir.joinpath(font_config.outputs_name)
     for glyph_file in glyph_files:
         assert glyph_file.height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
         bitmap_util.save_png(glyph_file.bitmap, glyph_file.file_path)
@@ -90,22 +91,19 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
         else:
             file_name = f'{glyph_file.code_point:04X}.png'
             block = unidata_blocks.get_block_by_code_point(glyph_file.code_point)
-            file_dir = os.path.join(root_dir, f'{block.code_start:04X}-{block.code_end:04X} {block.name}')
+            file_dir = root_dir.joinpath(f'{block.code_start:04X}-{block.code_end:04X} {block.name}')
 
-        file_path = os.path.join(file_dir, file_name)
+        file_path = file_dir.joinpath(file_name)
         if glyph_file.file_path != file_path:
-            assert not os.path.exists(file_path), f"Glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
-            os.makedirs(file_dir, exist_ok=True)
-            os.rename(glyph_file.file_path, file_path)
+            assert not file_path.exists(), f"Glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
+            file_dir.mkdir(parents=True, exist_ok=True)
+            glyph_file.file_path.rename(file_path)
             glyph_file.file_path = file_path
             logger.info(f"Standardize glyph file path: '{glyph_file.file_path}'")
 
-    for file_dir, _, _ in os.walk(root_dir, topdown=False):
-        file_names = os.listdir(file_dir)
-        if '.DS_Store' in file_names:
-            file_names.remove('.DS_Store')
-        if len(file_names) == 0:
-            fs_util.delete_dir(file_dir)
+    for file_dir, _, _ in root_dir.walk(top_down=False):
+        if fs_util.is_empty_dir(file_dir):
+            shutil.rmtree(file_dir)
 
 
 def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]) -> FontBuilder:
@@ -153,26 +151,26 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
 
 def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]):
-    os.makedirs(font_config.outputs_dir, exist_ok=True)
+    font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
 
     builder = _create_builder(font_config, character_mapping, glyph_files)
 
-    otf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.otf')
+    otf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.otf')
     builder.save_otf(otf_file_path)
     logger.info("Make font file: '%s'", otf_file_path)
 
-    woff2_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.woff2')
+    woff2_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.woff2')
     builder.save_otf(woff2_file_path, flavor=Flavor.WOFF2)
     logger.info("Make font file: '%s'", woff2_file_path)
 
-    ttf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.ttf')
+    ttf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.ttf')
     builder.save_ttf(ttf_file_path)
     logger.info("Make font file: '%s'", ttf_file_path)
 
-    bdf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.bdf')
+    bdf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.bdf')
     builder.save_bdf(bdf_file_path)
     logger.info("Make font file: '%s'", bdf_file_path)
 
-    pcf_file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.pcf')
+    pcf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.pcf')
     builder.save_pcf(pcf_file_path)
     logger.info("Make font file: '%s'", pcf_file_path)

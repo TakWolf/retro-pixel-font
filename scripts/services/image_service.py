@@ -1,6 +1,5 @@
 import logging
 import math
-import os
 
 from PIL import Image, ImageFont, ImageDraw
 from PIL.ImageFont import FreeTypeFont
@@ -12,7 +11,7 @@ logger = logging.getLogger('image_service')
 
 
 def _load_font(font_config: FontConfig, scale: int = 1) -> FreeTypeFont:
-    file_path = os.path.join(font_config.outputs_dir, f'{font_config.full_outputs_name}.woff2')
+    file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.woff2')
     return ImageFont.truetype(file_path, font_config.font_size * scale)
 
 
@@ -77,8 +76,8 @@ def make_preview_image_file(font_config: FontConfig):
         cursor_y += font_config.line_height
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    os.makedirs(font_config.outputs_dir, exist_ok=True)
-    file_path = os.path.join(font_config.outputs_dir, 'preview.png')
+    font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = font_config.outputs_dir.joinpath('preview.png')
     image.save(file_path)
     logger.info("Make preview image file: '%s'", file_path)
 
@@ -89,13 +88,13 @@ def make_readme_banner():
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
-    image = Image.open(os.path.join(path_define.images_dir, 'readme-banner-background.png'))
+    image = Image.open(path_define.images_dir.joinpath('readme-banner-background.png'))
     _draw_text(image, (image.width / 2, 28), 'Retro Pixel Font', font_thick, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 28 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    os.makedirs(path_define.outputs_dir, exist_ok=True)
-    file_path = os.path.join(path_define.outputs_dir, 'readme-banner.png')
+    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = path_define.outputs_dir.joinpath('readme-banner.png')
     image.save(file_path)
     logger.info("Make readme banner: '%s'", file_path)
 
@@ -109,7 +108,7 @@ def make_github_banner():
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
-    image = Image.open(os.path.join(path_define.images_dir, 'github-banner-background.png'))
+    image = Image.open(path_define.images_dir.joinpath('github-banner-background.png'))
     _draw_text(image, (image.width / 2, 40 + 16), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 40 + 16 * 3), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     line_infos = [
@@ -125,8 +124,8 @@ def make_github_banner():
     _draw_demo_lines(image, (image.width / 2, 40 + 16 * 5), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    os.makedirs(path_define.outputs_dir, exist_ok=True)
-    file_path = os.path.join(path_define.outputs_dir, 'github-banner.png')
+    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = path_define.outputs_dir.joinpath('github-banner.png')
     image.save(file_path)
     logger.info("Make github banner: '%s'", file_path)
 
@@ -137,13 +136,13 @@ def make_itch_io_banner():
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
-    image = Image.open(os.path.join(path_define.images_dir, 'itch-io-banner-background.png'))
+    image = Image.open(path_define.images_dir.joinpath('itch-io-banner-background.png'))
     _draw_text(image, (image.width / 2, 32), 'Retro Pixel Font', font_thick, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 32 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    os.makedirs(path_define.outputs_dir, exist_ok=True)
-    file_path = os.path.join(path_define.outputs_dir, 'itch-io-banner.png')
+    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = path_define.outputs_dir.joinpath('itch-io-banner.png')
     image.save(file_path)
     logger.info("Make itch.io banner: '%s'", file_path)
 
@@ -157,7 +156,7 @@ def make_itch_io_cover():
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
-    image = Image.open(os.path.join(path_define.images_dir, 'itch-io-cover-background.png'))
+    image = Image.open(path_define.images_dir.joinpath('itch-io-cover-background.png'))
     _draw_text(image, (image.width / 2, 6), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 6 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     line_infos = [
@@ -174,8 +173,8 @@ def make_itch_io_cover():
     _draw_demo_lines(image, (image.width / 2, 6 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    os.makedirs(path_define.outputs_dir, exist_ok=True)
-    file_path = os.path.join(path_define.outputs_dir, 'itch-io-cover.png')
+    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = path_define.outputs_dir.joinpath('itch-io-cover.png')
     image.save(file_path)
     logger.info("Make itch.io cover: '%s'", file_path)
 
@@ -189,7 +188,7 @@ def make_afdian_cover():
     text_color = (255, 255, 255, 255)
     shadow_color = (80, 80, 80, 255)
 
-    image = Image.open(os.path.join(path_define.images_dir, 'afdian-cover-background.png'))
+    image = Image.open(path_define.images_dir.joinpath('afdian-cover-background.png'))
     _draw_text(image, (image.width / 2, 18), 'Retro Pixel Font', font_title, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     _draw_text(image, (image.width / 2, 18 + 16 * 2 + 8), 'A set of open source old game style pixel fonts.', font_cute_prop, text_color=text_color, shadow_color=shadow_color, is_horizontal_centered=True)
     line_infos = [
@@ -210,7 +209,7 @@ def make_afdian_cover():
     _draw_demo_lines(image, (image.width / 2, 18 + 16 * 2 + 8 + 11 + 24), line_infos, text_color=text_color, shadow_color=shadow_color)
     image = image.resize((image.width * 2, image.height * 2), Image.Resampling.NEAREST)
 
-    os.makedirs(path_define.outputs_dir, exist_ok=True)
-    file_path = os.path.join(path_define.outputs_dir, 'afdian-cover.png')
+    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
+    file_path = path_define.outputs_dir.joinpath('afdian-cover.png')
     image.save(file_path)
     logger.info("Make afdian cover: '%s'", file_path)
