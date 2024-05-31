@@ -72,38 +72,47 @@ def update_readme_md():
 
 def update_docs():
     fs_util.delete_dir(path_define.docs_dir)
-    path_define.docs_dir.mkdir()
 
-    shutil.copyfile(path_define.outputs_dir.joinpath('readme-banner.png'), path_define.docs_dir.joinpath('readme-banner.png'))
-    for font_config in configs.font_configs.values():
-        font_config.docs_dir.mkdir()
-        shutil.copyfile(font_config.outputs_dir.joinpath('preview.png'), font_config.docs_dir.joinpath('preview.png'))
+    for file_dir, _, file_names in path_define.outputs_dir.walk():
+        for file_name in file_names:
+            if file_name not in ('preview.png', 'readme-banner.png'):
+                continue
+            path_from = file_dir.joinpath(file_name)
+            path_to = path_define.docs_dir.joinpath(path_from.relative_to(path_define.outputs_dir))
+            path_to.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path_from, path_to)
+            logger.info("Copy file: '%s' -> '%s'", path_from, path_to)
 
 
 def update_www():
-    path_define.www_dir.mkdir(parents=True, exist_ok=True)
-    for path in path_define.www_dir.iterdir():
-        if path.name == '.git':
-            continue
-        if path.is_file():
-            os.remove(path)
-        elif path.is_dir():
-            shutil.rmtree(path)
+    if path_define.www_dir.exists():
+        for path in path_define.www_dir.iterdir():
+            if path.name == '.git':
+                continue
+            if path.is_file():
+                os.remove(path)
+            elif path.is_dir():
+                shutil.rmtree(path)
 
-    for path_from in path_define.www_static_dir.iterdir():
-        path_to = path_define.www_dir.joinpath(path_from.name)
-        if path_from.is_file():
+    for file_dir, _, file_names in path_define.www_static_dir.walk():
+        for file_name in file_names:
+            if file_name == '.DS_Store':
+                continue
+            path_from = file_dir.joinpath(file_name)
+            path_to = path_define.www_dir.joinpath(path_from.relative_to(path_define.www_static_dir))
+            path_to.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(path_from, path_to)
-        elif path_from.is_dir():
-            shutil.copytree(path_from, path_to)
+            logger.info("Copy file: '%s' -> '%s'", path_from, path_to)
 
-    shutil.copyfile(path_define.outputs_dir.joinpath('index.html'), path_define.www_dir.joinpath('index.html'))
-    for font_config in configs.font_configs.values():
-        font_config.www_dir.mkdir()
-        font_file_name = f'{font_config.full_outputs_name}.woff2'
-        shutil.copyfile(font_config.outputs_dir.joinpath(font_file_name), font_config.www_dir.joinpath(font_file_name))
-        shutil.copyfile(font_config.outputs_dir.joinpath('alphabet.html'), font_config.www_dir.joinpath('alphabet.html'))
-        shutil.copyfile(font_config.outputs_dir.joinpath('demo.html'), font_config.www_dir.joinpath('demo.html'))
+    for file_dir, _, file_names in path_define.outputs_dir.walk():
+        for file_name in file_names:
+            if not file_name.endswith(('.html', '.woff2')) or file_name == 'itch-io-details.html':
+                continue
+            path_from = file_dir.joinpath(file_name)
+            path_to = path_define.www_dir.joinpath(path_from.relative_to(path_define.outputs_dir))
+            path_to.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(path_from, path_to)
+            logger.info("Copy file: '%s' -> '%s'", path_from, path_to)
 
 
 def deploy_www(config: GitDeployConfig):
