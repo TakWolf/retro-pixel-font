@@ -1,5 +1,6 @@
 import logging
 
+from scripts import configs
 from scripts.configs import path_define, FontConfig
 
 logger = logging.getLogger('info_service')
@@ -17,7 +18,7 @@ def make_ofl_txt_file(font_config: FontConfig):
 
 def make_info_txt_file(font_config: FontConfig):
     lines = [
-        f'{font_config.family_name}',
+        f'Retro Pixel {font_config.name}',
         '',
         f'font-size: {font_config.font_size}px',
         f'line-height: {font_config.line_height}px',
@@ -45,7 +46,7 @@ def make_readme_txt_file():
         '',
         'https://retro-pixel-font.takwolf.com',
         '',
-        f'version: {FontConfig.VERSION}',
+        f'version: {configs.font_version}',
         '',
     ]
 

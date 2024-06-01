@@ -7,6 +7,7 @@ import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
 
+from scripts import configs
 from scripts.configs import path_define, FontConfig
 from scripts.utils import fs_util, bitmap_util
 
@@ -116,22 +117,22 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.font_metric.x_height = font_config.x_height
     builder.font_metric.cap_height = font_config.cap_height
 
-    builder.meta_info.version = FontConfig.VERSION
-    builder.meta_info.created_time = FontConfig.VERSION_TIME
-    builder.meta_info.modified_time = FontConfig.VERSION_TIME
-    builder.meta_info.family_name = font_config.family_name
+    builder.meta_info.version = configs.font_version
+    builder.meta_info.created_time = configs.font_version_time
+    builder.meta_info.modified_time = configs.font_version_time
+    builder.meta_info.family_name = f'Retro Pixel {font_config.name}'
     builder.meta_info.weight_name = font_config.weight_name
     builder.meta_info.serif_style = font_config.serif_style
     builder.meta_info.slant_style = font_config.slant_style
     builder.meta_info.width_mode = font_config.width_mode
-    builder.meta_info.manufacturer = FontConfig.MANUFACTURER
-    builder.meta_info.designer = FontConfig.DESIGNER
+    builder.meta_info.manufacturer = 'TakWolf'
+    builder.meta_info.designer = 'TakWolf'
     builder.meta_info.description = font_config.description
-    builder.meta_info.copyright_info = font_config.copyright_info
-    builder.meta_info.license_info = FontConfig.LICENSE_INFO
-    builder.meta_info.vendor_url = FontConfig.VENDOR_URL
-    builder.meta_info.designer_url = FontConfig.DESIGNER_URL
-    builder.meta_info.license_url = FontConfig.LICENSE_URL
+    builder.meta_info.copyright_info = f"Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Retro Pixel {font_config.name}'."
+    builder.meta_info.license_info = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
+    builder.meta_info.vendor_url = 'https://retro-pixel-font.takwolf.com'
+    builder.meta_info.designer_url = 'https://takwolf.com'
+    builder.meta_info.license_url = 'https://openfontlicense.org'
 
     builder.character_mapping.update(character_mapping)
 
@@ -155,22 +156,22 @@ def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], 
 
     builder = _create_builder(font_config, character_mapping, glyph_files)
 
-    otf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.otf')
+    otf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.otf')
     builder.save_otf(otf_file_path)
     logger.info("Make font file: '%s'", otf_file_path)
 
-    woff2_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.woff2')
+    woff2_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.woff2')
     builder.save_otf(woff2_file_path, flavor=Flavor.WOFF2)
     logger.info("Make font file: '%s'", woff2_file_path)
 
-    ttf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.ttf')
+    ttf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.ttf')
     builder.save_ttf(ttf_file_path)
     logger.info("Make font file: '%s'", ttf_file_path)
 
-    bdf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.bdf')
+    bdf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.bdf')
     builder.save_bdf(bdf_file_path)
     logger.info("Make font file: '%s'", bdf_file_path)
 
-    pcf_file_path = font_config.outputs_dir.joinpath(f'{font_config.full_outputs_name}.pcf')
+    pcf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.pcf')
     builder.save_pcf(pcf_file_path)
     logger.info("Make font file: '%s'", pcf_file_path)

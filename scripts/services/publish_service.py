@@ -8,7 +8,7 @@ from pathlib import Path
 import git
 
 from scripts import configs
-from scripts.configs import path_define, FontConfig, GitDeployConfig
+from scripts.configs import path_define, GitDeployConfig
 from scripts.utils import fs_util
 
 logger = logging.getLogger('publish_service')
@@ -18,11 +18,11 @@ def make_release_zips():
     path_define.releases_dir.mkdir(parents=True, exist_ok=True)
 
     for font_format in configs.font_formats:
-        file_path = path_define.releases_dir.joinpath(f'{FontConfig.ZIP_OUTPUTS_NAME}-{font_format}-v{FontConfig.VERSION}.zip')
+        file_path = path_define.releases_dir.joinpath(f'retro-pixel-font-{font_format}-v{configs.font_version}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
             file.write(path_define.outputs_dir.joinpath('readme.txt'), 'readme.txt')
             for font_config in configs.font_configs.values():
-                font_file_name = f'{font_config.full_outputs_name}.{font_format}'
+                font_file_name = f'retro-pixel-{font_config.outputs_name}.{font_format}'
                 outputs_arc = Path(font_config.outputs_name)
                 file.write(font_config.outputs_dir.joinpath(font_file_name), outputs_arc.joinpath(font_file_name))
                 file.write(font_config.outputs_dir.joinpath('OFL.txt'), outputs_arc.joinpath('OFL.txt'))

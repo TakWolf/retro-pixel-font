@@ -38,12 +38,12 @@
             }
         }
         .title {
-            font-family: Retro-Pixel-Thick, sans-serif;
+            font-family: retro-pixel-thick, sans-serif;
             font-size: 64px;
             text-shadow: 4px 4px #4b4b4b;
         }
         .summary {
-            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-family: retro-pixel-cute-prop, sans-serif;
             font-size: 22px;
             text-shadow: 2px 2px #4b4b4b;
         }
@@ -57,12 +57,12 @@
         .link-tab {
             margin-left: 12px;
             margin-right: 12px;
-            font-family: Retro-Pixel-Thick, sans-serif;
+            font-family: retro-pixel-thick, sans-serif;
             font-size: 32px;
             text-shadow: 2px 2px #4b4b4b;
         }
         .copyright {
-            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-family: retro-pixel-cute-Prop, sans-serif;
             font-size: 22px;
             text-shadow: 2px 2px #4b4b4b;
         }
@@ -81,12 +81,12 @@
         .font-card .name {
             margin-top: 12px;
             margin-bottom: 8px;
-            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-family: retro-pixel-cute-prop, sans-serif;
             font-size: 33px;
             text-shadow: 2px 2px #4b4b4b;
         }
         .font-card .info {
-            font-family: Retro-Pixel-Cute-Prop, sans-serif;
+            font-family: retro-pixel-cute-prop, sans-serif;
             font-size: 22px;
             text-shadow: 2px 2px #4b4b4b;
         }
@@ -109,11 +109,11 @@
         }
         {% for font_config in font_configs.values() %}
         @font-face {
-            font-family: {{ font_config.full_outputs_name }};
-            src: url("{{ font_config.outputs_name }}/{{ font_config.full_outputs_name }}.woff2?r={{ build_random_key }}");
+            font-family: retro-pixel-{{ font_config.outputs_name }};
+            src: url("{{ font_config.outputs_name }}/retro-pixel-{{ font_config.outputs_name }}.woff2?r={{ build_random_key }}");
         }
         .font-{{ font_config.outputs_name }} {
-            font-family: {{ font_config.full_outputs_name }}, sans-serif;
+            font-family: retro-pixel-{{ font_config.outputs_name }}, sans-serif;
             font-size: {{ font_config.font_size * 2 }}px;
             line-height: {{ font_config.line_height * 2}}px;
         }

@@ -1,6 +1,4 @@
-import datetime
 from pathlib import Path
-from typing import Final
 
 from pixel_font_builder import WeightName, SerifStyle, SlantStyle, WidthMode
 
@@ -16,18 +14,6 @@ abcdefghijklmnopqrstuvwxyz
 
 
 class FontConfig:
-    VERSION: Final[str] = '2024.05.12'
-    VERSION_TIME: Final[datetime.datetime] = datetime.datetime.fromisoformat(f'{VERSION.replace('.', '-')}T00:00:00Z')
-    FAMILY_NAME_FORMAT: Final[str] = 'Retro Pixel {font_name}'
-    ZIP_OUTPUTS_NAME: Final[str] = 'retro-pixel-font'
-    MANUFACTURER: Final[str] = 'TakWolf'
-    DESIGNER: Final[str] = 'TakWolf'
-    COPYRIGHT_INFO_FORMAT: Final[str] = "Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name 'Retro Pixel {font_name}'."
-    LICENSE_INFO: Final[str] = 'This Font Software is licensed under the SIL Open Font License, Version 1.1.'
-    VENDOR_URL: Final[str] = 'https://retro-pixel-font.takwolf.com'
-    DESIGNER_URL: Final[str] = 'https://takwolf.com'
-    LICENSE_URL: Final[str] = 'https://openfontlicense.org'
-
     @staticmethod
     def load_all() -> dict[str, 'FontConfig']:
         configs = []
@@ -75,16 +61,13 @@ class FontConfig:
         return {config.outputs_name: config for config in configs}
 
     name: str
-    family_name: str
     outputs_name: str
-    full_outputs_name: str
 
     weight_name: WeightName
     serif_style: SerifStyle
     slant_style: SlantStyle
     width_mode: WidthMode
     description: str
-    copyright_info: str
 
     font_size: int
     ascent: int
@@ -121,16 +104,13 @@ class FontConfig:
             preview_text: str,
     ):
         self.name = name
-        self.family_name = FontConfig.FAMILY_NAME_FORMAT.format(font_name=name)
         self.outputs_name = name.lower().replace(' ', '-')
-        self.full_outputs_name = self.family_name.lower().replace(' ', '-')
 
         self.weight_name = weight_name
         self.serif_style = serif_style
         self.slant_style = slant_style
         self.width_mode = width_mode
         self.description = description
-        self.copyright_info = FontConfig.COPYRIGHT_INFO_FORMAT.format(font_name=name)
 
         self.font_size = font_size
         self.ascent = ascent
