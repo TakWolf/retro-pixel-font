@@ -8,20 +8,20 @@ from pathlib import Path
 import git
 
 from scripts import configs
-from scripts.configs import path_define, GitDeployConfig
+from scripts.configs import path_define, FontConfig, GitDeployConfig
 from scripts.utils import fs_util
 
 logger = logging.getLogger('publish_service')
 
 
-def make_release_zips():
+def make_release_zips(font_configs: dict[str, FontConfig]):
     path_define.releases_dir.mkdir(parents=True, exist_ok=True)
 
     for font_format in configs.font_formats:
         file_path = path_define.releases_dir.joinpath(f'retro-pixel-font-{font_format}-v{configs.font_version}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
             file.write(path_define.outputs_dir.joinpath('readme.txt'), 'readme.txt')
-            for font_config in configs.font_configs.values():
+            for font_config in font_configs.values():
                 font_file_name = f'retro-pixel-{font_config.outputs_name}.{font_format}'
                 outputs_arc = Path(font_config.outputs_name)
                 file.write(font_config.outputs_dir.joinpath(font_file_name), outputs_arc.joinpath(font_file_name))
@@ -31,9 +31,9 @@ def make_release_zips():
         logger.info("Make release zip: '%s'", file_path)
 
 
-def update_readme_md():
+def update_readme_md(font_configs: dict[str, FontConfig]):
     preview_lines = []
-    for font_config in configs.font_configs.values():
+    for font_config in font_configs.values():
         preview_lines.append(f'### {font_config.name}')
         preview_lines.append('')
         info = f'尺寸：{font_config.font_size}px / 行高：{font_config.line_height}px · '
