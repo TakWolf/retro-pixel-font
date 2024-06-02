@@ -42,8 +42,6 @@ def update_readme_md():
         info += f'[示例文本](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/demo.html)'
         preview_lines.append(info)
         preview_lines.append('')
-        preview_lines.append(f'{font_config.readme_intro}')
-        preview_lines.append('')
         preview_lines.append(f'![preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)')
         preview_lines.append('')
 

@@ -27,7 +27,6 @@ class FontConfig:
             serif_style = SerifStyle(config_data['serif_style'])
             slant_style = SlantStyle(config_data['slant_style'])
             width_mode = WidthMode(config_data['width_mode'])
-            description = config_data['description']
             font_size = config_data['size']
             ascent = config_data['ascent']
             descent = config_data['descent']
@@ -35,7 +34,6 @@ class FontConfig:
             cap_height = config_data['cap_height']
             fallback_lower_from_upper = config_data.get('fallback_lower_from_upper', False)
             fallback_upper_from_lower = config_data.get('fallback_upper_from_lower', False)
-            readme_intro = config_data['readme_intro']
             preview_text = config_data.get('preview_text', _DEFAULT_PREVIEW_TEXT).strip()
             config = FontConfig(
                 name,
@@ -43,7 +41,6 @@ class FontConfig:
                 serif_style,
                 slant_style,
                 width_mode,
-                description,
                 font_size,
                 ascent,
                 descent,
@@ -51,7 +48,6 @@ class FontConfig:
                 cap_height,
                 fallback_lower_from_upper,
                 fallback_upper_from_lower,
-                readme_intro,
                 preview_text,
             )
             assert config.outputs_name == file_dir.name, f"Config 'name' error: '{file_path}'"
@@ -67,7 +63,6 @@ class FontConfig:
     serif_style: SerifStyle
     slant_style: SlantStyle
     width_mode: WidthMode
-    description: str
 
     font_size: int
     ascent: int
@@ -78,7 +73,6 @@ class FontConfig:
     fallback_lower_from_upper: bool
     fallback_upper_from_lower: bool
 
-    readme_intro: str
     preview_text: str
 
     outputs_dir: Path
@@ -92,7 +86,6 @@ class FontConfig:
             serif_style: SerifStyle,
             slant_style: SlantStyle,
             width_mode: WidthMode,
-            description: str,
             font_size: int,
             ascent: int,
             descent: int,
@@ -100,7 +93,6 @@ class FontConfig:
             cap_height: int,
             fallback_lower_from_upper: bool,
             fallback_upper_from_lower: bool,
-            readme_intro: str,
             preview_text: str,
     ):
         self.name = name
@@ -110,7 +102,6 @@ class FontConfig:
         self.serif_style = serif_style
         self.slant_style = slant_style
         self.width_mode = width_mode
-        self.description = description
 
         self.font_size = font_size
         self.ascent = ascent
@@ -121,7 +112,6 @@ class FontConfig:
         self.fallback_lower_from_upper = fallback_lower_from_upper
         self.fallback_upper_from_lower = fallback_upper_from_lower
 
-        self.readme_intro = readme_intro
         self.preview_text = preview_text
 
         self.outputs_dir = path_define.outputs_dir.joinpath(self.outputs_name)

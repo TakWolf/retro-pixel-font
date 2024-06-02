@@ -4,12 +4,9 @@ weight_name = "Regular"
 serif_style = "Sans Serif"
 slant_style = "Normal"
 width_mode = "Monospaced"
-description = "The design is based on the lowercase letters with 5px height, monospaced mode."
 
 size = 11
 ascent = 11
 descent = -4
 x_height = 5
 cap_height = 7
-
-readme_intro = "以小写字母为 5 像素高作为基础尺寸来设计，等宽模式。"

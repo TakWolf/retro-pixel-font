@@ -23,8 +23,6 @@ def make_info_txt_file(font_config: FontConfig):
         f'font-size: {font_config.font_size}px',
         f'line-height: {font_config.line_height}px',
         '',
-        f'{font_config.description}',
-        '',
     ]
 
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)

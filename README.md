@@ -23,15 +23,11 @@
 
 尺寸：8px / 行高：12px · [实时预览](https://retro-pixel-font.takwolf.com#font-arcade) · [字母表](https://retro-pixel-font.takwolf.com/arcade/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/arcade/demo.html)
 
-街机风格的像素字体。设计来源于雅达利和红白机的游戏字体。
-
 ![preview-arcade](docs/arcade/preview.png)
 
 ### Cute Mono
 
 尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-mono) · [字母表](https://retro-pixel-font.takwolf.com/cute-mono/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-mono/demo.html)
-
-以小写字母为 5 像素高作为基础尺寸来设计，等宽模式。
 
 ![preview-cute-mono](docs/cute-mono/preview.png)
 
@@ -39,15 +35,11 @@
 
 尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-prop) · [字母表](https://retro-pixel-font.takwolf.com/cute-prop/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-prop/demo.html)
 
-以小写字母为 5 像素高作为基础尺寸来设计，比例模式。
-
 ![preview-cute-prop](docs/cute-prop/preview.png)
 
 ### Petty 5H
 
 尺寸：5px / 行高：9px · [实时预览](https://retro-pixel-font.takwolf.com#font-petty-5h) · [字母表](https://retro-pixel-font.takwolf.com/petty-5h/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/petty-5h/demo.html)
-
-以最小尺寸 5 像素高来绘制大写字母。相应的，只有大写字母和基础标点符号。
 
 ![preview-petty-5h](docs/petty-5h/preview.png)
 
@@ -55,15 +47,11 @@
 
 尺寸：5px / 行高：9px · [实时预览](https://retro-pixel-font.takwolf.com#font-petty-5x5) · [字母表](https://retro-pixel-font.takwolf.com/petty-5x5/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/petty-5x5/demo.html)
 
-以最小尺寸 5*5 像素来绘制大写字母。相应的，只有大写字母和基础标点符号。
-
 ![preview-petty-5x5](docs/petty-5x5/preview.png)
 
 ### Thick
 
 尺寸：16px / 行高：20px · [实时预览](https://retro-pixel-font.takwolf.com#font-thick) · [字母表](https://retro-pixel-font.takwolf.com/thick/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/thick/demo.html)
-
-有一点厚重感觉的像素字体。
 
 ![preview-thick](docs/thick/preview.png)
 

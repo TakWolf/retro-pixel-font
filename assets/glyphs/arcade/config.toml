@@ -4,7 +4,6 @@ weight_name = "Regular"
 serif_style = "Sans Serif"
 slant_style = "Normal"
 width_mode = "Monospaced"
-description = "Arcade Cabinet style pixel font. Design from Atari and Famicom game font."
 
 size = 8
 ascent = 9
@@ -12,7 +11,6 @@ descent = -3
 x_height = 5
 cap_height = 7
 
-readme_intro = "街机风格的像素字体。设计来源于雅达利和红白机的游戏字体。"
 preview_text = """
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
