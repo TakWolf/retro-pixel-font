@@ -155,23 +155,10 @@ def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], 
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
 
     builder = _create_builder(font_config, character_mapping, glyph_files)
-
-    otf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.otf')
-    builder.save_otf(otf_file_path)
-    logger.info("Make font file: '%s'", otf_file_path)
-
-    woff2_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.woff2')
-    builder.save_otf(woff2_file_path, flavor=Flavor.WOFF2)
-    logger.info("Make font file: '%s'", woff2_file_path)
-
-    ttf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.ttf')
-    builder.save_ttf(ttf_file_path)
-    logger.info("Make font file: '%s'", ttf_file_path)
-
-    bdf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.bdf')
-    builder.save_bdf(bdf_file_path)
-    logger.info("Make font file: '%s'", bdf_file_path)
-
-    pcf_file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.pcf')
-    builder.save_pcf(pcf_file_path)
-    logger.info("Make font file: '%s'", pcf_file_path)
+    for font_format in configs.font_formats:
+        file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.{font_format}')
+        if font_format == 'woff2':
+            builder.save_otf(file_path, flavor=Flavor.WOFF2)
+        else:
+            getattr(builder, f'save_{font_format}')(file_path)
+        logger.info("Make font file: '%s'", file_path)
