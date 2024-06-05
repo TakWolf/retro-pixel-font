@@ -5,16 +5,6 @@ from scripts.configs import path_define, FontConfig
 
 logger = logging.getLogger('info_service')
 
-_ofl_string_format = path_define.project_root_dir.joinpath('LICENSE-OFL').read_text('utf-8')
-
-
-def make_ofl_txt(font_config: FontConfig):
-    font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
-    file_path = font_config.outputs_dir.joinpath('OFL.txt')
-    ofl_string = _ofl_string_format.format(font_name=font_config.name)
-    file_path.write_text(ofl_string, 'utf-8')
-    logger.info("Make ofl txt: '%s'", file_path)
-
 
 def make_info_txt(font_config: FontConfig):
     lines = [

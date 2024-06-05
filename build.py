@@ -12,7 +12,6 @@ def main():
         alphabet, character_mapping, glyph_files = font_service.collect_glyph_files(font_config)
         font_service.format_glyph_files(font_config, glyph_files)
         font_service.make_fonts(font_config, character_mapping, glyph_files)
-        info_service.make_ofl_txt(font_config)
         info_service.make_info_txt(font_config)
         info_service.make_alphabet_txt(font_config, alphabet)
         image_service.make_preview_image(font_config)
