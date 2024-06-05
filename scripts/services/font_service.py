@@ -151,7 +151,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     return builder
 
 
-def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]):
+def make_fonts(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]):
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
 
     builder = _create_builder(font_config, character_mapping, glyph_files)
@@ -161,4 +161,4 @@ def make_font_files(font_config: FontConfig, character_mapping: dict[int, str], 
             builder.save_otf(file_path, flavor=Flavor.WOFF2)
         else:
             getattr(builder, f'save_{font_format}')(file_path)
-        logger.info("Make font file: '%s'", file_path)
+        logger.info("Make font: '%s'", file_path)

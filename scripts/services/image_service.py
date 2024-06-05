@@ -55,7 +55,7 @@ def _draw_demo_lines(
         y += sum(font.getmetrics())
 
 
-def make_preview_image_file(font_config: FontConfig):
+def make_preview_image(font_config: FontConfig):
     font = _load_font(font_config)
     text_color = (255, 255, 255, 255)
     lines = font_config.preview_text.split('\n')
@@ -78,7 +78,7 @@ def make_preview_image_file(font_config: FontConfig):
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
     file_path = font_config.outputs_dir.joinpath('preview.png')
     image.save(file_path)
-    logger.info("Make preview image file: '%s'", file_path)
+    logger.info("Make preview image: '%s'", file_path)
 
 
 def make_readme_banner(font_configs: dict[str, FontConfig]):

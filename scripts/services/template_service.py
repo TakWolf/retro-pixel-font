@@ -18,7 +18,7 @@ _environment = Environment(
 _build_random_key = random.random()
 
 
-def _make_html_file(template_name: str, file_path: Path, params: dict[str, object] | None = None):
+def _make_html(template_name: str, file_path: Path, params: dict[str, object] | None = None):
     params = {} if params is None else dict(params)
     params['build_random_key'] = _build_random_key
 
@@ -26,11 +26,11 @@ def _make_html_file(template_name: str, file_path: Path, params: dict[str, objec
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
     file_path.write_text(html, 'utf-8')
-    logger.info("Make html file: '%s'", file_path)
+    logger.info("Make html: '%s'", file_path)
 
 
-def make_alphabet_html_file(font_config: FontConfig, alphabet: list[str]):
-    _make_html_file('alphabet.html', font_config.outputs_dir.joinpath('alphabet.html'), {
+def make_alphabet_html(font_config: FontConfig, alphabet: list[str]):
+    _make_html('alphabet.html', font_config.outputs_dir.joinpath('alphabet.html'), {
         'font_config': font_config,
         'alphabet': ''.join(alphabet),
     })
@@ -76,26 +76,26 @@ def _handle_demo_html_element(alphabet: list[str], soup: bs4.BeautifulSoup, elem
         tmp_parent.unwrap()
 
 
-def make_demo_html_file(font_config: FontConfig, alphabet: list[str]):
+def make_demo_html(font_config: FontConfig, alphabet: list[str]):
     content_html = _environment.get_template('demo-content.html').render(font_config=font_config)
     content_html = ''.join(line.strip() for line in content_html.split('\n'))
     soup = bs4.BeautifulSoup(content_html, 'html.parser')
     _handle_demo_html_element(alphabet, soup, soup)
     content_html = str(soup)
 
-    _make_html_file('demo.html', font_config.outputs_dir.joinpath('demo.html'), {
+    _make_html('demo.html', font_config.outputs_dir.joinpath('demo.html'), {
         'font_config': font_config,
         'content_html': content_html,
     })
 
 
-def make_index_html_file(font_configs: dict[str, FontConfig]):
-    _make_html_file('index.html', path_define.outputs_dir.joinpath('index.html'), {
+def make_index_html(font_configs: dict[str, FontConfig]):
+    _make_html('index.html', path_define.outputs_dir.joinpath('index.html'), {
         'font_configs': font_configs,
     })
 
 
-def make_itch_io_details_html_file(font_configs: dict[str, FontConfig]):
-    _make_html_file('itch-io-details.html', path_define.outputs_dir.joinpath('itch-io-details.html'), {
+def make_itch_io_details_html(font_configs: dict[str, FontConfig]):
+    _make_html('itch-io-details.html', path_define.outputs_dir.joinpath('itch-io-details.html'), {
         'font_configs': font_configs,
     })
