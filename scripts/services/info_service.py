@@ -7,8 +7,7 @@ logger = logging.getLogger('info_service')
 
 def make_info_txt(font_config: FontConfig):
     lines = [
-        f'Retro Pixel {font_config.name}',
-        '',
+        f'name: {font_config.name}',
         f'font-size: {font_config.font_size}px',
         f'line-height: {font_config.line_height}px',
         '',
