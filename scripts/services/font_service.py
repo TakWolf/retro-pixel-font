@@ -1,3 +1,4 @@
+import datetime
 import logging
 import math
 import shutil
@@ -118,8 +119,8 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.font_metric.cap_height = font_config.cap_height
 
     builder.meta_info.version = configs.font_version
-    builder.meta_info.created_time = configs.font_version_time
-    builder.meta_info.modified_time = configs.font_version_time
+    builder.meta_info.created_time = datetime.datetime.fromisoformat(f'{configs.font_version.replace('.', '-')}T00:00:00Z')
+    builder.meta_info.modified_time = builder.meta_info.created_time
     builder.meta_info.family_name = f'Retro Pixel {font_config.name}'
     builder.meta_info.weight_name = font_config.weight_name
     builder.meta_info.serif_style = font_config.serif_style
