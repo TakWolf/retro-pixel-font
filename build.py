@@ -17,7 +17,6 @@ def main():
         image_service.make_preview_image(font_config)
         template_service.make_alphabet_html(font_config, alphabet)
         template_service.make_demo_html(font_config, alphabet)
-    info_service.make_readme_txt()
     publish_service.make_release_zips(font_configs)
     template_service.make_index_html(font_configs)
     template_service.make_itch_io_details_html(font_configs)

@@ -21,7 +21,6 @@ def make_release_zips(font_configs: dict[str, FontConfig]):
         file_path = path_define.releases_dir.joinpath(f'retro-pixel-font-{font_format}-v{configs.font_version}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
             file.write(path_define.project_root_dir.joinpath('LICENSE-OFL'), 'OFL.txt')
-            file.write(path_define.outputs_dir.joinpath('readme.txt'), 'readme.txt')
             for font_config in font_configs.values():
                 outputs_arc = Path(font_config.outputs_name)
                 font_file_name = f'retro-pixel-{font_config.outputs_name}.{font_format}'

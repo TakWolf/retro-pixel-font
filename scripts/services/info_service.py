@@ -1,7 +1,6 @@
 import logging
 
-from scripts import configs
-from scripts.configs import path_define, FontConfig
+from scripts.configs import FontConfig
 
 logger = logging.getLogger('info_service')
 
@@ -26,19 +25,3 @@ def make_alphabet_txt(font_config: FontConfig, alphabet: list[str]):
     file_path = font_config.outputs_dir.joinpath('alphabet.txt')
     file_path.write_text(''.join(alphabet), 'utf-8')
     logger.info("Make alphabet txt: '%s'", file_path)
-
-
-def make_readme_txt():
-    lines = [
-        'Retro Pixel Font',
-        '',
-        'https://retro-pixel-font.takwolf.com',
-        '',
-        f'version: {configs.font_version}',
-        '',
-    ]
-
-    path_define.outputs_dir.mkdir(parents=True, exist_ok=True)
-    file_path = path_define.outputs_dir.joinpath('readme.txt')
-    file_path.write_text('\n'.join(lines), 'utf-8')
-    logger.info("Make readme txt: '%s'", file_path)
