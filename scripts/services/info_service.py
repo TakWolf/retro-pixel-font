@@ -2,7 +2,7 @@ import logging
 
 from scripts.configs import FontConfig
 
-logger = logging.getLogger('info_service')
+logger = logging.getLogger(__name__)
 
 
 def make_info_txt(font_config: FontConfig):

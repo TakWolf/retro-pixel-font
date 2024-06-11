@@ -7,7 +7,7 @@ from jinja2 import Environment, FileSystemLoader
 
 from scripts.configs import path_define, FontConfig
 
-logger = logging.getLogger('template_service')
+logger = logging.getLogger(__name__)
 
 _environment = Environment(
     trim_blocks=True,
