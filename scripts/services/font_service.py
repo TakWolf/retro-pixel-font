@@ -7,10 +7,11 @@ from pathlib import Path
 import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
+from pixel_font_knife import mono_bitmap_util
 
 from scripts import configs
 from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util, bitmap_util
+from scripts.utils import fs_util
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ class GlyphFile:
     def __init__(self, file_path: Path, code_point: int):
         self.file_path = file_path
         self.code_point = code_point
-        self.bitmap, self.width, self.height = bitmap_util.load_png(file_path)
+        self.bitmap, self.width, self.height = mono_bitmap_util.load_png(file_path)
 
     @property
     def glyph_name(self) -> str:
@@ -85,7 +86,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
     root_dir = path_define.glyphs_dir.joinpath(font_config.outputs_name)
     for glyph_file in glyph_files:
         assert glyph_file.height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
-        bitmap_util.save_png(glyph_file.bitmap, glyph_file.file_path)
+        mono_bitmap_util.save_png(glyph_file.bitmap, glyph_file.file_path)
 
         if glyph_file.code_point == -1:
             file_name = 'notdef.png'
