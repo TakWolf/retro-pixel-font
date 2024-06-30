@@ -74,32 +74,30 @@
     </style>
 {% endblock %}
 {% block body %}
-    <div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="onThemeChange('light');"></div>
-    <div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="onThemeChange('dark');"></div>
+    <div class="btn-apply-theme theme-light" style="top: 0; left: 0;" onclick="onThemeChange('light')"></div>
+    <div class="btn-apply-theme theme-dark" style="top: 0; right: 0;" onclick="onThemeChange('dark')"></div>
     <div id="page">
         {{ content_html }}
     </div>
     <script>
         let settings = {
             theme: 'light',
-        };
+        }
 
         function applySettings() {
-            localStorage.setItem('settings:demo-{{ font_config.output_name }}', JSON.stringify(settings));
-            document.body.className = 'theme-' + settings.theme;
+            localStorage.setItem('settings:demo-{{ font_config.output_name }}', JSON.stringify(settings))
+            document.body.className = 'theme-' + settings.theme
         }
 
         function onThemeChange(theme) {
-            settings.theme = theme;
-            applySettings();
+            settings.theme = theme
+            applySettings()
         }
 
-        (function () {
-            let json = localStorage.getItem('settings:demo-{{ font_config.output_name }}');
-            if (json) {
-                Object.assign(settings, JSON.parse(json));
-            }
-            applySettings();
-        })();
+        let json = localStorage.getItem('settings:demo-{{ font_config.output_name }}')
+        if (json) {
+            Object.assign(settings, JSON.parse(json))
+        }
+        applySettings()
     </script>
 {% endblock %}
