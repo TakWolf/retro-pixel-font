@@ -5,7 +5,7 @@ from pathlib import Path
 import bs4
 from jinja2 import Environment, FileSystemLoader
 
-from scripts.configs import path_define, FontConfig
+from tools.configs import path_define, FontConfig
 
 logger = logging.getLogger(__name__)
 

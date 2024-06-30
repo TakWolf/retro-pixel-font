@@ -9,9 +9,9 @@ from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
 from pixel_font_knife import mono_bitmap_util
 
-from scripts import configs
-from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util
+from tools import configs
+from tools.configs import path_define, FontConfig
+from tools.utils import fs_util
 
 logger = logging.getLogger(__name__)
 

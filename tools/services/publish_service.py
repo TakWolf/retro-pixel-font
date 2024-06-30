@@ -7,9 +7,9 @@ from pathlib import Path
 
 import git
 
-from scripts import configs
-from scripts.configs import path_define, FontConfig
-from scripts.utils import fs_util
+from tools import configs
+from tools.configs import path_define, FontConfig
+from tools.utils import fs_util
 
 logger = logging.getLogger(__name__)
 

@@ -21,7 +21,7 @@ jobs:
           python -m pip install pip --upgrade
           python -m pip install -r requirements.txt
       - name: Build
-        run: python ./build.py
+        run: python -m tools.build
       - name: Release
         uses: softprops/action-gh-release@v2
         with:

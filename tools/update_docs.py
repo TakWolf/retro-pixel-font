@@ -1,5 +1,5 @@
-from scripts.configs import FontConfig
-from scripts.services import publish_service
+from tools.configs import FontConfig
+from tools.services import publish_service
 
 
 def main():

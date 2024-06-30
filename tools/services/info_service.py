@@ -1,6 +1,6 @@
 import logging
 
-from scripts.configs import FontConfig
+from tools.configs import FontConfig
 
 logger = logging.getLogger(__name__)
 

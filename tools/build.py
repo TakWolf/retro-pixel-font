@@ -1,6 +1,6 @@
-from scripts.configs import path_define, FontConfig
-from scripts.services import font_service, publish_service, info_service, template_service, image_service
-from scripts.utils import fs_util
+from tools.configs import path_define, FontConfig
+from tools.services import font_service, publish_service, info_service, template_service, image_service
+from tools.utils import fs_util
 
 
 def main():
