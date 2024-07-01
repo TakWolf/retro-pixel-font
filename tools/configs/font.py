@@ -116,7 +116,6 @@ class FontConfig:
 
         self.outputs_dir = path_define.outputs_dir.joinpath(self.outputs_name)
         self.docs_dir = path_define.docs_dir.joinpath(self.outputs_name)
-        self.www_dir = path_define.www_dir.joinpath(self.outputs_name)
 
     @property
     def line_height(self) -> int:
