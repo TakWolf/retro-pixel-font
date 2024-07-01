@@ -8,7 +8,8 @@ from pathlib import Path
 import git
 
 from tools import configs
-from tools.configs import path_define, FontConfig
+from tools.configs import path_define
+from tools.configs.font import FontConfig
 from tools.utils import fs_util
 
 logger = logging.getLogger(__name__)
