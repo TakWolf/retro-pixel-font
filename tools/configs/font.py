@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from pixel_font_builder import WeightName, SerifStyle, SlantStyle, WidthMode
+from pixel_font_builder import WeightName, SerifStyle, SlantStyle, WidthStyle
 
 from tools.configs import path_define
 from tools.utils import fs_util
@@ -26,7 +26,7 @@ class FontConfig:
             weight_name = WeightName(config_data['weight_name'])
             serif_style = SerifStyle(config_data['serif_style'])
             slant_style = SlantStyle(config_data['slant_style'])
-            width_mode = WidthMode(config_data['width_mode'])
+            width_style = WidthStyle(config_data['width_style'])
             font_size = config_data['size']
             ascent = config_data['ascent']
             descent = config_data['descent']
@@ -40,7 +40,7 @@ class FontConfig:
                 weight_name,
                 serif_style,
                 slant_style,
-                width_mode,
+                width_style,
                 font_size,
                 ascent,
                 descent,
@@ -62,7 +62,7 @@ class FontConfig:
     weight_name: WeightName
     serif_style: SerifStyle
     slant_style: SlantStyle
-    width_mode: WidthMode
+    width_style: WidthStyle
 
     font_size: int
     ascent: int
@@ -85,7 +85,7 @@ class FontConfig:
             weight_name: WeightName,
             serif_style: SerifStyle,
             slant_style: SlantStyle,
-            width_mode: WidthMode,
+            width_style: WidthStyle,
             font_size: int,
             ascent: int,
             descent: int,
@@ -101,7 +101,7 @@ class FontConfig:
         self.weight_name = weight_name
         self.serif_style = serif_style
         self.slant_style = slant_style
-        self.width_mode = width_mode
+        self.width_style = width_style
 
         self.font_size = font_size
         self.ascent = ascent

@@ -3,7 +3,7 @@ name = "Arcade"
 weight_name = "Regular"
 serif_style = "Sans Serif"
 slant_style = "Normal"
-width_mode = "Monospaced"
+width_style = "Monospaced"
 
 size = 8
 ascent = 9

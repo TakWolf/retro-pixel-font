@@ -127,7 +127,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.meta_info.weight_name = font_config.weight_name
     builder.meta_info.serif_style = font_config.serif_style
     builder.meta_info.slant_style = font_config.slant_style
-    builder.meta_info.width_mode = font_config.width_mode
+    builder.meta_info.width_style = font_config.width_style
     builder.meta_info.manufacturer = 'TakWolf'
     builder.meta_info.designer = 'TakWolf'
     builder.meta_info.description = 'Open source retro style pixel font.'

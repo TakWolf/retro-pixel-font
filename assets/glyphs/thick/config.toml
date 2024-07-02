@@ -3,7 +3,7 @@ name = "Thick"
 weight_name = "Bold"
 serif_style = "Sans Serif"
 slant_style = "Normal"
-width_mode = "Proportional"
+width_style = "Proportional"
 
 size = 16
 ascent = 15

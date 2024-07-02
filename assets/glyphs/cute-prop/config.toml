@@ -3,7 +3,7 @@ name = "Cute Prop"
 weight_name = "Regular"
 serif_style = "Sans Serif"
 slant_style = "Normal"
-width_mode = "Proportional"
+width_style = "Proportional"
 
 size = 11
 ascent = 11

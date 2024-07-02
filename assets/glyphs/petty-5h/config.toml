@@ -3,7 +3,7 @@ name = "Petty 5H"
 weight_name = "Regular"
 serif_style = "Sans Serif"
 slant_style = "Normal"
-width_mode = "Proportional"
+width_style = "Proportional"
 
 size = 5
 ascent = 7
