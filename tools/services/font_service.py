@@ -77,8 +77,7 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
             if code_point in character_mapping and fallback_code_point not in character_mapping:
                 character_mapping[fallback_code_point] = character_mapping[code_point]
 
-    alphabet = [chr(code_point) for code_point in character_mapping]
-    alphabet.sort()
+    alphabet = sorted(chr(code_point) for code_point in character_mapping)
 
     return alphabet, character_mapping, glyph_files
 
