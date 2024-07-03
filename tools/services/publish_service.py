@@ -6,7 +6,6 @@ from pathlib import Path
 from tools import configs
 from tools.configs import path_define
 from tools.configs.font import FontConfig
-from tools.utils import fs_util
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +64,8 @@ def update_readme_md(font_configs: dict[str, FontConfig]):
 
 
 def update_docs():
-    fs_util.delete_dir(path_define.docs_dir)
+    if path_define.docs_dir.exists():
+        shutil.rmtree(path_define.docs_dir)
 
     for file_dir, _, file_names in path_define.outputs_dir.walk():
         for file_name in file_names:

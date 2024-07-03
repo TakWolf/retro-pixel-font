@@ -1,12 +1,6 @@
-import shutil
 import tomllib
 from pathlib import Path
 from typing import Any
-
-
-def delete_dir(path: Path):
-    if path.exists():
-        shutil.rmtree(path)
 
 
 def is_empty_dir(path: Path) -> bool:
