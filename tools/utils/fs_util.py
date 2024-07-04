@@ -12,4 +12,5 @@ def is_empty_dir(path: Path) -> bool:
 
 
 def read_toml(path: Path) -> Any:
-    return tomllib.loads(path.read_text('utf-8'))
+    with path.open('rb') as file:
+        return tomllib.load(file)
