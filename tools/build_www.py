@@ -3,7 +3,7 @@ from tools.services import font_service, template_service
 
 
 def main():
-    font_configs = FontConfig.load_all()
+    font_configs = FontConfig.load()
     for font_config in font_configs.values():
         alphabet, character_mapping, glyph_files = font_service.collect_glyph_files(font_config)
         font_service.format_glyph_files(font_config, glyph_files)

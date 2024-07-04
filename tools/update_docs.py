@@ -3,7 +3,7 @@ from tools.services import publish_service
 
 
 def main():
-    publish_service.update_readme_md(FontConfig.load_all())
+    publish_service.update_readme_md(FontConfig.load())
     publish_service.update_docs()
 
 

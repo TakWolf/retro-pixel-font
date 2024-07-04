@@ -9,7 +9,7 @@ def main():
     if path_define.build_dir.exists():
         shutil.rmtree(path_define.build_dir)
 
-    font_configs = FontConfig.load_all()
+    font_configs = FontConfig.load()
     for font_config in font_configs.values():
         alphabet, character_mapping, glyph_files = font_service.collect_glyph_files(font_config)
         font_service.format_glyph_files(font_config, glyph_files)
