@@ -7,7 +7,7 @@ from pathlib import Path
 import unidata_blocks
 from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
-from pixel_font_knife import mono_bitmap_util
+from pixel_font_knife.mono_bitmap import MonoBitmap
 
 from tools import configs
 from tools.configs import path_define
@@ -29,14 +29,20 @@ class GlyphFile:
 
     file_path: Path
     code_point: int
-    bitmap: list[list[int]]
-    width: int
-    height: int
+    bitmap: MonoBitmap
 
     def __init__(self, file_path: Path, code_point: int):
         self.file_path = file_path
         self.code_point = code_point
-        self.bitmap, self.width, self.height = mono_bitmap_util.load_png(file_path)
+        self.bitmap = MonoBitmap.load_png(file_path)
+
+    @property
+    def width(self) -> int:
+        return self.bitmap.width
+
+    @property
+    def height(self) -> int:
+        return self.bitmap.height
 
     @property
     def glyph_name(self) -> str:
@@ -86,7 +92,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
     root_dir = path_define.glyphs_dir.joinpath(font_config.outputs_name)
     for glyph_file in glyph_files:
         assert glyph_file.height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
-        mono_bitmap_util.save_png(glyph_file.bitmap, glyph_file.file_path)
+        glyph_file.bitmap.save_png(glyph_file.file_path)
 
         if glyph_file.code_point == -1:
             file_name = 'notdef.png'
@@ -147,7 +153,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
             advance_height=font_config.font_size,
             horizontal_origin=(0, horizontal_origin_y),
             vertical_origin_y=vertical_origin_y,
-            bitmap=glyph_file.bitmap,
+            bitmap=glyph_file.bitmap.data,
         ))
 
     return builder
