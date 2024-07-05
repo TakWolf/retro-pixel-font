@@ -49,7 +49,7 @@ class GlyphFile:
         if self.code_point == -1:
             return '.notdef'
         else:
-            return f'uni{self.code_point:04X}'
+            return f'{self.code_point:04X}'
 
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
