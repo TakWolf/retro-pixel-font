@@ -1,9 +1,9 @@
+import tomllib
 from pathlib import Path
 
 from pixel_font_builder import WeightName, SerifStyle, SlantStyle, WidthStyle
 
 from tools.configs import path_define
-from tools.utils import fs_util
 
 _DEFAULT_PREVIEW_TEXT = '''
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -21,7 +21,7 @@ class FontConfig:
             file_path = file_dir.joinpath('config.toml')
             if not file_path.is_file():
                 continue
-            config_data = fs_util.read_toml(file_path)['font']
+            config_data = tomllib.loads(file_path.read_text('utf-8'))['font']
             name = config_data['name']
             weight_name = WeightName(config_data['weight_name'])
             serif_style = SerifStyle(config_data['serif_style'])

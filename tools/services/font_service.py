@@ -12,7 +12,14 @@ from pixel_font_knife.mono_bitmap import MonoBitmap
 from tools import configs
 from tools.configs import path_define
 from tools.configs.font import FontConfig
-from tools.utils import fs_util
+
+
+def _is_empty_dir(path: Path) -> bool:
+    for item_path in path.iterdir():
+        if item_path.name == '.DS_Store':
+            continue
+        return False
+    return True
 
 
 class GlyphFile:
@@ -109,7 +116,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
             logger.info("Standardize glyph file path: '{}'", glyph_file.file_path)
 
     for file_dir, _, _ in root_dir.walk(top_down=False):
-        if fs_util.is_empty_dir(file_dir):
+        if _is_empty_dir(file_dir):
             shutil.rmtree(file_dir)
 
 
