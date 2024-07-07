@@ -1,10 +1,10 @@
 import datetime
-import logging
 import math
 import shutil
 from pathlib import Path
 
 import unidata_blocks
+from loguru import logger
 from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
 from pixel_font_knife.mono_bitmap import MonoBitmap
@@ -13,8 +13,6 @@ from tools import configs
 from tools.configs import path_define
 from tools.configs.font import FontConfig
 from tools.utils import fs_util
-
-logger = logging.getLogger(__name__)
 
 
 class GlyphFile:
@@ -108,7 +106,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
             file_dir.mkdir(parents=True, exist_ok=True)
             glyph_file.file_path.rename(file_path)
             glyph_file.file_path = file_path
-            logger.info("Standardize glyph file path: '%s'", glyph_file.file_path)
+            logger.info("Standardize glyph file path: '{}'", glyph_file.file_path)
 
     for file_dir, _, _ in root_dir.walk(top_down=False):
         if fs_util.is_empty_dir(file_dir):
@@ -169,4 +167,4 @@ def make_fonts(font_config: FontConfig, character_mapping: dict[int, str], glyph
             builder.save_otf(file_path, flavor=Flavor.WOFF2)
         else:
             getattr(builder, f'save_{font_format}')(file_path)
-        logger.info("Make font: '%s'", file_path)
+        logger.info("Make font: '{}'", file_path)

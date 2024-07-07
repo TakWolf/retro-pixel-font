@@ -1,14 +1,12 @@
-import logging
 import random
 from pathlib import Path
 
 import bs4
 from jinja2 import Environment, FileSystemLoader
+from loguru import logger
 
 from tools.configs import path_define
 from tools.configs.font import FontConfig
-
-logger = logging.getLogger(__name__)
 
 _environment = Environment(
     trim_blocks=True,
@@ -27,7 +25,7 @@ def _make_html(template_name: str, file_path: Path, params: dict[str, object] | 
 
     file_path.parent.mkdir(parents=True, exist_ok=True)
     file_path.write_text(html, 'utf-8')
-    logger.info("Make html: '%s'", file_path)
+    logger.info("Make html: '{}'", file_path)
 
 
 def make_alphabet_html(font_config: FontConfig, alphabet: list[str]):

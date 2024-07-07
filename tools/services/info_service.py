@@ -1,8 +1,6 @@
-import logging
+from loguru import logger
 
 from tools.configs.font import FontConfig
-
-logger = logging.getLogger(__name__)
 
 
 def make_info_txt(font_config: FontConfig):
@@ -16,11 +14,11 @@ def make_info_txt(font_config: FontConfig):
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
     file_path = font_config.outputs_dir.joinpath('info.txt')
     file_path.write_text('\n'.join(lines), 'utf-8')
-    logger.info("Make info txt: '%s'", file_path)
+    logger.info("Make info txt: '{}'", file_path)
 
 
 def make_alphabet_txt(font_config: FontConfig, alphabet: list[str]):
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
     file_path = font_config.outputs_dir.joinpath('alphabet.txt')
     file_path.write_text(''.join(alphabet), 'utf-8')
-    logger.info("Make alphabet txt: '%s'", file_path)
+    logger.info("Make alphabet txt: '{}'", file_path)

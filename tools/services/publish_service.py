@@ -1,13 +1,12 @@
-import logging
 import shutil
 import zipfile
 from pathlib import Path
 
+from loguru import logger
+
 from tools import configs
 from tools.configs import path_define
 from tools.configs.font import FontConfig
-
-logger = logging.getLogger(__name__)
 
 
 def make_release_zips(font_configs: dict[str, FontConfig]):
@@ -23,7 +22,7 @@ def make_release_zips(font_configs: dict[str, FontConfig]):
                 file.write(font_config.outputs_dir.joinpath(font_file_name), outputs_arc.joinpath(font_file_name))
                 file.write(font_config.outputs_dir.joinpath('info.txt'), outputs_arc.joinpath('info.txt'))
                 file.write(font_config.outputs_dir.joinpath('preview.png'), outputs_arc.joinpath('preview.png'))
-        logger.info("Make release zip: '%s'", file_path)
+        logger.info("Make release zip: '{}'", file_path)
 
 
 def update_readme_md(font_configs: dict[str, FontConfig]):
@@ -75,4 +74,4 @@ def update_docs():
             path_to = path_define.docs_dir.joinpath(path_from.relative_to(path_define.outputs_dir))
             path_to.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(path_from, path_to)
-            logger.info("Copy file: '%s' -> '%s'", path_from, path_to)
+            logger.info("Copy file: '{}' -> '{}'", path_from, path_to)
