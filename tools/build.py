@@ -2,7 +2,7 @@ import shutil
 
 from tools.configs import path_define
 from tools.configs.font import FontConfig
-from tools.services import font_service, publish_service, info_service, template_service, image_service
+from tools.services import font_service, publish_service, template_service, image_service
 
 
 def main():
@@ -14,8 +14,6 @@ def main():
         alphabet, character_mapping, glyph_files = font_service.collect_glyph_files(font_config)
         font_service.format_glyph_files(font_config, glyph_files)
         font_service.make_fonts(font_config, character_mapping, glyph_files)
-        info_service.make_info_txt(font_config)
-        info_service.make_alphabet_txt(font_config, alphabet)
         image_service.make_preview_image(font_config)
         template_service.make_alphabet_html(font_config, alphabet)
         template_service.make_demo_html(font_config, alphabet)

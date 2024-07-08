@@ -20,7 +20,6 @@ def make_release_zips(font_configs: dict[str, FontConfig]):
                 outputs_arc = Path(font_config.outputs_name)
                 font_file_name = f'retro-pixel-{font_config.outputs_name}.{font_format}'
                 file.write(font_config.outputs_dir.joinpath(font_file_name), outputs_arc.joinpath(font_file_name))
-                file.write(font_config.outputs_dir.joinpath('info.txt'), outputs_arc.joinpath('info.txt'))
                 file.write(font_config.outputs_dir.joinpath('preview.png'), outputs_arc.joinpath('preview.png'))
         logger.info("Make release zip: '{}'", file_path)
 
