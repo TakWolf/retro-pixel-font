@@ -75,9 +75,9 @@ class FontConfig:
 
     preview_text: str
 
+    glyphs_dir: Path
     outputs_dir: Path
     docs_dir: Path
-    www_dir: Path
 
     def __init__(
             self,
@@ -114,6 +114,7 @@ class FontConfig:
 
         self.preview_text = preview_text
 
+        self.glyphs_dir = path_define.glyphs_dir.joinpath(self.outputs_name)
         self.outputs_dir = path_define.outputs_dir.joinpath(self.outputs_name)
         self.docs_dir = path_define.docs_dir.joinpath(self.outputs_name)
 

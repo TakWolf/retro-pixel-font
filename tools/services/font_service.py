@@ -10,7 +10,6 @@ from pixel_font_builder.opentype import Flavor
 from pixel_font_knife.mono_bitmap import MonoBitmap
 
 from tools import configs
-from tools.configs import path_define
 from tools.configs.font import FontConfig
 
 
@@ -59,8 +58,7 @@ class GlyphFile:
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
     registry = {}
-    root_dir = path_define.glyphs_dir.joinpath(font_config.outputs_name)
-    for file_dir, _, file_names in root_dir.walk():
+    for file_dir, _, file_names in font_config.glyphs_dir.walk():
         for file_name in file_names:
             if not file_name.endswith('.png'):
                 continue
@@ -94,18 +92,17 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
 
 
 def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
-    root_dir = path_define.glyphs_dir.joinpath(font_config.outputs_name)
     for glyph_file in glyph_files:
         assert glyph_file.height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
         glyph_file.bitmap.save_png(glyph_file.file_path)
 
         if glyph_file.code_point == -1:
             file_name = 'notdef.png'
-            file_dir = root_dir
+            file_dir = font_config.glyphs_dir
         else:
             file_name = f'{glyph_file.code_point:04X}.png'
             block = unidata_blocks.get_block_by_code_point(glyph_file.code_point)
-            file_dir = root_dir.joinpath(f'{block.code_start:04X}-{block.code_end:04X} {block.name}')
+            file_dir = font_config.glyphs_dir.joinpath(f'{block.code_start:04X}-{block.code_end:04X} {block.name}')
 
         file_path = file_dir.joinpath(file_name)
         if glyph_file.file_path != file_path:
@@ -115,7 +112,7 @@ def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
             glyph_file.file_path = file_path
             logger.info("Standardize glyph file path: '{}'", glyph_file.file_path)
 
-    for file_dir, _, _ in root_dir.walk(top_down=False):
+    for file_dir, _, _ in font_config.glyphs_dir.walk(top_down=False):
         if _is_empty_dir(file_dir):
             shutil.rmtree(file_dir)
 
