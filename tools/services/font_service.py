@@ -1,123 +1,52 @@
 import datetime
 import math
-import shutil
-from pathlib import Path
 
-import unidata_blocks
 from loguru import logger
 from pixel_font_builder import FontBuilder, Glyph
 from pixel_font_builder.opentype import Flavor
-from pixel_font_knife.mono_bitmap import MonoBitmap
+from pixel_font_knife import glyph_file_util
+from pixel_font_knife.glyph_file_util import GlyphFile
 
 from tools import configs
 from tools.configs.font import FontConfig
 
 
-def _is_empty_dir(path: Path) -> bool:
-    for item_path in path.iterdir():
-        if item_path.name == '.DS_Store':
-            continue
-        return False
-    return True
-
-
-class GlyphFile:
-    @staticmethod
-    def load(file_path: Path) -> 'GlyphFile':
-        hex_name = file_path.stem
-        if hex_name == 'notdef':
-            code_point = -1
-        else:
-            code_point = int(hex_name, 16)
-        return GlyphFile(file_path, code_point)
-
-    file_path: Path
-    code_point: int
-    bitmap: MonoBitmap
-
-    def __init__(self, file_path: Path, code_point: int):
-        self.file_path = file_path
-        self.code_point = code_point
-        self.bitmap = MonoBitmap.load_png(file_path)
-
-    @property
-    def width(self) -> int:
-        return self.bitmap.width
-
-    @property
-    def height(self) -> int:
-        return self.bitmap.height
-
-    @property
-    def glyph_name(self) -> str:
-        if self.code_point == -1:
-            return '.notdef'
-        else:
-            return f'{self.code_point:04X}'
+def _get_glyph_name(glyph_file: GlyphFile) -> str:
+    if glyph_file.code_point == -1:
+        return '.notdef'
+    else:
+        return f'{glyph_file.code_point:04X}'
 
 
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
-    registry = {}
-    for file_dir, _, file_names in font_config.glyphs_dir.walk():
-        for file_name in file_names:
-            if not file_name.endswith('.png'):
-                continue
-            file_path = file_dir.joinpath(file_name)
-            glyph_file = GlyphFile.load(file_path)
-            registry[glyph_file.code_point] = glyph_file
-
-    character_mapping = {}
-    glyph_files = []
-    for glyph_file in registry.values():
-        if glyph_file.code_point != -1:
-            character_mapping[glyph_file.code_point] = glyph_file.glyph_name
-        glyph_files.append(glyph_file)
-    glyph_files.sort(key=lambda x: x.code_point)
+    context = glyph_file_util.load_context(font_config.glyphs_dir)
 
     if font_config.fallback_lower_from_upper:
         for code_point in range(ord('A'), ord('Z') + 1):
             fallback_code_point = code_point + 32
-            if code_point in character_mapping and fallback_code_point not in character_mapping:
-                character_mapping[fallback_code_point] = character_mapping[code_point]
+            if code_point in context and fallback_code_point not in context:
+                context[fallback_code_point] = context[code_point]
 
     if font_config.fallback_upper_from_lower:
         for code_point in range(ord('a'), ord('z') + 1):
             fallback_code_point = code_point - 32
-            if code_point in character_mapping and fallback_code_point not in character_mapping:
-                character_mapping[fallback_code_point] = character_mapping[code_point]
+            if code_point in context and fallback_code_point not in context:
+                context[fallback_code_point] = context[code_point]
 
-    alphabet = sorted(chr(code_point) for code_point in character_mapping)
-
-    return alphabet, character_mapping, glyph_files
-
-
-def format_glyph_files(font_config: FontConfig, glyph_files: list[GlyphFile]):
-    for glyph_file in glyph_files:
-        assert glyph_file.height == font_config.line_height, f"Glyph data error: '{glyph_file.file_path}'"
-        glyph_file.bitmap.save_png(glyph_file.file_path)
-
-        if glyph_file.code_point == -1:
-            file_name = 'notdef.png'
-            file_dir = font_config.glyphs_dir
-        else:
-            file_name = f'{glyph_file.code_point:04X}.png'
-            block = unidata_blocks.get_block_by_code_point(glyph_file.code_point)
-            file_dir = font_config.glyphs_dir.joinpath(f'{block.code_start:04X}-{block.code_end:04X} {block.name}')
-
-        file_path = file_dir.joinpath(file_name)
-        if glyph_file.file_path != file_path:
-            assert not file_path.exists(), f"Glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
-            file_dir.mkdir(parents=True, exist_ok=True)
-            glyph_file.file_path.rename(file_path)
-            glyph_file.file_path = file_path
-            logger.info("Standardize glyph file path: '{}'", glyph_file.file_path)
-
-    for file_dir, _, _ in font_config.glyphs_dir.walk(top_down=False):
-        if _is_empty_dir(file_dir):
-            shutil.rmtree(file_dir)
+    alphabet = []
+    character_mapping = {}
+    glyph_sequence = []
+    for code_point, flavor_group in sorted(context.items()):
+        glyph_file = flavor_group.get_file()
+        if code_point != -1:
+            alphabet.append(chr(code_point))
+            character_mapping[code_point] = _get_glyph_name(glyph_file)
+        if glyph_file not in glyph_sequence:
+            glyph_sequence.append(glyph_file)
+    return alphabet, character_mapping, glyph_sequence
 
 
-def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]) -> FontBuilder:
+def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_sequence: list[GlyphFile]) -> FontBuilder:
     builder = FontBuilder()
     builder.font_metric.font_size = font_config.font_size
     builder.font_metric.horizontal_layout.ascent = font_config.ascent
@@ -146,11 +75,11 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
 
     builder.character_mapping.update(character_mapping)
 
-    for glyph_file in glyph_files:
+    for glyph_file in glyph_sequence:
         horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.height) / 2)
         vertical_origin_y = (font_config.font_size - glyph_file.height) // 2
         builder.glyphs.append(Glyph(
-            name=glyph_file.glyph_name,
+            name=_get_glyph_name(glyph_file),
             advance_width=glyph_file.width,
             advance_height=font_config.font_size,
             horizontal_origin=(0, horizontal_origin_y),
@@ -161,10 +90,10 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     return builder
 
 
-def make_fonts(font_config: FontConfig, character_mapping: dict[int, str], glyph_files: list[GlyphFile]):
+def make_fonts(font_config: FontConfig, character_mapping: dict[int, str], glyph_sequence: list[GlyphFile]):
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
 
-    builder = _create_builder(font_config, character_mapping, glyph_files)
+    builder = _create_builder(font_config, character_mapping, glyph_sequence)
     for font_format in configs.font_formats:
         file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.{font_format}')
         if font_format == 'woff2':
