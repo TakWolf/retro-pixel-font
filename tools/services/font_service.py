@@ -11,13 +11,6 @@ from tools import configs
 from tools.configs.font import FontConfig
 
 
-def _get_glyph_name(glyph_file: GlyphFile) -> str:
-    if glyph_file.code_point == -1:
-        return '.notdef'
-    else:
-        return f'{glyph_file.code_point:04X}'
-
-
 def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
     context = glyph_file_util.load_context(font_config.glyphs_dir)
 
@@ -33,16 +26,9 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
             if code_point in context and fallback_code_point not in context:
                 context[fallback_code_point] = context[code_point]
 
-    alphabet = []
-    character_mapping = {}
-    glyph_sequence = []
-    for code_point, flavor_group in sorted(context.items()):
-        glyph_file = flavor_group.get_file()
-        if code_point != -1:
-            alphabet.append(chr(code_point))
-            character_mapping[code_point] = _get_glyph_name(glyph_file)
-        if glyph_file not in glyph_sequence:
-            glyph_sequence.append(glyph_file)
+    alphabet = [chr(code_point) for code_point in context if code_point >= 0]
+    character_mapping = glyph_file_util.get_character_mapping(context)
+    glyph_sequence = glyph_file_util.get_glyph_sequence(context)
     return alphabet, character_mapping, glyph_sequence
 
 
@@ -79,7 +65,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
         horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.height) / 2)
         vertical_origin_y = (font_config.font_size - glyph_file.height) // 2
         builder.glyphs.append(Glyph(
-            name=_get_glyph_name(glyph_file),
+            name=glyph_file.glyph_name,
             advance_width=glyph_file.width,
             advance_height=font_config.font_size,
             horizontal_origin=(0, horizontal_origin_y),
