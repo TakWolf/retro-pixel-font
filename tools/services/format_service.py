@@ -31,7 +31,7 @@ def format_glyph_files(font_config: FontConfig):
         file_path = file_dir.joinpath(file_name)
 
         if glyph_file.file_path != file_path:
-            assert not file_path.exists(), f"[{font_config.outputs_name}] Glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
+            assert not file_path.exists(), f"[{font_config.outputs_name}] glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
             file_dir.mkdir(parents=True, exist_ok=True)
             glyph_file.file_path.rename(file_path)
             logger.info("Format glyph file path: '{}' -> '{}'", glyph_file.file_path, file_path)

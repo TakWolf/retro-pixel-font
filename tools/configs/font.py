@@ -50,8 +50,8 @@ class FontConfig:
                 fallback_upper_from_lower,
                 preview_text,
             )
-            assert config.outputs_name == file_dir.name, f"Config 'name' error: '{file_path}'"
-            assert (config.line_height - font_size) % 2 == 0, f"Config 'line_height' error: '{file_path}'"
+            assert config.outputs_name == file_dir.name, f"config 'name' error: '{file_path}'"
+            assert (config.line_height - font_size) % 2 == 0, f"config 'line_height' error: '{file_path}'"
             configs.append(config)
         configs.sort(key=lambda x: x.name)
         return {config.outputs_name: config for config in configs}
