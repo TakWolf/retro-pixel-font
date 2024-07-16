@@ -11,7 +11,7 @@ from tools import configs
 from tools.configs.font import FontConfig
 
 
-def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, str], list[GlyphFile]]:
+def collect_glyph_files(font_config: FontConfig) -> tuple[set[str], dict[int, str], list[GlyphFile]]:
     context = glyph_file_util.load_context(font_config.glyphs_dir)
 
     if font_config.fallback_lower_from_upper:
@@ -26,7 +26,7 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[list[str], dict[int, s
             if code_point in context and fallback_code_point not in context:
                 context[fallback_code_point] = context[code_point]
 
-    alphabet = [chr(code_point) for code_point in context if code_point >= 0]
+    alphabet = {chr(code_point) for code_point in context if code_point >= 0}
     character_mapping = glyph_file_util.get_character_mapping(context)
     glyph_sequence = glyph_file_util.get_glyph_sequence(context)
     return alphabet, character_mapping, glyph_sequence

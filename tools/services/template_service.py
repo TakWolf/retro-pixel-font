@@ -28,14 +28,14 @@ def _make_html(template_name: str, file_path: Path, params: dict[str, object] | 
     logger.info("Make html: '{}'", file_path)
 
 
-def make_alphabet_html(font_config: FontConfig, alphabet: list[str]):
+def make_alphabet_html(font_config: FontConfig, alphabet: set[str]):
     _make_html('alphabet.html', font_config.outputs_dir.joinpath('alphabet.html'), {
         'font_config': font_config,
-        'alphabet': ''.join(alphabet),
+        'alphabet': ''.join(sorted(alphabet)),
     })
 
 
-def _handle_demo_html_element(alphabet: list[str], soup: bs4.BeautifulSoup, element: bs4.PageElement):
+def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, element: bs4.PageElement):
     if isinstance(element, bs4.element.Tag):
         for child_element in list(element.contents):
             _handle_demo_html_element(alphabet, soup, child_element)
@@ -75,7 +75,7 @@ def _handle_demo_html_element(alphabet: list[str], soup: bs4.BeautifulSoup, elem
         tmp_parent.unwrap()
 
 
-def make_demo_html(font_config: FontConfig, alphabet: list[str]):
+def make_demo_html(font_config: FontConfig, alphabet: set[str]):
     content_html = _environment.get_template('demo-content.html').render(font_config=font_config)
     content_html = ''.join(line.strip() for line in content_html.split('\n'))
     soup = bs4.BeautifulSoup(content_html, 'html.parser')
