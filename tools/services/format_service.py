@@ -19,7 +19,7 @@ def _is_empty_dir(path: Path) -> bool:
 def format_glyph_files(font_config: FontConfig):
     context = glyph_file_util.load_context(font_config.glyphs_dir)
     for code_point, flavor_group in context.items():
-        glyph_file = flavor_group.get_file()
+        glyph_file = flavor_group['']
 
         if code_point == -1:
             file_name = 'notdef.png'
@@ -31,7 +31,7 @@ def format_glyph_files(font_config: FontConfig):
         file_path = file_dir.joinpath(file_name)
 
         if glyph_file.file_path != file_path:
-            assert not file_path.exists(), f"[{font_config.outputs_name}] glyph file duplication: '{glyph_file.file_path}' -> '{file_path}'"
+            assert not file_path.exists(), f"[{font_config.outputs_name}] duplicate glyph files: '{glyph_file.file_path}' -> '{file_path}'"
             file_dir.mkdir(parents=True, exist_ok=True)
             glyph_file.file_path.rename(file_path)
             logger.info("Format glyph file path: '{}' -> '{}'", glyph_file.file_path, file_path)
