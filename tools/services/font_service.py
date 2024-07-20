@@ -38,7 +38,7 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.font_metric.horizontal_layout.ascent = font_config.ascent
     builder.font_metric.horizontal_layout.descent = font_config.descent
     builder.font_metric.vertical_layout.ascent = math.ceil(font_config.line_height / 2)
-    builder.font_metric.vertical_layout.descent = math.floor(font_config.line_height / 2)
+    builder.font_metric.vertical_layout.descent = -math.floor(font_config.line_height / 2)
     builder.font_metric.x_height = font_config.x_height
     builder.font_metric.cap_height = font_config.cap_height
 
