@@ -62,14 +62,16 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.character_mapping.update(character_mapping)
 
     for glyph_file in glyph_sequence:
-        horizontal_origin_y = math.floor((font_config.ascent + font_config.descent - glyph_file.height) / 2)
+        horizontal_origin_x = 0
+        horizontal_origin_y = (font_config.ascent + font_config.descent - glyph_file.height) // 2
+        vertical_origin_x = -math.ceil(glyph_file.width / 2)
         vertical_origin_y = (font_config.font_size - glyph_file.height) // 2
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
+            horizontal_origin=(horizontal_origin_x, horizontal_origin_y),
             advance_width=glyph_file.width,
+            vertical_origin=(vertical_origin_x, vertical_origin_y),
             advance_height=font_config.font_size,
-            horizontal_origin=(0, horizontal_origin_y),
-            vertical_origin_y=vertical_origin_y,
             bitmap=glyph_file.bitmap.data,
         ))
 
