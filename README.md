@@ -93,7 +93,6 @@
 
 - [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
 - [Pixel Font Knife](https://github.com/TakWolf/pixel-font-knife)
-- [Unidata Blocks](https://github.com/TakWolf/unidata-blocks)
 - [Pillow](https://github.com/python-pillow/Pillow)
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
 - [Jinja](https://github.com/pallets/jinja)

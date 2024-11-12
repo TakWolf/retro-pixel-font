@@ -1,6 +1,5 @@
 pixel-font-builder==0.0.28
 pixel-font-knife==0.0.7
-unidata-blocks==0.0.15
 pillow==11.0.0
 beautifulsoup4==4.12.3
 Jinja2==3.1.4

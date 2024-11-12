@@ -4,7 +4,7 @@ from tools.services import format_service
 
 def main():
     for font_config in FontConfig.load().values():
-        format_service.format_glyph_files(font_config)
+        format_service.format_glyphs(font_config)
 
 
 if __name__ == '__main__':
