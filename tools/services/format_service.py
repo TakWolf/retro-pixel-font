@@ -19,7 +19,7 @@ def _is_empty_dir(path: Path) -> bool:
 def format_glyph_files(font_config: FontConfig):
     context = glyph_file_util.load_context(font_config.glyphs_dir)
     for code_point, flavor_group in context.items():
-        glyph_file = flavor_group['']
+        glyph_file = flavor_group.get_file()
 
         if code_point == -1:
             file_name = 'notdef.png'
