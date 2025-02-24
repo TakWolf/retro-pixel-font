@@ -17,8 +17,6 @@
 
 ## 预览
 
-可以通过 [主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。
-
 ### Arcade
 
 尺寸：8px / 行高：12px · [实时预览](https://retro-pixel-font.takwolf.com#font-arcade) · [字母表](https://retro-pixel-font.takwolf.com/arcade/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/arcade/demo.html)
@@ -62,17 +60,21 @@
 - [GitHub Releases](https://github.com/TakWolf/retro-pixel-font/releases)
 - [itch.io](https://takwolf.itch.io/retro-pixel-font)
 
-目前提供 `.otf`、`.ttf`、`.woff2`、`.bdf`、`.pcf` 五种格式。
+## 程序依赖
 
-## 本地构建
+- [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
+- [Pixel Font Knife](https://github.com/TakWolf/pixel-font-knife)
+- [Pillow](https://github.com/python-pillow/Pillow)
+- [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
+- [Jinja](https://github.com/pallets/jinja)
+- [Loguru](https://github.com/Delgan/loguru)
 
-这是一个标准的 [Python3](https://www.python.org) 项目。
+## 官方社区
 
-当您配置好运行环境后，执行 `python -m tools.build` 命令来开始构建。
+- [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
+- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/X1mLrLLGYS)
 
-等待任务完成后，可在 `build/outputs` 目录下找到生成的字体文件。
-
-## 授权许可
+## 许可证
 
 分为「字体」和「构建程序」两个部分。
 
@@ -83,20 +85,6 @@
 ### 构建程序
 
 使用 [「MIT 许可证」](LICENSE-MIT) 授权。
-
-## 官方社区
-
-- [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
-- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/X1mLrLLGYS)
-
-## 程序依赖
-
-- [Pixel Font Builder](https://github.com/TakWolf/pixel-font-builder)
-- [Pixel Font Knife](https://github.com/TakWolf/pixel-font-knife)
-- [Pillow](https://github.com/python-pillow/Pillow)
-- [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/)
-- [Jinja](https://github.com/pallets/jinja)
-- [Loguru](https://github.com/Delgan/loguru)
 
 ## 赞助
 
