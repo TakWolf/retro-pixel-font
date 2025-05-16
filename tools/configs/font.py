@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import tomllib
 from pathlib import Path
 
@@ -15,7 +17,7 @@ abcdefghijklmnopqrstuvwxyz
 
 class FontConfig:
     @staticmethod
-    def load() -> dict[str, 'FontConfig']:
+    def load() -> dict[str, FontConfig]:
         configs = []
         for file_dir in path_define.glyphs_dir.iterdir():
             file_path = file_dir.joinpath('config.toml')
