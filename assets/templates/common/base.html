@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     {% block style %}{% endblock %}
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6PNNTT2PF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || []
+        function gtag() {
+            dataLayer.push(arguments)
+        }
+        gtag('js', new Date())
+        gtag('config', 'G-J6PNNTT2PF')
+    </script>
+
+    <script async src="https://api.tongjiniao.com/c?_=755435168501649408"></script>
 </head>
 <body>
     {% block body %}{% endblock %}
