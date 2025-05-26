@@ -9,7 +9,7 @@ from tools.configs.font import FontConfig
 
 
 def _load_font(font_config: FontConfig, scale: int = 1) -> FreeTypeFont:
-    file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.woff2')
+    file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.otf.woff2')
     return ImageFont.truetype(file_path, font_config.font_size * scale)
 
 
