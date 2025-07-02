@@ -5,14 +5,14 @@ from pathlib import Path
 from loguru import logger
 
 from tools import configs
-from tools.configs import path_define
+from tools.configs import path_define, options
 from tools.configs.font import FontConfig
 
 
 def make_release_zips(font_configs: dict[str, FontConfig]):
     path_define.releases_dir.mkdir(parents=True, exist_ok=True)
 
-    for font_format in configs.font_formats:
+    for font_format in options.font_formats:
         file_path = path_define.releases_dir.joinpath(f'retro-pixel-font-{font_format}-v{configs.version}.zip')
         with zipfile.ZipFile(file_path, 'w') as file:
             file.write(path_define.project_root_dir.joinpath('LICENSE-OFL'), 'OFL.txt')
