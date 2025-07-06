@@ -1,11 +1,11 @@
-![banner](docs/readme-banner.png)
+![Banner](docs/readme-banner.png)
 
 # 复古像素字体 / Retro Pixel Font
 
 [![License OFL](https://img.shields.io/badge/license-OFL--1.1-orange)](LICENSE-OFL)
 [![License MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE-MIT)
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
-[![Itch.io](https://img.shields.io/badge/itch.io-retro--pixel--font-FF2449?logo=itch.io&logoColor=white)](https://takwolf.itch.io/retro-pixel-font)
+[![itch.io](https://img.shields.io/badge/itch.io-retro--pixel--font-FF2449?logo=itch.io&logoColor=white)](https://takwolf.itch.io/retro-pixel-font)
 [![Discord](https://img.shields.io/badge/discord-像素字体工房-4E5AF0?logo=discord&logoColor=white)](https://discord.gg/3GKtPKtjdU)
 [![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=qq&logoColor=white)](https://qm.qq.com/q/X1mLrLLGYS)
 
@@ -21,37 +21,37 @@
 
 尺寸：8px / 行高：12px · [实时预览](https://retro-pixel-font.takwolf.com#font-arcade) · [字母表](https://retro-pixel-font.takwolf.com/arcade/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/arcade/demo.html)
 
-![preview-arcade](docs/arcade/preview.png)
+![Preview-arcade](docs/arcade/preview.png)
 
 ### Cute Mono
 
 尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-mono) · [字母表](https://retro-pixel-font.takwolf.com/cute-mono/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-mono/demo.html)
 
-![preview-cute-mono](docs/cute-mono/preview.png)
+![Preview-cute-mono](docs/cute-mono/preview.png)
 
 ### Cute Prop
 
 尺寸：11px / 行高：15px · [实时预览](https://retro-pixel-font.takwolf.com#font-cute-prop) · [字母表](https://retro-pixel-font.takwolf.com/cute-prop/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/cute-prop/demo.html)
 
-![preview-cute-prop](docs/cute-prop/preview.png)
+![Preview-cute-prop](docs/cute-prop/preview.png)
 
 ### Petty 5H
 
 尺寸：5px / 行高：9px · [实时预览](https://retro-pixel-font.takwolf.com#font-petty-5h) · [字母表](https://retro-pixel-font.takwolf.com/petty-5h/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/petty-5h/demo.html)
 
-![preview-petty-5h](docs/petty-5h/preview.png)
+![Preview-petty-5h](docs/petty-5h/preview.png)
 
 ### Petty 5x5
 
 尺寸：5px / 行高：9px · [实时预览](https://retro-pixel-font.takwolf.com#font-petty-5x5) · [字母表](https://retro-pixel-font.takwolf.com/petty-5x5/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/petty-5x5/demo.html)
 
-![preview-petty-5x5](docs/petty-5x5/preview.png)
+![Preview-petty-5x5](docs/petty-5x5/preview.png)
 
 ### Thick
 
 尺寸：16px / 行高：20px · [实时预览](https://retro-pixel-font.takwolf.com#font-thick) · [字母表](https://retro-pixel-font.takwolf.com/thick/alphabet.html) · [示例文本](https://retro-pixel-font.takwolf.com/thick/demo.html)
 
-![preview-thick](docs/thick/preview.png)
+![Preview-thick](docs/thick/preview.png)
 
 ## 下载
 
