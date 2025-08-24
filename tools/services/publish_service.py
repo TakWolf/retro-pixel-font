@@ -35,7 +35,7 @@ def update_readme_md(font_configs: dict[str, FontConfig]):
         info += f'[示例文本](https://retro-pixel-font.takwolf.com/{font_config.outputs_name}/demo.html)'
         preview_lines.append(info)
         preview_lines.append('')
-        preview_lines.append(f'![preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)')
+        preview_lines.append(f'![Preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)')
         preview_lines.append('')
 
     file_path = path_define.project_root_dir.joinpath('README.md')
@@ -46,7 +46,7 @@ def update_readme_md(font_configs: dict[str, FontConfig]):
         current_lines = front_lines
         for line in file.readlines():
             line = line.rstrip()
-            if line == '可以通过 [主页](https://retro-pixel-font.takwolf.com) 实时预览字体效果。':
+            if line == '## 预览':
                 current_lines.append(line)
                 current_lines.append('')
                 current_lines = None
