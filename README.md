@@ -7,7 +7,7 @@
 [![Releases](https://img.shields.io/github/v/release/TakWolf/retro-pixel-font)](https://github.com/TakWolf/retro-pixel-font/releases)
 [![itch.io](https://img.shields.io/badge/itch.io-retro--pixel--font-FF2449?logo=itch.io&logoColor=white)](https://takwolf.itch.io/retro-pixel-font)
 [![Discord](https://img.shields.io/badge/discord-像素字体工房-4E5AF0?logo=discord&logoColor=white)](https://discord.gg/3GKtPKtjdU)
-[![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=qq&logoColor=white)](https://qm.qq.com/q/X1mLrLLGYS)
+[![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=qq&logoColor=white)](https://qm.qq.com/q/jPk8sSitUI)
 
 一组开源的有怀旧游戏感觉的像素字体。字体基本上以英文、数字和符号为主。
 
@@ -65,7 +65,7 @@
 ## 官方社区
 
 - [「像素字体工房」Discord 服务器](https://discord.gg/3GKtPKtjdU)
-- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/X1mLrLLGYS)
+- [「像素字体工房」QQ 群 (302383204)](https://qm.qq.com/q/jPk8sSitUI)
 
 ## 许可证
 
