@@ -12,7 +12,7 @@ from tools.configs import options
 from tools.configs.font import FontConfig
 
 
-def collect_glyph_files(font_config: FontConfig) -> tuple[set[str], dict[int, str], list[GlyphFile]]:
+def collect_glyph_files(font_config: FontConfig) -> tuple[list[GlyphFile], dict[int, str], set[str]]:
     context = glyph_file_util.load_context(font_config.glyphs_dir)
 
     if font_config.fallback_lower_from_upper:
@@ -27,13 +27,13 @@ def collect_glyph_files(font_config: FontConfig) -> tuple[set[str], dict[int, st
             if code_point in context and fallback_code_point not in context:
                 context[fallback_code_point] = context[code_point]
 
-    alphabet = {chr(code_point) for code_point in context if code_point >= 0}
-    character_mapping = glyph_file_util.get_character_mapping(context)
     glyph_sequence = glyph_file_util.get_glyph_sequence(context)
-    return alphabet, character_mapping, glyph_sequence
+    character_mapping = glyph_file_util.get_character_mapping(context)
+    alphabet = {chr(code_point) for code_point in context if code_point >= 0}
+    return glyph_sequence, character_mapping, alphabet
 
 
-def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], glyph_sequence: list[GlyphFile]) -> FontBuilder:
+def _create_builder(font_config: FontConfig, glyph_sequence: list[GlyphFile], character_mapping: dict[int, str]) -> FontBuilder:
     builder = FontBuilder()
     builder.font_metric.font_size = font_config.font_size
     builder.font_metric.horizontal_layout.ascent = font_config.ascent
@@ -60,8 +60,6 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
     builder.meta_info.designer_url = 'https://takwolf.com'
     builder.meta_info.license_url = 'https://github.com/TakWolf/retro-pixel-font/blob/master/LICENSE-OFL'
 
-    builder.character_mapping.update(character_mapping)
-
     for glyph_file in glyph_sequence:
         horizontal_offset_x = 0
         horizontal_offset_y = (font_config.ascent + font_config.descent - glyph_file.height) // 2
@@ -76,13 +74,15 @@ def _create_builder(font_config: FontConfig, character_mapping: dict[int, str], 
             bitmap=glyph_file.bitmap.data,
         ))
 
+    builder.character_mapping.update(character_mapping)
+
     return builder
 
 
-def make_fonts(font_config: FontConfig, character_mapping: dict[int, str], glyph_sequence: list[GlyphFile]):
+def make_fonts(font_config: FontConfig, glyph_sequence: list[GlyphFile], character_mapping: dict[int, str]):
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
 
-    builder = _create_builder(font_config, character_mapping, glyph_sequence)
+    builder = _create_builder(font_config, glyph_sequence, character_mapping)
     for font_format in options.font_formats:
         file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.{font_format}')
         if font_format == 'otf.woff':
