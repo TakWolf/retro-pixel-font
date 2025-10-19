@@ -72,5 +72,5 @@ def update_docs():
             path_from = file_dir.joinpath(file_name)
             path_to = path_define.docs_dir.joinpath(path_from.relative_to(path_define.outputs_dir))
             path_to.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(path_from, path_to)
+            path_from.copy(path_to)
             logger.info("Copy file: '{}' -> '{}'", path_from, path_to)
