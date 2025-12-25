@@ -1,4 +1,3 @@
-import random
 from pathlib import Path
 
 import bs4
@@ -14,12 +13,9 @@ _environment = Environment(
     loader=FileSystemLoader(path_define.templates_dir),
 )
 
-_build_random_key = random.random()
-
 
 def _make_html(template_name: str, file_path: Path, params: dict[str, object] | None = None):
     params = {} if params is None else dict(params)
-    params['build_random_key'] = _build_random_key
 
     html = _environment.get_template(template_name).render(params)
 
