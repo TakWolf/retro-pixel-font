@@ -9,11 +9,7 @@
 [![Discord](https://img.shields.io/badge/discord-像素字体工房-4E5AF0?logo=discord&logoColor=white)](https://discord.gg/3GKtPKtjdU)
 [![QQ Group](https://img.shields.io/badge/QQ群-像素字体工房-brightgreen?logo=qq&logoColor=white)](https://qm.qq.com/q/jPk8sSitUI)
 
-一组开源的有怀旧游戏感觉的像素字体。字体基本上以英文、数字和符号为主。
-
-如果您在寻找开源的泛中日韩或 Unicode 像素字体，请尝试 [「方舟像素字体」](https://github.com/TakWolf/ark-pixel-font)。
-
-这个项目不仅提供了全部的字形源文件，也提供了构建字体所需要的完整程序。
+一组开源的有怀旧游戏感觉的像素字体。以英文、数字和符号为主。
 
 ## 预览
 
