@@ -53,7 +53,7 @@ def _create_builder(font_config: FontConfig, glyph_sequence: list[GlyphFile], ch
     builder.meta_info.manufacturer = 'TakWolf'
     builder.meta_info.designer = 'TakWolf'
     builder.meta_info.description = 'Open source retro style pixel font'
-    builder.meta_info.copyright_info = 'Copyright (c) 2023, TakWolf (https://takwolf.com), with Reserved Font Name "Retro Pixel"'
+    builder.meta_info.copyright_info = 'Copyright (c) 2023, TakWolf (https://takwolf.com)'
     builder.meta_info.license_info = 'This Font Software is licensed under the SIL Open Font License, Version 1.1'
     builder.meta_info.vendor_url = 'https://retro-pixel-font.takwolf.com'
     builder.meta_info.designer_url = 'https://takwolf.com'
