@@ -15,7 +15,7 @@ _environment = Environment(
 
 
 def _make_html(template_name: str, file_path: Path, params: dict[str, object] | None = None):
-    params = {} if params is None else dict(params)
+    params = params.copy() if params is not None else {}
 
     html = _environment.get_template(template_name).render(params)
 
