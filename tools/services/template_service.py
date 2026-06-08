@@ -33,7 +33,7 @@ def make_alphabet_html(font_config: FontConfig, alphabet: set[str]):
 
 def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, element: bs4.PageElement):
     if isinstance(element, bs4.element.Tag):
-        for child_element in list(element.contents):
+        for child_element in element.contents:
             _handle_demo_html_element(alphabet, soup, child_element)
     elif isinstance(element, bs4.element.NavigableString):
         text = str(element)
