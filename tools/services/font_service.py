@@ -94,5 +94,5 @@ def make_fonts(font_config: FontConfig, glyph_sequence: list[GlyphFile], charact
             case 'ttf.woff2':
                 builder.save_ttf(file_path, flavor=opentype.Flavor.WOFF2)
             case _:
-                getattr(builder, f'save_{font_format}')(file_path)
+                getattr(builder, f'save_{font_format.replace('.', '_')}')(file_path)
         logger.info("Make font: '{}'", file_path)
