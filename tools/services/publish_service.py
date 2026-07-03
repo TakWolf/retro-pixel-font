@@ -1,6 +1,6 @@
 import shutil
-import zipfile
 from pathlib import Path
+from zipfile import ZipFile
 
 from loguru import logger
 
@@ -14,7 +14,7 @@ def make_release_zips(font_configs: dict[str, FontConfig]):
 
     for font_format in options.font_formats:
         file_path = path_define.releases_dir.joinpath(f'retro-pixel-font-{font_format}-v{configs.version}.zip')
-        with zipfile.ZipFile(file_path, 'w') as file:
+        with ZipFile(file_path, 'w') as file:
             file.write(path_define.project_root_dir.joinpath('LICENSE-OFL'), 'OFL.txt')
 
             for font_config in font_configs.values():
