@@ -60,17 +60,27 @@ def _create_builder(font_config: FontConfig, glyph_sequence: list[GlyphFile], ch
     builder.meta_info.license_url = 'https://github.com/TakWolf/retro-pixel-font/blob/master/LICENSE-OFL'
 
     for glyph_file in glyph_sequence:
-        horizontal_offset_x = 0
-        horizontal_offset_y = (font_config.ascent + font_config.descent - glyph_file.height) // 2
-        vertical_offset_x = -math.ceil(glyph_file.width / 2)
-        vertical_offset_y = (font_config.font_size - glyph_file.height) // 2
+        optimized_bitmap = glyph_file.optimized_bitmap
+        optimized_paddings = glyph_file.optimized_paddings
+
+        if optimized_bitmap.width == 0 or optimized_bitmap.height == 0:
+            horizontal_offset_x = 0
+            horizontal_offset_y = 0
+            vertical_offset_x = 0
+            vertical_offset_y = 0
+        else:
+            horizontal_offset_x = optimized_paddings.left
+            horizontal_offset_y = (font_config.ascent + font_config.descent - glyph_file.height) // 2 + optimized_paddings.bottom
+            vertical_offset_x = -math.ceil(glyph_file.width / 2) + optimized_paddings.left
+            vertical_offset_y = (font_config.font_size - glyph_file.height) // 2 + optimized_paddings.top
+
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
             horizontal_offset=(horizontal_offset_x, horizontal_offset_y),
             advance_width=glyph_file.width,
             vertical_offset=(vertical_offset_x, vertical_offset_y),
             advance_height=font_config.font_size,
-            bitmap=glyph_file.bitmap.data,
+            bitmap=optimized_bitmap.data,
         ))
 
     builder.character_mapping.update(character_mapping)
