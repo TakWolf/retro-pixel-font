@@ -6,8 +6,8 @@ from tools.services import font_service, publish_service, template_service, imag
 
 
 def main():
-    if path_define.build_dir.exists():
-        shutil.rmtree(path_define.build_dir)
+    if path_define.BUILD_DIR.exists():
+        shutil.rmtree(path_define.BUILD_DIR)
 
     font_configs = FontConfig.load()
     for font_config in font_configs.values():

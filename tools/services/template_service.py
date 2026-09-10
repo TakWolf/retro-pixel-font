@@ -10,7 +10,7 @@ from tools.configs.font import FontConfig
 _environment = Environment(
     trim_blocks=True,
     lstrip_blocks=True,
-    loader=FileSystemLoader(path_define.templates_dir),
+    loader=FileSystemLoader(path_define.TEMPLATES_DIR),
 )
 
 
@@ -85,12 +85,12 @@ def make_demo_html(font_config: FontConfig, alphabet: set[str]):
 
 
 def make_index_html(font_configs: dict[str, FontConfig]):
-    _make_html('index.html', path_define.outputs_dir.joinpath('index.html'), {
+    _make_html('index.html', path_define.OUTPUTS_DIR.joinpath('index.html'), {
         'font_configs': font_configs,
     })
 
 
 def make_itch_io_details_html(font_configs: dict[str, FontConfig]):
-    _make_html('itch-io-details.html', path_define.outputs_dir.joinpath('itch-io-details.html'), {
+    _make_html('itch-io-details.html', path_define.OUTPUTS_DIR.joinpath('itch-io-details.html'), {
         'font_configs': font_configs,
     })

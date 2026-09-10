@@ -17,7 +17,7 @@ class FontConfig:
     @staticmethod
     def load() -> dict[str, FontConfig]:
         configs = []
-        for file_dir in path_define.glyphs_dir.iterdir():
+        for file_dir in path_define.GLYPHS_DIR.iterdir():
             file_path = file_dir.joinpath('config.toml')
             if not file_path.is_file():
                 continue
@@ -114,9 +114,9 @@ class FontConfig:
 
         self.preview_text = preview_text
 
-        self.glyphs_dir = path_define.glyphs_dir.joinpath(self.outputs_name)
-        self.outputs_dir = path_define.outputs_dir.joinpath(self.outputs_name)
-        self.docs_dir = path_define.docs_dir.joinpath(self.outputs_name)
+        self.glyphs_dir = path_define.GLYPHS_DIR.joinpath(self.outputs_name)
+        self.outputs_dir = path_define.OUTPUTS_DIR.joinpath(self.outputs_name)
+        self.docs_dir = path_define.DOCS_DIR.joinpath(self.outputs_name)
 
     @property
     def line_height(self) -> int:

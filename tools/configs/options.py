@@ -13,4 +13,4 @@ type FontFormat = Literal[
     'bdf',
     'pcf',
 ]
-font_formats = list[FontFormat](get_args(FontFormat.__value__))
+FONT_FORMATS = list[FontFormat](get_args(FontFormat.__value__))

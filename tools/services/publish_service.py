@@ -10,12 +10,12 @@ from tools.configs.font import FontConfig
 
 
 def make_release_zips(font_configs: dict[str, FontConfig]):
-    path_define.releases_dir.mkdir(parents=True, exist_ok=True)
+    path_define.RELEASES_DIR.mkdir(parents=True, exist_ok=True)
 
-    for font_format in options.font_formats:
-        file_path = path_define.releases_dir.joinpath(f'retro-pixel-font-{font_format}-v{configs.version}.zip')
+    for font_format in options.FONT_FORMATS:
+        file_path = path_define.RELEASES_DIR.joinpath(f'retro-pixel-font-{font_format}-v{configs.VERSION}.zip')
         with ZipFile(file_path, 'w') as file:
-            file.write(path_define.project_root_dir.joinpath('LICENSE-OFL'), 'OFL.txt')
+            file.write(path_define.PROJECT_ROOT_DIR.joinpath('LICENSE-OFL'), 'OFL.txt')
 
             for font_config in font_configs.values():
                 outputs_arc = Path(font_config.outputs_name)
@@ -39,7 +39,7 @@ def update_readme_md(font_configs: dict[str, FontConfig]):
         preview_lines.append(f'![Preview-{font_config.outputs_name}](docs/{font_config.outputs_name}/preview.png)')
         preview_lines.append('')
 
-    file_path = path_define.project_root_dir.joinpath('README.md')
+    file_path = path_define.PROJECT_ROOT_DIR.joinpath('README.md')
 
     front_lines = []
     back_lines = []
@@ -63,15 +63,15 @@ def update_readme_md(font_configs: dict[str, FontConfig]):
 
 
 def update_docs():
-    if path_define.docs_dir.exists():
-        shutil.rmtree(path_define.docs_dir)
+    if path_define.DOCS_DIR.exists():
+        shutil.rmtree(path_define.DOCS_DIR)
 
-    for file_dir, _, file_names in path_define.outputs_dir.walk():
+    for file_dir, _, file_names in path_define.OUTPUTS_DIR.walk():
         for file_name in file_names:
             if file_name not in ('preview.png', 'readme-banner.png'):
                 continue
             path_from = file_dir.joinpath(file_name)
-            path_to = path_define.docs_dir.joinpath(path_from.relative_to(path_define.outputs_dir))
+            path_to = path_define.DOCS_DIR.joinpath(path_from.relative_to(path_define.OUTPUTS_DIR))
             path_to.parent.mkdir(parents=True, exist_ok=True)
             path_from.copy(path_to)
             logger.info("Copy file: '{}' -> '{}'", path_from, path_to)

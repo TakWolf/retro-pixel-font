@@ -42,8 +42,8 @@ def _create_builder(font_config: FontConfig, glyph_sequence: list[GlyphFile], ch
     builder.font_metric.x_height = font_config.x_height
     builder.font_metric.cap_height = font_config.cap_height
 
-    builder.meta_info.version = configs.version
-    builder.meta_info.created_time = datetime.fromisoformat(f'{configs.version.replace('.', '-')}T00:00:00Z')
+    builder.meta_info.version = configs.VERSION
+    builder.meta_info.created_time = datetime.fromisoformat(f'{configs.VERSION.replace('.', '-')}T00:00:00Z')
     builder.meta_info.modified_time = builder.meta_info.created_time
     builder.meta_info.family_name = f'Retro Pixel {font_config.name}'
     builder.meta_info.weight_name = font_config.weight_name
@@ -92,7 +92,7 @@ def make_fonts(font_config: FontConfig, glyph_sequence: list[GlyphFile], charact
     font_config.outputs_dir.mkdir(parents=True, exist_ok=True)
 
     builder = _create_builder(font_config, glyph_sequence, character_mapping)
-    for font_format in options.font_formats:
+    for font_format in options.FONT_FORMATS:
         file_path = font_config.outputs_dir.joinpath(f'retro-pixel-{font_config.outputs_name}.{font_format}')
         getattr(builder, f'save_{font_format.replace('.', '_')}')(file_path)
         logger.info("Make font: '{}'", file_path)
