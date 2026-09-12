@@ -94,7 +94,7 @@ class FontConfig:
             fallback_lower_from_upper: bool,
             fallback_upper_from_lower: bool,
             preview_text: str,
-    ):
+    ) -> None:
         self.name = name
         self.outputs_name = name.lower().replace(' ', '-')
 

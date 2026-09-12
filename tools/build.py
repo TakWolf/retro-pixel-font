@@ -5,7 +5,7 @@ from tools.configs.font import FontConfig
 from tools.services import font_service, publish_service, template_service, image_service
 
 
-def main():
+def main() -> None:
     if path_define.BUILD_DIR.exists():
         shutil.rmtree(path_define.BUILD_DIR)
 

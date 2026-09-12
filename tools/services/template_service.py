@@ -14,7 +14,7 @@ _environment = Environment(
 )
 
 
-def _make_html(template_name: str, file_path: Path, params: dict[str, object] | None = None):
+def _make_html(template_name: str, file_path: Path, params: dict[str, object] | None = None) -> None:
     params = params.copy() if params is not None else {}
 
     html = _environment.get_template(template_name).render(params)
@@ -24,14 +24,14 @@ def _make_html(template_name: str, file_path: Path, params: dict[str, object] | 
     logger.info("Make html: '{}'", file_path)
 
 
-def make_alphabet_html(font_config: FontConfig, alphabet: set[str]):
+def make_alphabet_html(font_config: FontConfig, alphabet: set[str]) -> None:
     _make_html('alphabet.html', font_config.outputs_dir.joinpath('alphabet.html'), {
         'font_config': font_config,
         'alphabet': ''.join(sorted(alphabet)),
     })
 
 
-def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, element: bs4.PageElement):
+def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, element: bs4.PageElement) -> None:
     if isinstance(element, bs4.element.Tag):
         for child_element in element.contents:
             _handle_demo_html_element(alphabet, soup, child_element)
@@ -71,7 +71,7 @@ def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, eleme
         tmp_parent.unwrap()
 
 
-def make_demo_html(font_config: FontConfig, alphabet: set[str]):
+def make_demo_html(font_config: FontConfig, alphabet: set[str]) -> None:
     content_html = _environment.get_template('demo-content.html').render(font_config=font_config)
     content_html = ''.join(line.strip() for line in content_html.split('\n'))
     soup = bs4.BeautifulSoup(content_html, 'html.parser')
@@ -84,13 +84,13 @@ def make_demo_html(font_config: FontConfig, alphabet: set[str]):
     })
 
 
-def make_index_html(font_configs: dict[str, FontConfig]):
+def make_index_html(font_configs: dict[str, FontConfig]) -> None:
     _make_html('index.html', path_define.OUTPUTS_DIR.joinpath('index.html'), {
         'font_configs': font_configs,
     })
 
 
-def make_itch_io_details_html(font_configs: dict[str, FontConfig]):
+def make_itch_io_details_html(font_configs: dict[str, FontConfig]) -> None:
     _make_html('itch-io-details.html', path_define.OUTPUTS_DIR.joinpath('itch-io-details.html'), {
         'font_configs': font_configs,
     })

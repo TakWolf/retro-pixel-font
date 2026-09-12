@@ -9,7 +9,7 @@ from tools.configs import path_define, options
 from tools.configs.font import FontConfig
 
 
-def make_release_zips(font_configs: dict[str, FontConfig]):
+def make_release_zips(font_configs: dict[str, FontConfig]) -> None:
     path_define.RELEASES_DIR.mkdir(parents=True, exist_ok=True)
 
     for font_format in options.FONT_FORMATS:
@@ -25,7 +25,7 @@ def make_release_zips(font_configs: dict[str, FontConfig]):
         logger.info("Make release zip: '{}'", file_path)
 
 
-def update_readme_md(font_configs: dict[str, FontConfig]):
+def update_readme_md(font_configs: dict[str, FontConfig]) -> None:
     preview_lines = []
     for font_config in font_configs.values():
         preview_lines.append(f'### {font_config.name}')
@@ -62,7 +62,7 @@ def update_readme_md(font_configs: dict[str, FontConfig]):
     logger.info("Update: 'README.md'")
 
 
-def update_docs():
+def update_docs() -> None:
     if path_define.DOCS_DIR.exists():
         shutil.rmtree(path_define.DOCS_DIR)
 

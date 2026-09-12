@@ -2,7 +2,7 @@ from tools.configs.font import FontConfig
 from tools.services import publish_service
 
 
-def main():
+def main() -> None:
     publish_service.update_readme_md(FontConfig.load())
     publish_service.update_docs()
 

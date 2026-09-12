@@ -2,7 +2,7 @@ from tools.configs.font import FontConfig
 from tools.services import format_service
 
 
-def main():
+def main() -> None:
     for font_config in FontConfig.load().values():
         format_service.format_glyphs(font_config)
 
