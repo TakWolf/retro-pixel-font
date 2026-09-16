@@ -1,3 +1,4 @@
+from collections.abc import Mapping
 from pathlib import Path
 
 import bs4
@@ -14,8 +15,8 @@ _environment = Environment(
 )
 
 
-def _make_html(template_name: str, file_path: Path, params: dict[str, object] | None = None) -> None:
-    params = params.copy() if params is not None else {}
+def _make_html(template_name: str, file_path: Path, params: Mapping[str, object] | None = None) -> None:
+    params = dict(params) if params is not None else {}
 
     html = _environment.get_template(template_name).render(params)
 
@@ -84,13 +85,13 @@ def make_demo_html(font_config: FontConfig, alphabet: set[str]) -> None:
     })
 
 
-def make_index_html(font_configs: dict[str, FontConfig]) -> None:
+def make_index_html(font_configs: Mapping[str, FontConfig]) -> None:
     _make_html('index.html', path_define.OUTPUTS_DIR.joinpath('index.html'), {
         'font_configs': font_configs,
     })
 
 
-def make_itch_io_details_html(font_configs: dict[str, FontConfig]) -> None:
+def make_itch_io_details_html(font_configs: Mapping[str, FontConfig]) -> None:
     _make_html('itch-io-details.html', path_define.OUTPUTS_DIR.joinpath('itch-io-details.html'), {
         'font_configs': font_configs,
     })

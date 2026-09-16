@@ -1,4 +1,5 @@
 import math
+from collections.abc import Mapping, Sequence
 
 from PIL import Image, ImageFont, ImageDraw
 from PIL.ImageFont import FreeTypeFont
@@ -44,7 +45,7 @@ def _draw_text(
 def _draw_demo_lines(
         image: Image.Image,
         xy: tuple[float, float],
-        line_infos: list[tuple[str, FreeTypeFont]],
+        line_infos: Sequence[tuple[str, FreeTypeFont]],
         text_color: tuple[int, int, int, int],
         shadow_color: tuple[int, int, int, int],
 ) -> None:
@@ -80,7 +81,7 @@ def make_preview_image(font_config: FontConfig) -> None:
     logger.info("Make preview image: '{}'", file_path)
 
 
-def make_readme_banner(font_configs: dict[str, FontConfig]) -> None:
+def make_readme_banner(font_configs: Mapping[str, FontConfig]) -> None:
     font_thick = _load_font(font_configs['thick'], 2)
     font_cute_prop = _load_font(font_configs['cute-prop'])
     text_color = (255, 255, 255, 255)
@@ -97,7 +98,7 @@ def make_readme_banner(font_configs: dict[str, FontConfig]) -> None:
     logger.info("Make readme banner: '{}'", file_path)
 
 
-def make_github_banner(font_configs: dict[str, FontConfig]) -> None:
+def make_github_banner(font_configs: Mapping[str, FontConfig]) -> None:
     font_title = _load_font(font_configs['thick'], 2)
     font_arcade = _load_font(font_configs['arcade'])
     font_cute_mono = _load_font(font_configs['cute-mono'])
@@ -128,7 +129,7 @@ def make_github_banner(font_configs: dict[str, FontConfig]) -> None:
     logger.info("Make github banner: '{}'", file_path)
 
 
-def make_itch_io_banner(font_configs: dict[str, FontConfig]) -> None:
+def make_itch_io_banner(font_configs: Mapping[str, FontConfig]) -> None:
     font_thick = _load_font(font_configs['thick'], 2)
     font_cute_prop = _load_font(font_configs['cute-prop'])
     text_color = (255, 255, 255, 255)
@@ -145,7 +146,7 @@ def make_itch_io_banner(font_configs: dict[str, FontConfig]) -> None:
     logger.info("Make itch.io banner: '{}'", file_path)
 
 
-def make_itch_io_cover(font_configs: dict[str, FontConfig]) -> None:
+def make_itch_io_cover(font_configs: Mapping[str, FontConfig]) -> None:
     font_title = _load_font(font_configs['thick'], 2)
     font_arcade = _load_font(font_configs['arcade'])
     font_cute_mono = _load_font(font_configs['cute-mono'])
@@ -177,7 +178,7 @@ def make_itch_io_cover(font_configs: dict[str, FontConfig]) -> None:
     logger.info("Make itch.io cover: '{}'", file_path)
 
 
-def make_afdian_cover(font_configs: dict[str, FontConfig]) -> None:
+def make_afdian_cover(font_configs: Mapping[str, FontConfig]) -> None:
     font_title = _load_font(font_configs['thick'], 2)
     font_arcade = _load_font(font_configs['arcade'])
     font_cute_mono = _load_font(font_configs['cute-mono'])

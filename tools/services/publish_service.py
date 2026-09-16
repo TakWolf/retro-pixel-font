@@ -1,4 +1,5 @@
 import shutil
+from collections.abc import Mapping
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -9,7 +10,7 @@ from tools.configs import path_define, options
 from tools.configs.font import FontConfig
 
 
-def make_release_zips(font_configs: dict[str, FontConfig]) -> None:
+def make_release_zips(font_configs: Mapping[str, FontConfig]) -> None:
     path_define.RELEASES_DIR.mkdir(parents=True, exist_ok=True)
 
     for font_format in options.FONT_FORMATS:
@@ -25,7 +26,7 @@ def make_release_zips(font_configs: dict[str, FontConfig]) -> None:
         logger.info("Make release zip: '{}'", file_path)
 
 
-def update_readme_md(font_configs: dict[str, FontConfig]) -> None:
+def update_readme_md(font_configs: Mapping[str, FontConfig]) -> None:
     preview_lines = []
     for font_config in font_configs.values():
         preview_lines.append(f'### {font_config.name}')
