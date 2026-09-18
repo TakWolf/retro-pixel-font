@@ -71,6 +71,7 @@ def update_docs() -> None:
         for file_name in file_names:
             if file_name not in ('preview.png', 'readme-banner.png'):
                 continue
+
             path_from = file_dir.joinpath(file_name)
             path_to = path_define.DOCS_DIR.joinpath(path_from.relative_to(path_define.OUTPUTS_DIR))
             path_to.parent.mkdir(parents=True, exist_ok=True)
