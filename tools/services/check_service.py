@@ -1,10 +1,10 @@
-from pixel_font_knife import glyph_file_util
+from pixel_font_knife.cmap.context import CmapContext
 
 from tools.configs.font import FontConfig
 
 
-def check_glyph_files(font_config: FontConfig) -> None:
-    context = glyph_file_util.load_context(font_config.glyphs_dir)
-    for code_point, flavor_group in context.items():
-        for glyph_file in set(flavor_group.values()):
-            assert glyph_file.height == font_config.line_height, f"[{font_config.outputs_name}] glyph bitmap size error: '{glyph_file.file_path}'"
+def check_cmap_glyphs(font_config: FontConfig) -> None:
+    context = CmapContext.load(font_config.glyphs_dir.joinpath('cmap'))
+    for code_point, glyph_variants in context.items():
+        for glyph_file in set(glyph_variants.values()):
+            assert glyph_file.canvas.height == font_config.line_height, f"[{font_config.outputs_name}] glyph bitmap size error: '{glyph_file.file_path}'"

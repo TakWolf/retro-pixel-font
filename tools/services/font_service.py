@@ -4,32 +4,35 @@ from datetime import datetime
 
 from loguru import logger
 from pixel_font_builder import FontBuilder, Glyph
-from pixel_font_knife import glyph_file_util
-from pixel_font_knife.glyph_file_util import GlyphFile
+from pixel_font_knife.cmap.context import CmapContext
+from pixel_font_knife.glyph.file import GlyphFile
+from pixel_font_knife.named.file import NamedGlyphFile
 
 from tools import configs
 from tools.configs import options
 from tools.configs.font import FontConfig
 
 
-def collect_glyph_files(font_config: FontConfig) -> tuple[list[GlyphFile], dict[int, str], set[str]]:
-    context = glyph_file_util.load_context(font_config.glyphs_dir)
+def collect_glyph_files(font_config: FontConfig) -> tuple[Sequence[GlyphFile], Mapping[int, str], Sequence[str]]:
+    notdef_glyph_file = NamedGlyphFile.load_notdef(font_config.glyphs_dir.joinpath('notdef.png'))
+
+    context = CmapContext.load(font_config.glyphs_dir.joinpath('cmap'))
 
     if font_config.fallback_lower_from_upper:
         for code_point in range(ord('A'), ord('Z') + 1):
             fallback_code_point = code_point + 32
             if code_point in context and fallback_code_point not in context:
-                context[fallback_code_point] = context[code_point]
+                context[fallback_code_point] = context[code_point].copy()
 
     if font_config.fallback_upper_from_lower:
         for code_point in range(ord('a'), ord('z') + 1):
             fallback_code_point = code_point - 32
             if code_point in context and fallback_code_point not in context:
-                context[fallback_code_point] = context[code_point]
+                context[fallback_code_point] = context[code_point].copy()
 
-    glyph_sequence = glyph_file_util.get_glyph_sequence(context)
-    character_mapping = glyph_file_util.get_character_mapping(context)
-    alphabet = {chr(code_point) for code_point in context if code_point >= 0}
+    glyph_sequence = [notdef_glyph_file] + context.get_glyph_sequence()
+    character_mapping = context.get_character_mapping()
+    alphabet = [chr(code_point) for code_point in sorted(character_mapping.keys())]
     return glyph_sequence, character_mapping, alphabet
 
 
@@ -61,27 +64,13 @@ def _create_builder(font_config: FontConfig, glyph_sequence: Sequence[GlyphFile]
     builder.meta_info.license_url = 'https://github.com/TakWolf/retro-pixel-font/blob/master/LICENSE-OFL'
 
     for glyph_file in glyph_sequence:
-        optimized_bitmap = glyph_file.optimized_bitmap
-        optimized_paddings = glyph_file.optimized_paddings
-
-        if optimized_bitmap.width == 0 or optimized_bitmap.height == 0:
-            horizontal_offset_x = 0
-            horizontal_offset_y = 0
-            vertical_offset_x = 0
-            vertical_offset_y = 0
-        else:
-            horizontal_offset_x = optimized_paddings.left
-            horizontal_offset_y = (font_config.ascent + font_config.descent - glyph_file.height) // 2 + optimized_paddings.bottom
-            vertical_offset_x = -math.ceil(glyph_file.width / 2) + optimized_paddings.left
-            vertical_offset_y = (font_config.font_size - glyph_file.height) // 2 + optimized_paddings.top
-
         builder.glyphs.append(Glyph(
             name=glyph_file.glyph_name,
-            horizontal_offset=(horizontal_offset_x, horizontal_offset_y),
-            advance_width=glyph_file.width,
-            vertical_offset=(vertical_offset_x, vertical_offset_y),
-            advance_height=font_config.font_size,
-            bitmap=optimized_bitmap.data,
+            horizontal_offset=glyph_file.canvas.horizontal_offset_for_trimmed(font_config.font_size, font_config.baseline),
+            advance_width=glyph_file.canvas.advance_width(),
+            vertical_offset=glyph_file.canvas.vertical_offset_for_trimmed(font_config.font_size),
+            advance_height=glyph_file.canvas.advance_height(font_config.font_size),
+            bitmap=glyph_file.canvas.trimmed_bitmap.data,
         ))
 
     builder.character_mapping.update(character_mapping)

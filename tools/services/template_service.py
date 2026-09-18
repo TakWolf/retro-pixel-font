@@ -1,5 +1,6 @@
 from collections.abc import Mapping
 from pathlib import Path
+from typing import Sequence
 
 import bs4
 from jinja2 import Environment, FileSystemLoader
@@ -25,17 +26,17 @@ def _make_html(template_name: str, file_path: Path, params: Mapping[str, object]
     logger.info("Make html: '{}'", file_path)
 
 
-def make_alphabet_html(font_config: FontConfig, alphabet: set[str]) -> None:
+def make_alphabet_html(font_config: FontConfig, alphabet: Sequence[str]) -> None:
     _make_html('alphabet.html', font_config.outputs_dir.joinpath('alphabet.html'), {
         'font_config': font_config,
-        'alphabet': ''.join(sorted(alphabet)),
+        'alphabet': ''.join(alphabet),
     })
 
 
-def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, element: bs4.PageElement) -> None:
+def _handle_demo_html_element(soup: bs4.BeautifulSoup, element: bs4.PageElement, alphabet: Sequence[str]) -> None:
     if isinstance(element, bs4.element.Tag):
         for child_element in element.contents:
-            _handle_demo_html_element(alphabet, soup, child_element)
+            _handle_demo_html_element(soup, child_element, alphabet)
     elif isinstance(element, bs4.element.NavigableString):
         text = str(element)
         tmp_parent = soup.new_tag('div')
@@ -72,11 +73,11 @@ def _handle_demo_html_element(alphabet: set[str], soup: bs4.BeautifulSoup, eleme
         tmp_parent.unwrap()
 
 
-def make_demo_html(font_config: FontConfig, alphabet: set[str]) -> None:
+def make_demo_html(font_config: FontConfig, alphabet: Sequence[str]) -> None:
     content_html = _environment.get_template('demo-content.html').render(font_config=font_config)
     content_html = ''.join(line.strip() for line in content_html.split('\n'))
     soup = bs4.BeautifulSoup(content_html, 'html.parser')
-    _handle_demo_html_element(alphabet, soup, soup)
+    _handle_demo_html_element(soup, soup, alphabet)
     content_html = str(soup)
 
     _make_html('demo.html', font_config.outputs_dir.joinpath('demo.html'), {

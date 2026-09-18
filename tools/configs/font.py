@@ -121,3 +121,7 @@ class FontConfig:
     @property
     def line_height(self) -> int:
         return self.ascent - self.descent
+
+    @property
+    def baseline(self) -> int:
+        return (self.font_size + self.ascent + self.descent) // 2

@@ -4,6 +4,7 @@ from tools.services import format_service
 
 def main() -> None:
     for font_config in FontConfig.load().values():
+        format_service.normalize_cmap_glyphs(font_config)
         format_service.format_glyphs(font_config)
 
 
