@@ -14,8 +14,8 @@ def make_release_zips(font_configs: Mapping[str, FontConfig]) -> None:
     path_define.RELEASES_DIR.mkdir(parents=True, exist_ok=True)
 
     for font_format in options.FONT_FORMATS:
-        file_path = path_define.RELEASES_DIR.joinpath(f'retro-pixel-font-{font_format}-v{configs.VERSION}.zip')
-        with ZipFile(file_path, 'w') as file:
+        zip_file_path = path_define.RELEASES_DIR.joinpath(f'retro-pixel-font-{font_format}-v{configs.VERSION}.zip')
+        with ZipFile(zip_file_path, 'w') as file:
             file.write(path_define.PROJECT_ROOT_DIR.joinpath('LICENSE-OFL'), 'OFL.txt')
 
             for font_config in font_configs.values():
@@ -23,7 +23,7 @@ def make_release_zips(font_configs: Mapping[str, FontConfig]) -> None:
                 font_file_name = f'retro-pixel-{font_config.outputs_name}.{font_format}'
                 file.write(font_config.outputs_dir.joinpath(font_file_name), outputs_arc.joinpath(font_file_name))
                 file.write(font_config.outputs_dir.joinpath('preview.png'), outputs_arc.joinpath('preview.png'))
-        logger.info("Make release zip: '{}'", file_path)
+        logger.info("Make release zip: '{}'", zip_file_path)
 
 
 def update_readme_md(font_configs: Mapping[str, FontConfig]) -> None:
