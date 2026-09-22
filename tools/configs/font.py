@@ -17,10 +17,10 @@ class FontConfig:
     @staticmethod
     def load() -> dict[str, FontConfig]:
         configs = []
-        for file_dir in path_define.GLYPHS_DIR.iterdir():
-            file_path = file_dir.joinpath('config.toml')
+        for file_path in path_define.GLYPHS_DIR.glob('*/config.toml'):
             if not file_path.is_file():
                 continue
+
             config_data = tomllib.loads(file_path.read_text('utf-8'))['font']
             name = config_data['name']
             weight_name = WeightName(config_data['weight_name'])
@@ -50,7 +50,8 @@ class FontConfig:
                 fallback_upper_from_lower,
                 preview_text,
             )
-            assert config.outputs_name == file_dir.name, f"config 'name' error: '{file_path}'"
+
+            assert config.outputs_name == file_path.parent.name, f"config 'name' error: '{file_path}'"
             assert (config.line_height - font_size) % 2 == 0, f"config 'line_height' error: '{file_path}'"
             configs.append(config)
         configs.sort(key=lambda x: x.name)

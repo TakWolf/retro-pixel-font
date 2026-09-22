@@ -67,13 +67,14 @@ def update_docs() -> None:
     if path_define.DOCS_DIR.exists():
         shutil.rmtree(path_define.DOCS_DIR)
 
-    for file_dir, _, file_names in path_define.OUTPUTS_DIR.walk():
-        for file_name in file_names:
-            if file_name not in ('preview.png', 'readme-banner.png'):
-                continue
+    for path_from in sorted((
+            *path_define.OUTPUTS_DIR.rglob('preview.png'),
+            *path_define.OUTPUTS_DIR.rglob('readme-banner.png'),
+    )):
+        if not path_from.is_file():
+            continue
 
-            path_from = file_dir.joinpath(file_name)
-            path_to = path_define.DOCS_DIR.joinpath(path_from.relative_to(path_define.OUTPUTS_DIR))
-            path_to.parent.mkdir(parents=True, exist_ok=True)
-            path_from.copy(path_to)
-            logger.info("Copy file: '{}' -> '{}'", path_from, path_to)
+        path_to = path_define.DOCS_DIR.joinpath(path_from.relative_to(path_define.OUTPUTS_DIR))
+        path_to.parent.mkdir(parents=True, exist_ok=True)
+        path_from.copy(path_to)
+        logger.info("Copy file: '{}' -> '{}'", path_from, path_to)
